@@ -1,0 +1,94 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h4>Danh sách tòa nhà</h4>
+            <div class="textFilterProj">
+                <span>Tìm kiếm</span>
+                <div class="formSearchText w-30">
+                    <input type="text" placeholder="Tìm kiếm theo mã, tên tòa nhà... " name="searchProject" [(ngModel)]="searchTower" 
+                     (keyup.enter)="onSearch(searchTower)" value="" class="StextSingle_Project" >
+                    <button class="iconbtnSearch" (onClick)="onSearch(searchTower)"><i _ngcontent-wsc-c163="" aria-hidden="true" class="fa fa-search"></i></button>
+                </div>
+                
+            </div>
+            <div class="allSelectFilter displayflex">
+                <div class="itemSelectFilter">
+                    <!-- <ng-select class="select ngSelectinput" bindLabel="Name" bindValue="Id"
+                        placeholder="Lọc theo phòng ban" (change)="onFilter()" [(ngModel)]="queryFilter.targetId_1" [ngModelOptions]="{standalone: true}">
+                    </ng-select> -->
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div class="grid">
+    <div class="col-12">
+        <div class="card">            
+            <section class="FilterProject">
+                <div class="textFilterProj">
+                    <div class="addProjectList">
+                        <a href=""><i class="fa fa-plus-circle"
+                                aria-hidden="true"></i> Hành động</a>
+                        <a href="#/category/tower/create/0" class="mg-l-9"><i class="fa fa-plus-circle"
+                            aria-hidden="true"></i> Thêm mới</a>
+                    </div>
+                    <div class="addProjectList mr-1">
+                        <a class="mr-2" >
+                            <i class="ft-download" aria-hidden="true"></i>
+                            Tải xuống</a>
+                        <a class="mr-2" href="#/category/tower/upload">
+                            <i class="ft-upload" aria-hidden="true" ></i>
+                            Tải lên</a>
+                    </div>
+                </div>
+            </section>
+
+            <p-table 
+                [value]="Towers"
+                [paginator]="true"
+                [rows]="10"
+                [showCurrentPageReport]="true"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10, 25, 50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3%">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th style="width: 5%">Stt</th>
+                        <th style="width: 10%">Mã tòa nhà</th>
+                        <th style="width: 25%">Tên hiển thị</th>
+                        <th style="width: 20%">Người liên hệ</th>
+                        <th style="width: 15%">Số điện thoại liên hệ</th>
+                        <th style="width: 10%">Khu đô thị</th>
+                        <th style="width: 25%">Thao tác</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-tower let-rowIndex="rowIndex">
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="tower"></p-tableCheckbox>
+                        </td>
+                        <td>{{ rowIndex + 1}}</td>
+                        <td>{{ tower.TowerId }}</td>
+                        <td>{{ tower.Name }}</td>
+                        <td>{{ tower.UserNameCarParking }}</td>
+                        <td>{{ tower.PhoneContact}}</td>
+                        <td>{{ tower.ProjectName }}</td>
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" routerLink="/category/tower/create/{{ tower.TowerId }}" ></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteTower(tower)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="7">No customers found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

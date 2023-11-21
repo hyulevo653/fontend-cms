@@ -1,0 +1,113 @@
+/* You can add global styles to this file, and also import other style files */
+
+$gutter: 1rem; //for primeflex grid system
+@import "assets/layout/styles/layout/layout.scss";
+
+/* PrimeNG */
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
+
+/* Demos */
+@import "assets/demo/styles/flags/flags.css";
+@import "assets/demo/styles/badges.scss";
+@import "assets/demo/styles/code.scss";
+
+.p_float_right {
+  display: flex;
+  justify-content: end;
+}
+
+.text-danger {
+  color: red;
+  display: flex;
+  justify-content: end;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    float: left;
+    width: 100%;
+  
+    .disable {
+      pointer-events: none;
+      color: #ccc;
+    }
+  
+    .text-red{
+      color: red;
+    }
+  
+    .card-title{
+      padding-bottom: 15px;
+      border-bottom: 1px solid #ececec;
+    }
+    .table-responsive{
+      overflow: auto;
+      max-width: 100%!important;
+  
+    }
+    .table-responsive td{
+      padding: 8px 10px!important;
+      vertical-align: middle;
+    }
+    .modal.fade.show{
+      z-index: 1500;
+    }
+    .modal.show .modal-dialog {
+      z-index: 1000;
+    }
+    .app-sidebar {
+      z-index: 5;
+    }
+    .spinner:before {
+      content: '';
+      box-sizing: border-box;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin-top: -10px;
+      margin-left: -10px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      border-top-color: #000000;
+      animation: spinner .8s linear infinite;
+    }
+  
+    // .dataTable {
+    //   position: relative;
+    //   max-width: 100%;
+    //   table-layout: fixed;
+    //   border-radius: 2px 2px 0 0;
+    //   border-collapse: separate;
+    //   border-spacing: 0;
+    //   float: left;
+    //   overflow: auto scroll;
+  
+    //   th{
+    //     background-color: #ececec;
+    //     white-space: nowrap;
+    //     padding: 18px 23px!important;
+    //   }
+  
+    //   .action-table-right{
+    //     position: sticky!important;
+    //     right: 0;
+    //     top: 0;
+    //     min-width: 200px;
+    //     max-width: 250px;
+    //     padding-left: 0;
+    //     padding-right: 0;
+    //     display: flex;
+    //     height: 100%;
+    //   }
+    // }
+  
+    .modal-dialog{
+      margin-top: 60px;
+    }
+  
+}

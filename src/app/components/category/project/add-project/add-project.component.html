@@ -1,0 +1,114 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h5>
+                {{ itemProject ? 'Xem chi tiết khu đô thị' : 'Thêm mới khu đô thị' }}
+            </h5>
+
+            <form class="grid formgrid" [formGroup]="fProject">
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtName">Tên dự án
+                            <span class=""></span>
+                        </label>
+                        <input id="txtName" type="text" pInputText formControlName="Name" class="p-invalid">
+                        <small *ngIf="fProject.controls['Name'].hasError('minlength')" class="p-invalid text-danger">Tên dự án phải tối thiểu 6 kí tự.</small>
+                        <small *ngIf="fProject.controls['Name'].hasError('maxlength')" class="p-invalid text-danger">Tên dự án chỉ được tối đa 150 kí tự.</small>
+                        <small *ngIf="fProject.controls['Name'].hasError('required') && fProject.controls['Name'].dirty" class="p-invalid text-danger">Vui lòng nhập tên dự án.</small>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">Mã dự án</label>
+                        <input id="txtCode" type="text" pInputText formControlName="Code" class="p-invalid">
+                        <small *ngIf="fProject.controls['Code'].hasError('minlength')" class="p-invalid text-danger">Mã dự án phải tối thiểu 3 kí tự.</small>
+                        <small *ngIf="fProject.controls['Code'].hasError('maxlength')" class="p-invalid text-danger">Mã dự án chỉ được tối đa 50 kí tự.</small>
+                        <small *ngIf="fProject.controls['Code'].hasError('required') && fProject.controls['Name'].dirty" class="p-invalid text-danger">Vui lòng nhập Mã dự án.</small>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtPersonContact">Người liên hệ</label>
+                        <input id="txtName" type="text" pInputText formControlName="PersonContact">
+                        
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtPhoneContact">Số điện thoại liên hệ</label>
+                        <input id="txtPhoneContact" type="text" pInputText formControlName="PhoneContact">
+                        <small *ngIf="fProject.controls['PhoneContact'].hasError('minlength')" class="p-invalid text-danger">Số điện thoại chỉ được tối đa 9 kí tự.</small>
+                        <small *ngIf="fProject.controls['PhoneContact'].hasError('maxlength')" class="p-invalid text-danger">Số điện thoại chỉ được tối đa 12 kí tự.</small>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="field p-fluid">
+                        <label for="txtProvince">Tỉnh/thành phố</label>
+                        <p-dropdown 
+                            [options]="lstProvince" 
+                            placeholder="Tỉnh/thành phố" 
+                            emptyMessage="Không có dữ liệu."
+                            [showClear]="true" 
+                            optionLabel="Name" 
+                            optionValue="ProvinceId" 
+                            formControlName="ProvinceId" 
+                            (onChange)="getListDistrict($event)">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="field p-fluid">
+                        <label for="txtDistrict">Quận/huyện</label>
+                        <p-dropdown 
+                            [options]="lstDistrict" 
+                            placeholder="Quận/huyện" 
+                            emptyMessage="Không có dữ liệu."
+                            [showClear]="true" 
+                            optionLabel="Name" 
+                            optionValue="DistrictId" 
+                            formControlName="DistrictId" 
+                            (onChange)="getListWard($event)">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="field p-fluid">
+                        <label for="txtWard">Phường xã</label>
+                        <p-dropdown 
+                            [options]="lstWard" 
+                            placeholder="Phường/xã" 
+                            emptyMessage="Không có dữ liệu."
+                            [showClear]="true" 
+                            optionLabel="Name" 
+                            optionValue="WardId" 
+                            formControlName="WardId">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="field p-fluid">
+                        <label for="txtAddress">Địa chỉ</label>
+                        <input id="txtAddress" type="text" pInputText formControlName="FullAddress">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="field p-fluid ">
+                        <label for="txtNote">Mô tả</label>
+                        <textarea id="txtNote" rows="5" pInputTextarea formControlName="Note"></textarea>
+                    </div>
+                </div>
+                <div class="col-12 p_float_right">
+                    <p-confirmPopup></p-confirmPopup>
+                    <button pButton pRipple type="button" label="Quay lại" class="p-button-outlined p-button-secondary mr-2" (click)="onBack($event)">
+                        <span class="pi pi-angle-left"></span>
+                    </button>
+                    <p-button label="Thêm mới" icon="pi pi-plus" type="submit" [loading]="loading[0]" (onClick)="onSubmit()"></p-button>
+                </div>
+            </form>
+            
+            
+            
+            
+        </div>
+    </div>
+</div>
