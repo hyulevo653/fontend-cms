@@ -24,4 +24,22 @@ export class AppMessageResponse {
   public static CreatedSuccess = "Thêm mới thành công!";
 }
 
+export class StorageData {
+  public static userId = 'user_id';
+  public static username = 'username';
+  public static accessToken = 'accessToken';
+}
+
+export const promotionType = [
+  { Name: 'PRODUCT', value: 1 },
+  { Name: 'PRODUCTS', value: 2 },
+  { Name: 'PRODUCTS', value: 3 }
+];
+
+export const discountType = [
+  { Name: 'PERCENTAGE', value: 1 },
+  { Name: 'PERCENTAGE2', value: 2 },
+  { Name: 'PERCENTAGE3', value: 3 }
+];
+
 export const domainFileTemplate = environment.apiUrl.concat('/templates/import/');

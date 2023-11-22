@@ -19,8 +19,8 @@ import { AddressUploadComponent } from './address/address-upload/address-upload.
 @NgModule({
 declarations: [
     ProjectComponent,
-    TowerComponent,
     AddProjectComponent,
+    TowerComponent,
     TowerUploadComponent,
     FloorComponent,
     FloorUploadComponent,

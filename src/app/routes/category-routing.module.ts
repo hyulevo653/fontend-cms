@@ -19,45 +19,14 @@ const routes: Routes = [
     component: ProjectComponent,
   },
   {
-    path: 'project/create/:projectId',
-    component: AddProjectComponent
+    path: 'project/create',
+    component: AddProjectComponent,
   },
   {
-    path: 'tower/list',
-    component: TowerComponent
+    path: 'project/upload/:id',
+    component: AddProjectComponent,
   },
-  {
-    path: 'tower/create/:towerId',
-    component: AddTowerComponent
-  },
-  {
-    path: 'tower/upload',
-    component: TowerUploadComponent
-  },
-  {
-    path: 'floor/list',
-    component: FloorComponent
-  },
-  {
-    path: 'floor/create/:floorId',
-    component: AddFloorComponent
-  },
-  {
-    path: 'floor/upload',
-    component: FloorUploadComponent
-  },
-  {
-    path: 'address/list',
-    component: AddressComponent
-  },
-  {
-    path: 'address/create/:Code',
-    component: AddAddressComponent
-  },
-  {
-    path: 'promotion/list',
-    component: AddressComponent
-  },
+ 
   // {
   //   path: 'project/detail/:proId',
   //   component: AddProjectComponent

@@ -14,8 +14,10 @@ export const StoreName = {
 export class StorageService {
   private store: IStorageProvider;
 
-  constructor(private cookieProvider: CookieProvider,
-              private localStorageProvider: LocalStorageProvider) {
+  constructor(
+      private cookieProvider: CookieProvider,
+      private localStorageProvider: LocalStorageProvider) 
+  {
     this.store = this.localStorageProvider;
   }
 

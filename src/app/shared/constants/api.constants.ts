@@ -5,6 +5,7 @@ const apiUrl = environment.apiUrl;
 export class ApiConstant {
   public static LoginUrl = apiUrl.concat('auth/login');
 
+  public static Login = apiUrl.concat('auth/login');
 
   //#region "project"
   public static GetProjectByPaging = apiUrl.concat('promotions');
@@ -30,6 +31,10 @@ export class ApiConstant {
 
   // promotions
   public static GetPromotionPage = apiUrl.concat('promotions');
+  public static CreatePromotion = apiUrl.concat('promotions');
+  public static getPromotionById = apiUrl.concat('promotions/');
+  public static updatePromotion = apiUrl.concat('promotions/');
+  public static activePromotion = apiUrl.concat('promotion/active?isActive=true&promotionId=');
 
   //#endregion
 

@@ -68,9 +68,6 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-tower let-rowIndex="rowIndex">
                     <tr>
-                        <td>
-                            <p-tableCheckbox [value]="tower"></p-tableCheckbox>
-                        </td>
                         <td>{{ rowIndex + 1}}</td>
                         <td>{{ tower.TowerId }}</td>
                         <td>{{ tower.Name }}</td>

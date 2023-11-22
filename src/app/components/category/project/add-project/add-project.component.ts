@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CommonService } from 'src/app/services/common.service';
-import { AppMessageResponse, AppStatusCode } from 'src/app/shared/constants/app.constants';
+import { AppMessageResponse, AppStatusCode, discountType, promotionType } from 'src/app/shared/constants/app.constants';
 import { Paging } from 'src/app/viewModels/paging';
 
 import {FormGroup , FormBuilder ,Validators} from "@angular/forms";
 import { ProjectService } from 'src/app/services/project.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/viewModels/project/project';
 import { ResApi } from 'src/app/viewModels/res-api';
 
@@ -20,16 +20,13 @@ export class AddProjectComponent {
   public itemProject: Project;
 
   public fProject: FormGroup;
-
-  public lstWard: any[];
-  public lstProvince: any[];
-  public lstDistrict: any[];
-
-  public filterProvince: Paging;
-  public filterWard: Paging;
-  public filterDistrict: Paging;
+  public currentDate = new Date();
+  public lstpromotionType = promotionType;
+  public lstdiscountType = discountType;
 
   public loading = [false];
+  public id: any;
+  data: any;
 
   constructor(
     private readonly commonService: CommonService,
@@ -38,113 +35,145 @@ export class AddProjectComponent {
     private readonly projectService: ProjectService,
     private readonly layoutService: LayoutService,
     private confirmationService: ConfirmationService,
-    private router: Router
+    private router: Router,
+    
+    private readonly route: ActivatedRoute,
   ) {
     this.itemProject = new Project();
 
-    this.filterProvince = new Object as Paging;
-
-    this.filterWard = new Object as Paging;
-
-    this.filterDistrict = new Object as Paging;
-
-    this.lstProvince = [];
-    this.lstWard = [];
-    this.lstDistrict = [];
-
     this.fProject = fb.group({
-      Name: ['' , Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(150)])],
-      Code: ['' , Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
-      PersonContact: ['' , Validators.maxLength(150)],
-      PhoneContact: ['' , Validators.compose([Validators.minLength(9), Validators.maxLength(12)])],
-      ProvinceId: [null , ],
-      DistrictId: [null , ],
-      WardId: [null , ],
-      FullAddress: ['' , ],
-      Note: ['' , ]
+      id: [''],
+      name: ['' , Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(150)])],
+      promotionType: ['' , Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
+      discountType: ['' , Validators.maxLength(150)],
+      discountRate: [''],
+      startDate : [''],
+      endDate : [''],
+      maxTotalOrder: [''],
+      minTotalOrder : [''],
+      createDate : this.currentDate,
+      lastUpdate : this.currentDate,
+      description: ['' , ],
     })
   }
 
   ngOnInit(): void {
-    this.getListProvince();
+    this.route.paramMap.subscribe(params => {
+      this.id =  params.get('id');
+    });
+    if(this.id){
+      this.getProjectById(this.id)
+    }
   }
 
   onSubmit() {
-    if (this.fProject.invalid) {
-      return;
-    }
-
-    const reqData = Object.assign({}, this.fProject.value);
+    if(this.fProject.invalid){
+      // this.markAllAsDirty()
+    }else{
+      if(this.id == null) {
+        this.fProject.controls['id'].setValue(0);
+        const reqData = Object.assign({}, this.fProject.value);
+  
+        this.loading[0] = true;
+        this.projectService.createProject(reqData).subscribe(
+          (res: any) => {
+            this.loading[0] = false;
+            if (res?.message == "OK") {
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message || AppMessageResponse.CreatedSuccess });
+              
+              setTimeout(() => {this.onReturnPage('/category/project/list')}, 1000);
+            } 
+            else { 
+          
+              this.messageService.add({ severity: 'warn', summary: 'Warn', detail: res.message || AppMessageResponse.BadRequest });
+            }
+          },
+          () => {
+            this.loading[0] = false;
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: AppMessageResponse.BadRequest });
+          },
+          () => {
+            this.loading[0] = false;
+          }
+        );
+      }else{
     
-    this.loading[0] = true;
-    this.projectService.createProject(reqData).subscribe((res: ResApi) => {
-      this.loading[0] = false;
-      if(res.meta.error_code == AppStatusCode.StatusCode200) {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: res?.meta?.error_message || AppMessageResponse.CreatedSuccess });
-        this.router.navigate(['/project/list']);
+        const reqData = Object.assign({}, this.fProject.value);
+        this.loading[0] = true;
+        this.projectService.updatePromotion(this.id, reqData).subscribe(
+          (res: any) => {
+            this.loading[0] = false;
+            if (res && res.message == "OK") {
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message || AppMessageResponse.CreatedSuccess });
+  
+              setTimeout(() => {this.onReturnPage('/category/project/list')}, 1500);
+            } else {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message || AppMessageResponse.BadRequest });
+            }
+          },
+          () => {
+            this.loading[0] = false;
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: AppMessageResponse.BadRequest });
+          },
+          () => {
+            this.loading[0] = false;
+          }
+        );
       }
-      else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: res?.meta?.error_message || AppMessageResponse.BadRequest });
-      }
-    },
-    () => {this.messageService.add({ severity: 'error', summary: 'Error', detail: AppMessageResponse.BadRequest }) },
-    () => {this.loading[0] = false} 
-    )
-  }
-
-  getListProvince() {
-    this.commonService.getListProvinceByPaging(this.filterProvince)
-    .subscribe((res: ResApi) => {
-      if(res.meta.error_code == AppStatusCode.StatusCode200) {
-        this.lstProvince = res.data;
-      }
-      else {
-        this.lstProvince = [];
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: res?.meta?.error_message || AppMessageResponse.BadRequest });
-      }
-      
-    })
-  }
-
-  getListDistrict(event: any) {
-    if (!event || event.value) {
-      this.lstDistrict = [];
     }
+  }
+  
+  // markAllAsDirty() {
+  //   Object.keys(this.fProject.controls).forEach(key => {
+  //     const control = this.fProject.get(key);
+  //     if (control.enabled && control.invalid) {
+  //       control.markAsDirty();
+  //     }
+  //   });
+  // }
 
-    this.filterDistrict.query = `ProvinceId=${event.value}`;
-
-    this.commonService.getListDistrictByPaging(this.filterDistrict)
-    .subscribe((res: ResApi) => {
-      if(res.meta.error_code == AppStatusCode.StatusCode200) {
-        this.lstDistrict = res.data;
-      }
-      else {
-        this.lstDistrict = [];
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: res?.meta?.error_message || AppMessageResponse.BadRequest });
-      }
-      
-    })
+  onReturnPage(url: string) : void {
+    this.router.navigate([url]);
   }
 
-  getListWard(event: any) {
-    if (!event || event.value) {
-      this.lstWard = [];
+  getProjectById(id: number) {    
+    if(this.id != 0) {
+      this.projectService.getPromotionById(id).subscribe((res: ResApi) => {
+        if(res.meta.error_code == AppStatusCode.StatusCode200) {
+          this.data = res.data;
+          this.formGroup();
+        }
+        else {
+          this.data = [];
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message || AppMessageResponse.BadRequest });
+        }
+      }) 
+      this.data={...this.data}
+    }else{
+      this.data = []
     }
-
-    this.filterWard.query = `DistrictId=${event.value}`;
-
-    this.commonService.getListWardByPaging(this.filterWard)
-    .subscribe((res: ResApi) => {
-      if(res.meta.error_code == AppStatusCode.StatusCode200) {
-        this.lstWard = res.data;
-      }
-      else {
-        this.lstWard = [];
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: res?.meta?.error_message || AppMessageResponse.BadRequest });
-      }
-      
-    })
   }
+  formGroup(){
+    this.fProject = this.fb.group({
+      id:  this.id,
+      name: this.data.name,
+      description: this.data.description,
+      promotionType: this.data.promotionType,
+      discountType: this.data.discountType,
+      discountRate: this.data.discountRate,
+      startDate: new Date(this.data.startDate),
+      endDate : new Date(this.data.endDate),
+      createDate: new Date(this.data.createDate),
+      lastUpdate: this.currentDate,
+      minTotalOrder: this.data.minTotalOrder,
+      maxValueDiscount : this.data.maxValueDiscount,
+      active : this.data.active,
+    })
+
+  }
+
+
+  
 
   onBack(event: Event) {
     let isShow = true;//this.layoutService.getIsShow();
@@ -152,17 +181,17 @@ export class AddProjectComponent {
     if (isShow) {
       this.confirmationService.confirm({
         target: event.target as EventTarget,
-        message: "Chưa hoàn tất thêm mới dự án, Bạn có muốn quay lại?",
+        message: "Chưa hoàn tất thêm mới Voucher, Bạn có muốn quay lại?",
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
-          this.router.navigate(['/project/list']);
+          this.router.navigate(['category/project/list']);
         },
         reject: () => {
             return;
         }
       });
     } else {
-      this.router.navigate(['/project/list']);
+      this.router.navigate(['category/project/list']);
     }
   }
 }

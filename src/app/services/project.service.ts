@@ -20,8 +20,28 @@ export class ProjectService {
       }));
   }
 
+  getPromotionById(id: number) {
+    return this.dataService.get(ApiConstant.getPromotionById + id)
+      .pipe(map((res: any) => {
+        return res;
+      }));
+  }
+
+  updatePromotion(id: number, reqData: any) {
+    return this.dataService.put(ApiConstant.updatePromotion + id, reqData)
+      .pipe(map((res: any) => {
+        return res;
+      }));
+  }
+
   createProject(reqData: any) {
-    return this.dataService.post(ApiConstant.CreateProject, reqData)
+    return this.dataService.post(ApiConstant.CreatePromotion, reqData)
+      .pipe(map((res: any) => {
+        return res;
+      }));
+  }
+  ActivePromotion(id: number) {
+    return this.dataService.post(ApiConstant.activePromotion + id)
       .pipe(map((res: any) => {
         return res;
       }));

@@ -2,99 +2,90 @@
     <div class="col-12">
         <div class="card">
             <h5>
-                {{ itemProject ? 'Xem chi tiết khu đô thị' : 'Thêm mới khu đô thị' }}
+                {{ itemProject ? 'Xem chi tiết Voucher' : 'Thêm mới Voucher' }}
             </h5>
 
             <form class="grid formgrid" [formGroup]="fProject">
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtName">Tên dự án
+                        <label for="txtName">Tên Voucher
                             <span class=""></span>
                         </label>
-                        <input id="txtName" type="text" pInputText formControlName="Name" class="p-invalid">
-                        <small *ngIf="fProject.controls['Name'].hasError('minlength')" class="p-invalid text-danger">Tên dự án phải tối thiểu 6 kí tự.</small>
-                        <small *ngIf="fProject.controls['Name'].hasError('maxlength')" class="p-invalid text-danger">Tên dự án chỉ được tối đa 150 kí tự.</small>
-                        <small *ngIf="fProject.controls['Name'].hasError('required') && fProject.controls['Name'].dirty" class="p-invalid text-danger">Vui lòng nhập tên dự án.</small>
+                        <input id="txtName" type="text" pInputText formControlName="name" class="p-invalid">
+                        <small *ngIf="fProject.controls['name'].hasError('minlength')" class="p-invalid text-danger">Tên Voucher phải tối thiểu 3 kí tự.</small>
+                        <small *ngIf="fProject.controls['name'].hasError('maxlength')" class="p-invalid text-danger">Tên Voucher chỉ được tối đa 150 kí tự.</small>
+                        <small *ngIf="fProject.controls['name'].hasError('required') && fProject.controls['name'].dirty" class="p-invalid text-danger">Vui lòng nhập tên Voucher.</small>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtCode">Mã dự án</label>
-                        <input id="txtCode" type="text" pInputText formControlName="Code" class="p-invalid">
-                        <small *ngIf="fProject.controls['Code'].hasError('minlength')" class="p-invalid text-danger">Mã dự án phải tối thiểu 3 kí tự.</small>
-                        <small *ngIf="fProject.controls['Code'].hasError('maxlength')" class="p-invalid text-danger">Mã dự án chỉ được tối đa 50 kí tự.</small>
-                        <small *ngIf="fProject.controls['Code'].hasError('required') && fProject.controls['Name'].dirty" class="p-invalid text-danger">Vui lòng nhập Mã dự án.</small>
+                        <label for="txtCode">% giảm giá</label>
+                        <input id="txtCode" type="text" pInputText formControlName="discountRate" class="p-invalid">
+                        <small *ngIf="fProject.controls['discountRate'].hasError('required') && fProject.controls['Name'].dirty" class="p-invalid text-danger">Vui lòng nhập % giảm giá.</small>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtPersonContact">Người liên hệ</label>
-                        <input id="txtName" type="text" pInputText formControlName="PersonContact">
-                        
+                        <label for="txtPersonContact">minTotalOrder</label>
+                        <input id="txtName" type="text" pInputText formControlName="minTotalOrder">
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtPhoneContact">Số điện thoại liên hệ</label>
-                        <input id="txtPhoneContact" type="text" pInputText formControlName="PhoneContact">
-                        <small *ngIf="fProject.controls['PhoneContact'].hasError('minlength')" class="p-invalid text-danger">Số điện thoại chỉ được tối đa 9 kí tự.</small>
-                        <small *ngIf="fProject.controls['PhoneContact'].hasError('maxlength')" class="p-invalid text-danger">Số điện thoại chỉ được tối đa 12 kí tự.</small>
+                        <label for="txtPersonContact">maxTotalOrder</label>
+                        <input id="txtName" type="text" pInputText formControlName="maxTotalOrder">
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtProvince">Tỉnh/thành phố</label>
+                        <label for="txtDistrict">Ngày bắt đầu</label>
+                        <span class=""></span>
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input formControlName="startDate" type='datetime-local' class="form-control"/>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtDistrict">Ngày kết thúc</label>
+                        <span class=""></span>
+                        <div class='input-group date' id='datetimepicker2'>
+                            <input formControlName="endDate" type='datetime-local' class="form-control"/>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtWard">Loại Voucher</label>
                         <p-dropdown 
-                            [options]="lstProvince" 
-                            placeholder="Tỉnh/thành phố" 
+                            [options]="lstpromotionType" 
+                            placeholder="Loại Voucher" 
                             emptyMessage="Không có dữ liệu."
                             [showClear]="true" 
                             optionLabel="Name" 
-                            optionValue="ProvinceId" 
-                            formControlName="ProvinceId" 
-                            (onChange)="getListDistrict($event)">
+                            optionValue="Name" 
+                            formControlName="promotionType">
                         </p-dropdown>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtDistrict">Quận/huyện</label>
+                        <label for="txtWard">Loại giảm giá</label>
                         <p-dropdown 
-                            [options]="lstDistrict" 
-                            placeholder="Quận/huyện" 
+                            [options]="lstdiscountType" 
+                            placeholder="Loại giả giá" 
                             emptyMessage="Không có dữ liệu."
                             [showClear]="true" 
                             optionLabel="Name" 
-                            optionValue="DistrictId" 
-                            formControlName="DistrictId" 
-                            (onChange)="getListWard($event)">
+                            optionValue="Name" 
+                            formControlName="discountType">
                         </p-dropdown>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="field p-fluid">
-                        <label for="txtWard">Phường xã</label>
-                        <p-dropdown 
-                            [options]="lstWard" 
-                            placeholder="Phường/xã" 
-                            emptyMessage="Không có dữ liệu."
-                            [showClear]="true" 
-                            optionLabel="Name" 
-                            optionValue="WardId" 
-                            formControlName="WardId">
-                        </p-dropdown>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="field p-fluid">
-                        <label for="txtAddress">Địa chỉ</label>
-                        <input id="txtAddress" type="text" pInputText formControlName="FullAddress">
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="field p-fluid ">
                         <label for="txtNote">Mô tả</label>
-                        <textarea id="txtNote" rows="5" pInputTextarea formControlName="Note"></textarea>
+                        <textarea id="txtNote" rows="5" pInputTextarea formControlName="description"></textarea>
                     </div>
                 </div>
                 <div class="col-12 p_float_right">

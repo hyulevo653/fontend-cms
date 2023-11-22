@@ -19,6 +19,7 @@ export class ProjectComponent {
   public lstProject: Array<Project>;
   public first = 0;
   public rows = 10;
+  id: any;
 
   constructor(
     private readonly projectService: ProjectService,
@@ -33,7 +34,10 @@ export class ProjectComponent {
     this.lstProject = new Array<Project>();
   }
 
-  ngOnInit() {
+  ngOnInit() : void {
+    this.route.paramMap.subscribe(params => {
+      this.id =  params.get('id');
+    });
       this.getListProjectByPaging();
   }
 
@@ -59,12 +63,25 @@ export class ProjectComponent {
 
   getListProjectByPaging() {
     this.projectService.getListByPaging(this.filterParrams).subscribe((res: ResApi) => {
-      if(res.status == AppStatusCode.StatusCode200) {
+      if(res.message == 'OK') {
         this.lstProject = res.data.elements;
       }
       else {
         this.lstProject = new Array<Project>();
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: res?.meta?.error_message || AppMessageResponse.BadRequest });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message|| AppMessageResponse.BadRequest });
+      }
+      
+    })
+  }
+  
+  activePromotion(id : number){
+    this.projectService.ActivePromotion(id).subscribe((res: ResApi) => {
+      if(res.status == 200) {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Active thành công!'});
+      }
+      else {
+        this.lstProject = new Array<Project>();
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message|| AppMessageResponse.BadRequest });
       }
       
     })
