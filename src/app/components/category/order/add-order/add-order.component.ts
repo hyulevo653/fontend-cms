@@ -1,28 +1,25 @@
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { CommonService } from 'src/app/services/common.service';
-import { AppMessageResponse, AppStatusCode, discountType, promotionType } from 'src/app/shared/constants/app.constants';
-import { Paging } from 'src/app/viewModels/paging';
-import { ToastModule } from 'primeng/toast';
-import {FormGroup , FormBuilder ,Validators} from "@angular/forms";
-import { ProjectService } from 'src/app/services/voucher.service';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Project } from 'src/app/viewModels/project/project';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { CommonService } from 'src/app/services/common.service';
+import { OrderService } from 'src/app/services/order.service';
+import { AppMessageResponse, AppStatusCode, paymentMethod, promotionType } from 'src/app/shared/constants/app.constants';
+import { Order } from 'src/app/viewModels/order/order';
 import { ResApi } from 'src/app/viewModels/res-api';
 
 @Component({
-  selector: 'app-add-project',
-  templateUrl: './add-project.component.html',
-  styleUrls: ['./add-project.component.scss']
+  selector: 'app-add-order',
+  templateUrl: './add-order.component.html',
+  styleUrls: ['./add-order.component.scss']
 })
-export class AddProjectComponent {
-  public itemProject: Project;
+export class AddOrderComponent {
+  public itemOrder: Order;
 
-  public fProject!: FormGroup;
+  public fOrder!: FormGroup;
   public currentDate = new Date();
-  public lstpromotionType = promotionType;
-  public lstdiscountType = discountType;
+  public lstPayment = paymentMethod;
 
   public loading = [false];
   public id: any;
@@ -32,14 +29,14 @@ export class AddProjectComponent {
     private readonly commonService: CommonService,
     private readonly messageService: MessageService,
     private readonly fb: FormBuilder,
-    private readonly projectService: ProjectService,
+    private readonly orderService: OrderService,
     private readonly layoutService: LayoutService,
     private confirmationService: ConfirmationService,
     private router: Router,
     
     private readonly route: ActivatedRoute,
   ) {
-    this.itemProject = new Project();
+    this.itemOrder = new Order();
 
     
   }
@@ -49,9 +46,9 @@ export class AddProjectComponent {
       this.id =  params.get('id');
     });
     if(this.id){
-      this.getProjectById(this.id)
+      this.getorderById(this.id)
     }
-    this.fProject = this.fb.group({
+    this.fOrder = this.fb.group({
       // id: [''],
       name: ['' , Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(150)])],
       promotionType: [''],
@@ -68,21 +65,21 @@ export class AddProjectComponent {
   }
 
   onSubmit() {
-    if(this.fProject.invalid){
+    if(this.fOrder.invalid){
       // this.markAllAsDirty()
     }else{
       if(this.id == null) {
-        // this.fProject.controls['id'].setValue(0);
-        const reqData = Object.assign({}, this.fProject.value);
-        reqData.maxTotalOrder = this.fProject.get('maxTotalOrder')?.value;
+        // this.fOrder.controls['id'].setValue(0);
+        const reqData = Object.assign({}, this.fOrder.value);
+        reqData.maxTotalOrder = this.fOrder.get('maxTotalOrder')?.value;
         this.loading[0] = true;
-        this.projectService.createProject(reqData).subscribe(
+        this.orderService.createProject(reqData).subscribe(
           (res: any) => {
             this.loading[0] = false;
             if (res && res.status >= 200 && res.status <= 300) {
               this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message || AppMessageResponse.CreatedSuccess });
               
-              setTimeout(() => {this.onReturnPage('/category/project/list')}, 1000);
+              setTimeout(() => {this.onReturnPage('/category/order/list')}, 1000);
             } 
             else { 
           
@@ -99,15 +96,15 @@ export class AddProjectComponent {
         );
       }else{
     
-        const reqData = Object.assign({}, this.fProject.value);
+        const reqData = Object.assign({}, this.fOrder.value);
         this.loading[0] = true;
-        this.projectService.updatePromotion(this.id, reqData).subscribe(
+        this.orderService.updateOrder(this.id, reqData).subscribe(
           (res: any) => {
             this.loading[0] = false;
             if (res && res.status >= 200 && res.status <= 300) {
               this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message || AppMessageResponse.UpdatedSuccess });
   
-              setTimeout(() => {this.onReturnPage('/category/project/list')}, 1500);
+              setTimeout(() => {this.onReturnPage('/category/order/list')}, 1500);
             } else {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message || AppMessageResponse.BadRequest });
             }
@@ -125,8 +122,8 @@ export class AddProjectComponent {
   }
   
   // markAllAsDirty() {
-  //   Object.keys(this.fProject.controls).forEach(key => {
-  //     const control = this.fProject.get(key);
+  //   Object.keys(this.fOrder.controls).forEach(key => {
+  //     const control = this.fOrder.get(key);
   //     if (control.enabled && control.invalid) {
   //       control.markAsDirty();
   //     }
@@ -137,9 +134,9 @@ export class AddProjectComponent {
     this.router.navigate([url]);
   }
 
-  getProjectById(id: number) {    
+  getorderById(id: number) {    
     if(this.id != 0) {
-      this.projectService.getPromotionById(id).subscribe((res: ResApi) => {
+      this.orderService.getOrderById(id).subscribe((res: ResApi) => {
         if(res.status == AppStatusCode.StatusCode200) {
           this.data = res.data;
           this.formGroup();
@@ -155,7 +152,7 @@ export class AddProjectComponent {
     }
   }
   formGroup(){
-    this.fProject = this.fb.group({
+    this.fOrder = this.fb.group({
       id:  this.id,
       name: this.data.name,
       description: this.data.description,
@@ -185,14 +182,14 @@ export class AddProjectComponent {
         message: "Chưa hoàn tất thêm mới Voucher, Bạn có muốn quay lại?",
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
-          this.router.navigate(['category/project/list']);
+          this.router.navigate(['category/order/list']);
         },
         reject: () => {
             return;
         }
       });
     } else {
-      this.router.navigate(['category/project/list']);
+      this.router.navigate(['category/order/list']);
     }
   }
 }

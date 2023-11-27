@@ -16,7 +16,7 @@ export class AppBeadcrumbComponent {
   }
 
   ngOnInit() {
-      this.items = [{ label: 'Quản lý danh mục' }, { label: 'Khu đô thị' }];
+      // this.items = [{ label: 'Quản lý danh mục' }, { label: 'Khu đô thị' }];
 
       this.home = { icon: 'pi pi-home', routerLink: '/' };
   }

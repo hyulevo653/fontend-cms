@@ -1,0 +1,57 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card" >
+            <h3 class="mg-0">
+                {{ !(id > 0) ? 'Thêm mới Category' : 'Cập nhật Category' }}
+            </h3>
+
+            <form class="grid formgrid" [formGroup]="fCategory">
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtName">Tên Category
+                            <span class="" style="color: red">*</span>
+                        </label>
+                        <input id="txtName" type="text" pInputText formControlName="name" class="p-invalid">
+                        <small *ngIf="fCategory.controls['name'].hasError('required') && fCategory.controls['name'].dirty" class="p-invalid text-danger">Vui lòng nhập tên Voucher.</small>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtNameContacts">Giá trị</label>
+                        <span class="text-danger"></span>
+                        <input id="txtNameContacts" type="text" pInputText formControlName="orderShow">
+                    </div>
+                    <small class="text-danger" *ngIf="fCategory.get('orderShow').hasError('min') || fCategory.get('orderShow').hasError('max')">
+                        Giá trị phải nằm trong khoảng từ 1 đến 10.
+                    </small>
+                </div>
+                <div class="col-6">
+                    <label for="txtImage" class="form-label">Ảnh đính kèm</label>
+                    <div class="displayflex">
+                      <div class="col-6">
+                        <input formControlName="imageIcon" class="form-control no-bor" type="file" accept="image/jpg || image/png || image/webp" (change)="onFileSelected($event)">
+                      </div>
+                      <div class="col-6" *ngIf="isImageSelected == true">
+                        <img [src]="uploadedImageUrl" class="img-thumbnail zoomable-image">
+                        <i class="fa fa-times-circle del-img" aria-hidden="true" (click)="Imagenull()" [style.display]="isImageSelected ? 'block' : 'none'"></i>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-12 p_float_right">
+                    <!-- <p-confirmDialog class="custom-toast"></p-confirmDialog> -->
+                    <button pButton pRipple type="button" label="Hủy" class="p-button-outlined p-button-secondary mr-2" (click)="onBack($event)">
+                    </button>
+                    <p-button label='Xác nhận' icon='pi pi-check'  
+                        [loading]="loading[0]" (onClick)="onSubmit()"></p-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>
+<p-confirmDialog class="custom-toast"></p-confirmDialog>
+
+
+
+
+

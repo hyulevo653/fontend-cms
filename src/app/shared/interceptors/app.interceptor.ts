@@ -36,7 +36,7 @@ export class AppInterceptor implements HttpInterceptor {
             return res;
           }),
           catchError((err: HttpErrorResponse) => {
-            if (err.status === 500) {
+            if (err.status === 401) {
 
               if (this.router.url != '/auth/login') {
                 this.authService.clearStoreData();

@@ -32,36 +32,27 @@ export class AppMenuComponent implements OnInit {
                                 icon: 'pi pi-fw pi-flag',
                                 routerLink: ['/category/project/list']
                             },
+                            {
+                                label: 'Quản lý Category',
+                                icon: 'pi pi-fw pi-flag',
+                                routerLink: ['/category/categories/list']
+                            },
+                            {
+                                label: 'Quản lý đơn đặt hàng',
+                                icon: 'pi pi-fw pi-flag',
+                                routerLink: ['/category/order/list']
+                            },
                             // {
-                            //     label: 'Tòa nhà',
-                            //     icon: 'pi pi-fw pi-building',
-                            //     routerLink: ['/category/tower/list']
+                            //     label: 'Test',
+                            //     icon: 'pi pi-fw pi-flag',
+                            //     routerLink: ['/category/categories/test/list']
                             // },
                             // {
-                            //     label: 'Vị trí',
-                            //     icon: 'pi pi-fw pi-map-marker',
-                            //     routerLink: ['/category/address/list']
-                            // },
-                            // {
-                            //     label: 'Tầng',
-                            //     icon: 'pi pi-fw pi-lock',
-                            //     routerLink: ['/category/floor/list']
-                            // },
-                            // {
-                            //     label: 'Phòng ban',
-                            //     icon: 'pi pi-fw pi-tags',
-                            //     routerLink: ['/']
-                            // },
-                            // {
-                            //     label: 'Chức vụ',
-                            //     icon: 'pi pi-fw pi-exclamation-triangle',
-                            //     routerLink: ['/']
-                            // }
                         ] },
                     { 
-                        label: 'Căn hộ', 
+                        label: 'Sản phẩm', 
                         icon: 'pi pi-fw pi-home', 
-                        routerLink: ['/'] 
+                        routerLink: ['/manager-product/product/list'] 
                     },
                 ]
             },

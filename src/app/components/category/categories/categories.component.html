@@ -1,0 +1,64 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h5>Danh sách voucher</h5>
+            <section class="FilterProject">
+                <div class="textFilterProj">
+                    <div class="addProjectList">
+                        <a href="#/category/categories/create" class="mg-l-9"><i class="fa fa-plus-circle"
+                            aria-hidden="true"></i> Thêm mới</a>
+                    </div>
+                </div>
+            </section>
+            <p-table 
+                [value]="lstCategory"
+                [paginator]="true"
+                [rows]="filterParrams.size"
+                [showCurrentPageReport]="true"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10, 25, 50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3%">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th style="width: 5%">Stt</th>
+                        <th style="width: 30%">Tên Category</th>
+                        <th style="width: 30%">Ảnh</th>
+                        <th style="width: 20%">Giá trị</th>
+                        <th style="width: 15%">Thao tác</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-category let-rowIndex="rowIndex">
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="category"></p-tableCheckbox>
+                        </td>
+                        <td>{{ rowIndex + 1 }}</td>
+                        <td>{{ category.name }}</td>
+                        <td><img class="img-cate" src="{{ category.imageIcon }}" alt="" /></td>
+                        <td>{{ category.orderShow}}</td>
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" routerLink="/category/categories/upload/{{category.id}}"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="onDelete(category)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <!-- <ng-template pTemplate="paginatorleft">
+                    <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+                </ng-template>
+                <ng-template pTemplate="paginatorright">
+                    <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+                </ng-template> -->
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="7">No customers found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>
+<p-confirmDialog class="custom-toast"></p-confirmDialog>

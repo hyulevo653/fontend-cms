@@ -3,32 +3,24 @@ import { CommonModule } from '@angular/common';
 import { ProjectComponent } from './project/project.component';
 import { CategoryRoutingModule } from 'src/app/routes/category-routing.module';
 import { AppLayoutModule } from 'src/app/layout/app.layout.module';
-import { ProjectService } from 'src/app/services/project.service';
+import { ProjectService } from 'src/app/services/voucher.service';
 import { AddProjectComponent } from './project/add-project/add-project.component';
-import { TowerComponent } from './tower/tower.component';
-import { TowerUploadComponent } from './tower/tower-upload/tower-upload.component';
-import { FloorComponent } from './floor/floor.component';
-import { FloorUploadComponent } from './floor/floor-upload/floor-upload.component';
-import { AddFloorComponent } from './floor/add-floor/add-floor.component';
-import { AddTowerComponent } from './tower/add-tower/add-tower.component';
-import { AddressComponent } from './address/address.component';
-import { AddAddressComponent } from './address/add-address/add-address.component';
-import { AddressUploadComponent } from './address/address-upload/address-upload.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { AddCategoriesComponent } from './categories/add-categories/add-categories.component';
+import { TestComponent } from './test/test.component';
+import { OrderComponent } from './order/order.component';
+import { AddOrderComponent } from './order/add-order/add-order.component';
 
 
 @NgModule({
 declarations: [
     ProjectComponent,
     AddProjectComponent,
-    TowerComponent,
-    TowerUploadComponent,
-    FloorComponent,
-    FloorUploadComponent,
-    AddFloorComponent,
-    AddTowerComponent,
-    AddressComponent,
-    AddAddressComponent,
-    AddressUploadComponent
+    CategoriesComponent,
+    AddCategoriesComponent,
+    TestComponent,
+    OrderComponent,
+    AddOrderComponent,
   ],
   imports: [
     CommonModule,

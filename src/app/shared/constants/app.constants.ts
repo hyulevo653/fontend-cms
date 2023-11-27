@@ -22,6 +22,8 @@ export class StorageOption {
 export class AppMessageResponse {
   public static BadRequest = "Hệ thống có lỗi sảy ra!";
   public static CreatedSuccess = "Thêm mới thành công!";
+  public static UpdatedSuccess = "Cập nhật thành công!";
+  public static DeletedSuccess = "Xóa thành công!";
 }
 
 export class StorageData {
@@ -30,16 +32,19 @@ export class StorageData {
   public static accessToken = 'accessToken';
 }
 
+export const paymentMethod = [
+  { Name: 'SHIP_COD', value: 1 },
+  { Name: 'PAYMENT_ONLINE', value: 2 },
+]
+
 export const promotionType = [
   { Name: 'PRODUCT', value: 1 },
-  { Name: 'PRODUCTS', value: 2 },
-  { Name: 'PRODUCTS', value: 3 }
+  { Name: 'TRANSPORT', value: 2 },
 ];
 
 export const discountType = [
   { Name: 'PERCENTAGE', value: 1 },
-  { Name: 'PERCENTAGE2', value: 2 },
-  { Name: 'PERCENTAGE3', value: 3 }
+  { Name: 'CASH', value: 2 },
 ];
 
 export const domainFileTemplate = environment.apiUrl.concat('/templates/import/');

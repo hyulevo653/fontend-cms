@@ -31,10 +31,39 @@ export class ApiConstant {
 
   // promotions
   public static GetPromotionPage = apiUrl.concat('promotions');
-  public static CreatePromotion = apiUrl.concat('promotions');
-  public static getPromotionById = apiUrl.concat('promotions/');
-  public static updatePromotion = apiUrl.concat('promotions/');
+  public static CreatePromotion = apiUrl.concat('promotion');
+  public static getPromotionById = apiUrl.concat('promotion/');
+  public static updatePromotion = apiUrl.concat('promotion/');
+  public static deletePromotion = apiUrl.concat('promotion/');
   public static activePromotion = apiUrl.concat('promotion/active?isActive=true&promotionId=');
+  public static deadactivePromotion = apiUrl.concat('promotion/active?isActive=false&promotionId=');
+
+  //product
+  public static GetProductPage = apiUrl.concat('products');
+  public static CreateProduct = apiUrl.concat('product');
+  public static getProductById = apiUrl.concat('product/');
+  public static getItemById = apiUrl.concat('item/');
+  public static updateProduct = apiUrl.concat('product/');
+  public static deleteProduct = apiUrl.concat('product/');
+
+  //categories
+  public static GetCategoriesPage = apiUrl.concat('categories');
+  public static CreateCategories = apiUrl.concat('category');
+  public static getCategoriesById = apiUrl.concat('category/');
+  public static updateCategories = apiUrl.concat('category/');
+  public static deleteCategories = apiUrl.concat('category/');
+
+  //order
+  
+  public static GetOrderPage = apiUrl.concat('orders');
+  public static GetOrderPageStatus = apiUrl.concat('orders/manage');
+  public static CreateOrder = apiUrl.concat('order');
+  public static getOrderById = apiUrl.concat('order/');
+  public static updateOrder = apiUrl.concat('order/');
+  public static deleteOrder = apiUrl.concat('order/');
+  public static activeOrder = apiUrl.concat('order/active?isActive=true&OrderId=');
+  public static deadactiveOrder = apiUrl.concat('order/active?isActive=false&orderId=');
+
 
   //#endregion
 

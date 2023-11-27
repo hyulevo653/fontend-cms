@@ -51,7 +51,8 @@
                         <td>
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" routerLink="/category/project/upload/{{project.id}}"></button>
                             <button pButton pRipple icon="pi pi-unlock" class="p-button-rounded p-button-success mr-2" (click)="activePromotion(project.id)"></button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProject(project)"></button>
+                            <button pButton pRipple icon="pi pi-lock" class="p-button-rounded  mr-2" (click)="deadactivePromotion(project.id)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="onDelete(project)"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -70,3 +71,5 @@
         </div>
     </div>
 </div>
+<p-toast></p-toast>
+<p-confirmDialog class="custom-toast"></p-confirmDialog>

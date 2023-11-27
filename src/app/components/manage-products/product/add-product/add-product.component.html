@@ -1,0 +1,368 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h3 class="mg-0">
+                {{ !(id > 0) ? "Thêm mới Category" : "Cập nhật Category" }}
+            </h3>
+
+            <form class="grid formgrid" [formGroup]="fProduct">
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtName"
+                            >Tên Sản phẩm
+                            <span class="" style="color: red">*</span>
+                        </label>
+                        <input
+                            id="txtName"
+                            type="text"
+                            pInputText
+                            formControlName="name"
+                            class="p-invalid"
+                        />
+                        <small
+                            *ngIf="
+                                fProduct.controls['name'].hasError(
+                                    'required'
+                                ) && fProduct.controls['name'].dirty
+                            "
+                            class="p-invalid text-danger"
+                            >Vui lòng nhập tên Voucher.</small
+                        >
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="field p-fluid">
+                        <label for="txtNote">Mô tả</label>
+                        <span class="" style="color: red">*</span>
+                        <textarea
+                            class="w-100"
+                            id="txtNote"
+                            rows="5"
+                            pInputTextarea
+                            formControlName="description"
+                        ></textarea>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtName"
+                            >Nhập giá
+                            <span class="" style="color: red">*</span>
+                        </label>
+                        <input
+                            id="txtPrice"
+                            type="text"
+                            pInputText
+                            formControlName="price"
+                            class="p-invalid"
+                        />
+                        <small
+                            *ngIf="
+                                fProduct.controls['price'].hasError(
+                                    'required'
+                                ) && fProduct.controls['price'].dirty
+                            "
+                            class="p-invalid text-danger"
+                            >Vui lòng nhập giá.</small
+                        >
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtNameContacts">Nhập Attribute</label>
+                        <span class="text-danger"></span>
+                        <input
+                            id="txtNameContacts"
+                            type="text"
+                            pInputText
+                            formControlName="attributes"
+                        />
+                    </div>
+                    <!-- <small class="text-danger" *ngIf="fProduct.get('orderShow').hasError('min') || fProduct.get('orderShow').hasError('max')">
+                        Giá trị phải nằm trong khoảng từ 1 đến 10.
+                    </small> -->
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtNameContacts">Category</label>
+                        <div class="card flex justify-content-center">
+                            <p-multiSelect
+                                [options]="lstCategory"
+                                [showClear]="true"
+                                placeholder="Chọn Category"
+                                emptyMessage="Không có dữ liệu."
+                                [(ngModel)]="categoryIds"
+                                optionValue="id"
+                                optionLabel="name"
+                                [ngModelOptions]="{ standalone: true }"
+                            ></p-multiSelect>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtNameContacts">Nhập Volume</label>
+                        <span class="text-danger"></span>
+                        <input
+                            id="txtNameContacts"
+                            type="text"
+                            pInputText
+                            formControlName="volume"
+                        />
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtName"
+                            >Nhập link ảnh thumb
+                            <span class="" style="color: red">*</span>
+                        </label>
+                        <input
+                            id="txtName"
+                            type="text"
+                            pInputText
+                            formControlName="thumb"
+                            class="p-invalid"
+                        />
+                        <!-- <small *ngIf="fProduct.controls['thumb'].hasError('required') && fProduct.controls['thumb'].dirty" class="p-invalid text-danger">Vui lòng nhập tên Voucher.</small> -->
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="txtImage" class="form-label">Upload</label>
+                    <div class="displayflex">
+                        <div class="col-6">
+                            <input
+                                formControlName="thumb"
+                                class="form-control no-bor"
+                                type="file"
+                                accept="image/jpg || image/png || image/webp"
+                                (change)="onFileSelected($event)"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtName"
+                            >Nhập link ảnh sản phẩm
+                            <span class="" style="color: red">*</span>
+                        </label>
+                        <input
+                            id="txtName"
+                            type="text"
+                            pInputText
+                            formControlName="productImages"
+                            class="p-invalid"
+                            [(ngModel)]="productImages"
+                        />
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="txtImage" class="form-label">Upload</label>
+                    <div class="displayflex">
+                        <div class="col-6">
+                            <input
+                                formControlName="productImages"
+                                class="form-control no-bor"
+                                type="file"
+                                accept="image/jpg || image/png || image/webp"
+                                (change)="onMultiFile($event)"
+                            />
+                        </div>
+                        <!-- <div class="col-6" *ngIf="isImageSelected == true">
+                        <img [src]="uploadedImageUrl" class="img-thumbnail zoomable-image">
+                        <i class="fa fa-times-circle del-img" aria-hidden="true" (click)="Imagenull()" [style.display]="isImageSelected ? 'block' : 'none'"></i>
+                      </div> -->
+                    </div>
+                </div>
+                <!-- <div class="col-12">
+                    <h4><i class="pi pi-pencil mr-2"></i>Danh sách Variant</h4>
+                </div> -->
+                <div class="grid gr-re mg-t-2">
+                    <div class="col-12">
+                        <button
+                            (click)="addVariant(id)"
+                            type="button"
+                            class="btn btn-warning mg-t-2"
+                        >
+                            Thêm Variant
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <p-table
+                            [value]="lstVariant"
+                            [paginator]="false"
+                            responsiveLayout="stack"
+                            [tableStyle]="{ 'min-width': '50rem' }"
+                        >
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th
+                                        style="width: 3%"
+                                        class="border-right-1"
+                                    >
+                                        Stt
+                                    </th>
+                                    <th class="text-center">Tên Variant</th>
+                                    <th class="text-center">Giá trị Variant</th>
+                                    <th class="border-left-1" style="width: 8%">
+                                        Thao tác
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template
+                                pTemplate="body"
+                                let-variantRequests
+                                let-rowIndex="rowIndex"
+                            >
+                                <tr>
+                                    <td class="border-right-1">
+                                        {{ rowIndex + 1 }}
+                                    </td>
+                                    <td class="border-right-1">
+                                        <input
+                                            type="text"
+                                            placeholder="Tên Variant"
+                                            pInputText
+                                            class="p-invalid w-100"
+                                            [(ngModel)]="
+                                                variantRequests.variantName
+                                            "
+                                            [ngModelOptions]="{
+                                                standalone: true
+                                            }"
+                                            required
+                                        />
+                                        <small
+                                            *ngIf="!variantRequests.variantName"
+                                            class="text-danger"
+                                            >Vui lòng nhập tên variant</small
+                                        >
+                                    </td>
+                                    <td class="border-left-1">
+                                        <input
+                                            type="text"
+                                            placeholder="Giá trị Variant"
+                                            pInputText
+                                            class="p-invalid w-100"
+                                            [(ngModel)]="
+                                                variantRequests.variantValues
+                                            "
+                                            [ngModelOptions]="{
+                                                standalone: true
+                                            }"
+                                        />
+                                    </td>
+                                    <td class="border-left-1 text-center">
+                                        <button
+                                            pButton
+                                            pRipple
+                                            icon="pi pi-trash"
+                                            class="p-button-rounded p-button-warning"
+                                            (click)="
+                                                onDeleteVariantRequests(
+                                                    rowIndex,
+                                                    variantRequests.variantName
+                                                )
+                                            "
+                                        ></button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <p-table [value]="combinedData" [rows]="10">
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th>STT</th>
+                            <th *ngFor="let variant of lstVariant">{{ variant.variantName }}</th>
+                            <th>Ảnh</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body"   let-rowData  let-rowIndex="rowIndex">
+                          <tr>
+                            <td>{{ rowIndex + 1 }}</td>
+                            <td *ngFor="let value of rowData.combination">
+                                <span *ngFor="let item of value.split(',')">{{ item }}</span>
+                              </td>
+                            <td>
+                              <div class="col-6" *ngIf="isImage == true">
+                                <img [src]="rowData.userInput.image" class="img-thumbnail zoomable-image">
+                                <i class="fa fa-times-circle del-img" aria-hidden="true" (click)="Imagdel(rowIndex)" [style.display]="isImage ? 'block' : 'none'"></i>
+                              </div>
+                              <div class="displayflex">
+                                <div class="col-6">
+                                  <input
+                                    [(ngModel)]="rowData.userInput.image"
+                                    class="form-control no-bor"
+                                    type="file"
+                                    accept="image/jpg || image/png || image/webp"
+                                    (change)="onImage($event,rowIndex)"
+                                    [ngModelOptions]="{
+                                      standalone: true
+                                    }"
+                                  />
+                                </div>
+                              </div>
+                            </td> 
+                            <td>
+                              <input
+                                type="text"
+                                placeholder="Nhập giá"
+                                pInputText
+                                class="p-invalid w-100"
+                                [(ngModel)]="rowData.userInput.price"
+                                [ngModelOptions]="{
+                                  standalone: true
+                                }"
+                                required
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                placeholder="Nhập số lượng"
+                                pInputText
+                                class="p-invalid w-100"
+                                [(ngModel)]="rowData.userInput.quantity"
+                                [ngModelOptions]="{
+                                  standalone: true
+                                }"
+                                required
+                              />
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                  </div>
+                  <button type="button" (click)="getVariant()">
+                    Tạo bảng
+                  </button>
+                <div class="col-12 p_float_right">
+                    <!-- <p-confirmDialog class="custom-toast"></p-confirmDialog> -->
+                    <button
+                        pButton
+                        pRipple
+                        type="button"
+                        label="Hủy"
+                        class="p-button-outlined p-button-secondary mr-2"
+                        (click)="onBack($event)"
+                    ></button>
+                    <p-button
+                        label="Xác nhận"
+                        icon="pi pi-check"
+                        [loading]="loading[0]"
+                        (onClick)="onSubmit()"
+                    ></p-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>
+<p-confirmDialog class="custom-toast"></p-confirmDialog>

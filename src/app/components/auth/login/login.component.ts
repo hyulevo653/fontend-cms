@@ -5,7 +5,7 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppMessageResponse, AppStatusCode } from 'src/app/shared/constants/app.constants';
 import { ReqLoginModel } from 'src/app/view-models/auth/req-login-model';
-import {Md5} from 'ts-md5';
+// import {Md5} from 'ts-md5';
 
 @Component({
     selector: 'app-login',

@@ -27,7 +27,12 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card'
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ComfirmDialogComponent } from '../components/shared/comfirm-dialog/comfirm-dialog.component';
+import { CalendarModule } from "primeng/calendar";
+import { ToastModule } from 'primeng/toast';
+import { MultiSelectModule } from 'primeng/multiselect';
+
 
 @NgModule({
     declarations: [
@@ -60,7 +65,11 @@ import { ComfirmDialogComponent } from '../components/shared/comfirm-dialog/comf
         AppConfigModule,
         AppLayoutRoutingModule,
         CardModule,
-        ConfirmPopupModule 
+        ConfirmPopupModule,
+        ConfirmDialogModule,
+        CalendarModule,
+        ToastModule,
+        MultiSelectModule,
     ],
     exports: [
         CommonModule,
@@ -83,7 +92,11 @@ import { ComfirmDialogComponent } from '../components/shared/comfirm-dialog/comf
         AppLayoutComponent,
         CardModule,
         DropdownModule,
-        ConfirmPopupModule
+        ConfirmPopupModule,
+        ConfirmDialogModule,
+        CalendarModule,
+        ToastModule,
+        MultiSelectModule,
     ],
     providers: [
         MessageService,

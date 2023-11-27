@@ -1,0 +1,14 @@
+<table>
+    <thead>
+      <!-- <tr>
+        <th *ngFor="let variant of variantService.getVariantValues()">
+          {{ variant[i].variantName }}
+        </th>
+      </tr> -->
+    </thead>
+    <tbody>
+      <tr *ngFor="let combination of combinations">
+        <td *ngFor="let value of combination">{{ value }}</td>
+      </tr>
+    </tbody>
+  </table>

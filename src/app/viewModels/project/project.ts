@@ -1,6 +1,6 @@
 export class Project {
-    public id : number | undefined;
-    public name: string | undefined;
+    public id : number ;
+    public name: string ;
     public description: string | undefined;
     public promotionType: string | undefined;
     public discountType: string | undefined;
@@ -11,7 +11,7 @@ export class Project {
 
     public discountRate : number | undefined;
     public minTotalOrder : number | undefined;
-    public maxValueDiscount : number | undefined;
+    public maxTotalOrder : number | undefined;
     public active : Boolean | undefined;
 
 }

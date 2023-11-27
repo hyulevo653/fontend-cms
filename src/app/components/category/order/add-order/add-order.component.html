@@ -2,26 +2,26 @@
     <div class="col-12">
         <div class="card">
             <h5>
-                {{ itemProject ? 'Xem chi tiết Voucher' : 'Thêm mới Voucher' }}
+                {{ (id>0) ? 'Xem chi tiết Voucher' : 'Thêm mới Voucher' }}
             </h5>
 
-            <form class="grid formgrid" [formGroup]="fProject">
+            <form class="grid formgrid" [formGroup]="fOrder">
                 <div class="col-6">
                     <div class="field p-fluid">
                         <label for="txtName">Tên Voucher
                             <span class="" style="color:red">*</span>
                         </label>
                         <input id="txtName" type="text" pInputText formControlName="name" class="p-invalid">
-                        <small *ngIf="fProject.controls['name'].hasError('minlength')" class="p-invalid text-danger">Tên Voucher phải tối thiểu 3 kí tự.</small>
-                        <small *ngIf="fProject.controls['name'].hasError('maxlength')" class="p-invalid text-danger">Tên Voucher chỉ được tối đa 150 kí tự.</small>
-                        <small *ngIf="fProject.controls['name'].hasError('required') && fProject.controls['name'].dirty" class="p-invalid text-danger">Vui lòng nhập tên Voucher.</small>
+                        <small *ngIf="fOrder.controls['name'].hasError('minlength')" class="p-invalid text-danger">Tên Voucher phải tối thiểu 3 kí tự.</small>
+                        <small *ngIf="fOrder.controls['name'].hasError('maxlength')" class="p-invalid text-danger">Tên Voucher chỉ được tối đa 150 kí tự.</small>
+                        <small *ngIf="fOrder.controls['name'].hasError('required') && fOrder.controls['name'].dirty" class="p-invalid text-danger">Vui lòng nhập tên Voucher.</small>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
                         <label for="txtCode">% giảm giá</label>
                         <input id="txtCode" type="text" pInputText formControlName="discountRate" class="p-invalid">
-                        <small *ngIf="fProject.controls['discountRate'].hasError('required') && fProject.controls['Name'].dirty" class="p-invalid text-danger">Vui lòng nhập % giảm giá.</small>
+                        <small *ngIf="fOrder.controls['discountRate'].hasError('required') && fOrder.controls['Name'].dirty" class="p-invalid text-danger">Vui lòng nhập % giảm giá.</small>
                     </div>
                 </div>
                 <div class="col-6">
@@ -56,7 +56,7 @@
                     <div class="field p-fluid">
                         <label for="txtWard">Loại Voucher</label>
                         <p-dropdown 
-                            [options]="lstpromotionType" 
+                            [options]="lstPayment" 
                             placeholder="Loại Voucher" 
                             emptyMessage="Không có dữ liệu."
                             [showClear]="true" 
@@ -66,28 +66,14 @@
                         </p-dropdown>
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="field p-fluid">
-                        <label for="txtWard">Loại giảm giá</label>
-                        <p-dropdown 
-                            [options]="lstdiscountType" 
-                            placeholder="Loại giảm giá" 
-                            emptyMessage="Không có dữ liệu."
-                            [showClear]="true" 
-                            optionLabel="Name" 
-                            optionValue="Name" 
-                            formControlName="discountType">
-                        </p-dropdown>
-                    </div>
-                </div>
                 <div class="col-12">
                     <div class="field p-fluid ">
                         <label for="txtNote">Mô tả</label>
                         <span class="" style="color:red">*</span>
                         <textarea id="txtNote" rows="5" pInputTextarea formControlName="description"></textarea>
-                        <small *ngIf="fProject.controls['description'].hasError('minlength')" class="p-invalid text-danger">Mô tả phải tối thiểu 6 kí tự.</small>
-                        <small *ngIf="fProject.controls['description'].hasError('maxlength')" class="p-invalid text-danger">Mô tả chỉ được tối đa 300 kí tự.</small>
-                        <small *ngIf="fProject.controls['description'].hasError('required') && fProject.controls['description'].dirty" class="p-invalid text-danger">Vui lòng nhập mô tả.</small>
+                        <small *ngIf="fOrder.controls['description'].hasError('minlength')" class="p-invalid text-danger">Mô tả phải tối thiểu 6 kí tự.</small>
+                        <small *ngIf="fOrder.controls['description'].hasError('maxlength')" class="p-invalid text-danger">Mô tả chỉ được tối đa 300 kí tự.</small>
+                        <small *ngIf="fOrder.controls['description'].hasError('required') && fOrder.controls['description'].dirty" class="p-invalid text-danger">Vui lòng nhập mô tả.</small>
                     </div>
                 </div>
                 <div class="col-12 p_float_right">

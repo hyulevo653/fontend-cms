@@ -1,46 +1,56 @@
 import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ProjectService } from 'src/app/services/voucher.service';
-import { ApiConstant } from 'src/app/shared/constants/api.constants';
-import { AppMessageResponse, AppStatusCode } from 'src/app/shared/constants/app.constants';
+import { OrderService } from 'src/app/services/order.service';
+import { AppMessageResponse } from 'src/app/shared/constants/app.constants';
+import { Order } from 'src/app/viewModels/order/order';
 import { Paging } from 'src/app/viewModels/paging';
-import { Project } from 'src/app/viewModels/project/project';
 import { ResApi } from 'src/app/viewModels/res-api';
 
-
 @Component({
-  selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss']
+  selector: 'app-order',
+  templateUrl: './order.component.html',
+  styleUrls: ['./order.component.scss']
 })
-export class ProjectComponent {
+export class OrderComponent {
+  fOrder : any;
   public filterParrams : Paging;
-  public lstProject: Array<Project>;
+  public lstOrder: Array<Order>;
   public first = 0;
+  lstStatus = [{
+    Name : 'Thành Công',Id : 1
+  },{
+    Name : 'Thất Bại',Id : 2
+  }]
   public rows = 10;
   id: any;
   public loading = [false];
 
   constructor(
-    private readonly projectService: ProjectService,
+    private readonly orderService: OrderService,
     private readonly messageService: MessageService,
     private route: ActivatedRoute, 
     private readonly confirmationService: ConfirmationService,
-    private router: Router
+    private router: Router,
+    private readonly fb : FormBuilder,
   ) {
     this.filterParrams = new Object as Paging;
     this.filterParrams.page = 1;
     this.filterParrams.size = 10;
 
-    this.lstProject = new Array<Project>();
+    this.lstOrder = new Array<Order>();
   }
+  
 
   ngOnInit() : void {
     this.route.paramMap.subscribe(params => {
       this.id =  params.get('id');
     });
-      this.getListProjectByPaging();
+      this.getListByPaging();
+      this.fOrder = this.fb.group({
+        Status : ['']
+      })
   }
 
   next() {
@@ -63,65 +73,66 @@ export class ProjectComponent {
       return true;//this.customers ? this.first === 0 : true;
   }
 
-  getListProjectByPaging() {
-    this.projectService.getListByPaging(this.filterParrams).subscribe((res: ResApi) => {
+  getListByPaging() {
+    this.orderService.getListOrderByPaging(this.filterParrams).subscribe((res: ResApi) => {
       if (res && res.status >= 200 && res.status <= 300) {
-        this.lstProject = res.data.elements;
+        this.lstOrder = res.data.elements;
       }
       else {
-        this.lstProject = new Array<Project>();
+        this.lstOrder = new Array<Order>();
         this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message|| AppMessageResponse.BadRequest });
       }
       
     })
   }
+
+  onSelect(event:any){
+
+  }
   
   activePromotion(id : number){
-    this.projectService.ActivePromotion(id).subscribe((res: ResApi) => {
+    this.orderService.ActiveOrder(id).subscribe((res: ResApi) => {
       if (res && res.status >= 200 && res.status <= 300) {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Active thành công!'});
       }
       else {
-        this.lstProject = new Array<Project>();
+        this.lstOrder = new Array<Order>();
         this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message|| AppMessageResponse.BadRequest });
       }
       
     })
   }
   deadactivePromotion(id : number){
-    this.projectService.DeadactivePromotion(id).subscribe((res: ResApi) => {
+    this.orderService.DeadactiveOrder(id).subscribe((res: ResApi) => {
       if (res && res.status >= 200 && res.status <= 300) {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Deadactive thành công!'});
       }
       else {
-        this.lstProject = new Array<Project>();
+        this.lstOrder = new Array<Order>();
         this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message|| AppMessageResponse.BadRequest });
       }
       
     })
   }
 
-  editProject(itemProject: Project) {
 
-  }
-
-  onDelete(item: Project ) {
+  onDelete(item: Order ) {
     
     this.confirmationService.confirm({
-      message: 'Bạn có muốn xóa Voucher <b>"'+ item.name +'"</b> không?',
-      header: 'XÓA VOUCHER',
+      message: 'Bạn có muốn xóa Voucher <b>"'+ item.orderLines +'"</b> không?',
+      header: 'XÓA ĐƠN HÀNG',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Xác nhận',
       rejectLabel: 'Hủy bỏ',
       acceptButtonStyleClass: 'p-button-success',
       rejectButtonStyleClass: 'p-button-danger',
       accept: () => {
-        this.projectService.deletePromotion(item.id).subscribe(
+        this.orderService.deleteOrder(item.id).subscribe(
           (res: any) => {
             this.loading[0] = false;
             if (res && res.status >= 200 && res.status <= 300) {
-              this.lstProject = this.lstProject.filter(s => s.id !== item.id);
-              this.messageService.add({ severity: 'success', summary: 'Success',  detail: 'Xóa Voucher thành công!' });
+              this.lstOrder = this.lstOrder.filter(s => s.id !== item.id);
+              this.messageService.add({ severity: 'success', summary: 'Success',  detail: 'Xóa đơn hàng thành công!' });
   
               
               //return;

@@ -2,14 +2,11 @@ import { ProjectComponent } from './../components/category/project/project.compo
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddProjectComponent } from '../components/category/project/add-project/add-project.component';
-import { TowerComponent } from '../components/category/tower/tower.component';
-import { TowerUploadComponent } from '../components/category/tower/tower-upload/tower-upload.component';
-import { FloorComponent } from '../components/category/floor/floor.component';
-import { AddFloorComponent } from '../components/category/floor/add-floor/add-floor.component';
-import { FloorUploadComponent } from '../components/category/floor/floor-upload/floor-upload.component';
-import { AddTowerComponent } from '../components/category/tower/add-tower/add-tower.component';
-import { AddressComponent } from '../components/category/address/address.component';
-import { AddAddressComponent } from '../components/category/address/add-address/add-address.component';
+import { CategoriesComponent } from '../components/category/categories/categories.component';
+import { AddCategoriesComponent } from '../components/category/categories/add-categories/add-categories.component';
+import { TestComponent } from '../components/category/test/test.component';
+import { OrderComponent } from '../components/category/order/order.component';
+import { AddOrderComponent } from '../components/category/order/add-order/add-order.component';
 
 
 
@@ -26,7 +23,35 @@ const routes: Routes = [
     path: 'project/upload/:id',
     component: AddProjectComponent,
   },
- 
+  {
+    path: 'categories/list',
+    component: CategoriesComponent,
+  },
+  {
+    path: 'categories/create',
+    component: AddCategoriesComponent,
+  },
+  {
+    path: 'categories/upload/:id',
+    component: AddCategoriesComponent,
+  },
+  {
+    path: 'order/list',
+    component: OrderComponent,
+  },
+  {
+    path: 'order/create',
+    component: AddOrderComponent,
+  },
+  {
+    path: 'order/upload/:id',
+    component: AddOrderComponent,
+  },
+  // {
+  //   path: 'categories/test/list',
+  //   component: TestComponent,
+  // },
+  
   // {
   //   path: 'project/detail/:proId',
   //   component: AddProjectComponent
