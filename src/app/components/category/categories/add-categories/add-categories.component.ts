@@ -83,7 +83,7 @@ export class AddCategoriesComponent {
           if (res && res.status >= 200 && res.status <= 300) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: res?.meta?.error_message || AppMessageResponse.CreatedSuccess });
   
-            setTimeout(() => {this.onReturnPage('/category/project/list')}, 1500);
+            setTimeout(() => {this.onReturnPage('/category/categories/list')}, 1500);
           }
           else {
             this.loading[0] = false;
@@ -185,6 +185,6 @@ export class AddCategoriesComponent {
     this.uploadedImageUrl = '';
   }
   onBack(event:any){
-    setTimeout(() => {this.onReturnPage('/category/categories/list')}, 1500);
+    setTimeout(() => {this.onReturnPage('/category/categories/list')}, 500);
   }
 }

@@ -39,6 +39,7 @@ export class AddProductComponent {
   filterParrams: Paging;
   public nameItem : string[] = [];
   public valueItem : string[] = [];
+  variantValue: any;
   userInputs: any[] = [];
   public itemRequests : any[]= [];
   dataItem: any;
@@ -56,6 +57,7 @@ export class AddProductComponent {
     private confirmationService: ConfirmationService,
     private router: Router,
     private http : HttpClient,
+    // private transformComponent: CSSTransformComponent,
     
     private readonly route: ActivatedRoute,
   ) {
@@ -124,20 +126,19 @@ export class AddProductComponent {
           } 
     })} else {
       const reqData = Object.assign({}, this.fProduct.value);
+      reqData.id = Number(this.fProduct.get('id').value);
       reqData.categoryIds = this.lstCategory.map((item: any) => item.id);
-      reqData.variantRequests = this.lstVariant.map((item: any) => {
-        return {
-          variantName: item.variantName,
-          variantValues: item.variantValues.split(',').map((value: string) => value.trim())
-        };
-      });
-      reqData.itemRequests = this.itemRequests;
-      reqData.productImages = reqData.productImages.toString().split(",");
-      reqData.attributes = {
-        "Xuất xứ": this.fProduct.get('attributes').value
-      };
+      // reqData.variantRequests = this.lstVariant.map((item: any) => {
+      //   return {
+      //     variantName: item.variantName,
+      //     variantValues: item.variantValues.split(',').map((value: string) => value.trim())
+      //   };
+      // });
+      // reqData.itemRequests = this.itemRequests;
+      reqData.productImages = this.productImages.toString().split(",");
+      reqData.attributes = this.transform(reqData.attributes);
       this.loading[0] = true;
-      this.productService.updateProduct(this.id, reqData).subscribe(
+      this.productService.updateProduct(reqData).subscribe(
         (res: any) => {
           this.loading[0] = false;
           if (res && res.status >= 200 && res.status <= 300) {
@@ -159,6 +160,18 @@ export class AddProductComponent {
     }
   }
 
+  transform(value: string): any {
+    const keyValueArray = value.split(':').map(part => part.trim());
+
+    if (keyValueArray.length === 2) {
+      const jsonObject = { [keyValueArray[0]]: keyValueArray[1] };
+      return jsonObject;
+    } else {
+      // Trường hợp không khớp định dạng mong muốn, trả về giá trị ban đầu
+      return value;
+    }
+  }
+
   onReturnPage(url: string) : void {
     this.router.navigate([url]);
   }
@@ -168,7 +181,7 @@ export class AddProductComponent {
       this.productService.getProductById(id).subscribe((res: ResApi) => {
         if(res.status == AppStatusCode.StatusCode200) {
           this.data = res.data;
-          this.productImages = this.data.productImages.join('\n');
+          this.productImages = this.data.productImages;
           this.categoryIds = this.data.categories.filter((i: any) => i).map((item: any) => item.id);
           this.lstVariant = this.processVariants(this.data.variants);
           this.formGroup();
@@ -183,30 +196,19 @@ export class AddProductComponent {
       this.data = []
     }
   }
-
+  public url : any;
+  idItem : any;
   getItembyId(id: number) {    
     if (this.id != 0) {
       this.productService.getItemProById(id).subscribe((res: ResApi) => {
         if (res.status == AppStatusCode.StatusCode200) {
+          this.isImage = true;
           this.dataItem = res.data;
-          const listName = this.lstVariant.map((item: any) => item.variantName);
+          // this.variantValue = res.data.variantOptions.value;
+        //  for(let i=0;i< this.dataItem.length;i++){
+        //   this.variantValue = res.data[i].variantOptions[0].value;
+        //  }
           
-          // Reset userInputs array
-          this.userInputs = new Array(this.combinations.length).fill({ image: '', price: '', quantity: '' });
-  
-          for (let rowIndex = 0; rowIndex < this.combinations.length; rowIndex++) {
-            const ss = this.combinations[rowIndex];
-            var itemVariantOption: any = {};
-  
-            for (var j = 0; j < ss.length; j++) {
-              itemVariantOption[listName[j]] = ss[j];
-            }
-  
-            // Set values for userInputs at the current rowIndex
-            this.userInputs[rowIndex].image = this.dataItem.itemImage;
-            this.userInputs[rowIndex].price = this.dataItem.price;
-            this.userInputs[rowIndex].quantity = this.dataItem.quantity;
-          }
         } else {
           this.dataItem = [];
           this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message || AppMessageResponse.BadRequest });
@@ -217,6 +219,23 @@ export class AddProductComponent {
       this.dataItem = [];
     }
   }
+
+  // getItembyId(id: number) {    
+  //   if (this.id != 0) {
+  //     this.productService.getItemProById(id).subscribe((res: ResApi) => {
+  //       if (res.status == AppStatusCode.StatusCode200) {
+  //         this.isImage = true;
+  //         this.dataItem = res.data.map((item: { variantOptions: any[]; }) => ({ ...item, variantOptions: item.variantOptions.map(opt => opt.value) }));
+  //       } else {
+  //         this.dataItem = [];
+  //         this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message || AppMessageResponse.BadRequest });
+  //       }
+  //     });
+  //     this.dataItem = { ...this.dataItem };
+  //   } else {
+  //     this.dataItem = [];
+  //   }
+  // }
 
   processVariants(variants: any[]): any[] {
     return variants.reduce((acc, variant) => {
@@ -238,11 +257,16 @@ export class AddProductComponent {
       volume: this.data.volume,
       thumb: this.data.productThumb,
       price: this.data.showedPrice,
-      status : this.data.status,
+      // status : this.data.status,
+      
       productImages: '',
       attributes : this.convertObjectToString(this.data.attributes),
+      // attributes : this.convertArrToString(this.data.attributes),
     })
   }
+
+  
+
   convertArrToString(obj: any): string {
     return JSON.stringify(obj);
   }
@@ -285,6 +309,29 @@ export class AddProductComponent {
         );
     }
   }
+
+  // onImg(event: any) {
+  //   const file: File = event.target.files[0];
+  //   if (file) {
+  //     const formData: FormData = new FormData();
+  //     formData.append('type', 'image');
+  //     formData.append('file', file);
+  
+  //     this.http.post('http://localhost:9214/api/v1/upload/file', formData)
+  //       .subscribe(
+  //         (response: any) => {
+  //           this.isImage = true;
+  //           const uploadedImageName = response.data;
+  //           // this.url.push(uploadedImageName); 
+  //           this.updateInputValue();  
+  //           console.log('Upload thành công:', response);
+  //         },
+  //         (error) => {
+  //           console.error('Lỗi upload:', error);
+  //         }
+  //       );
+  //   }
+  // }
   onImage(event: any,index:number) {
     const file: File = event.target.files[0];
     if (file) {
@@ -443,9 +490,15 @@ export class AddProductComponent {
     this.nameFile = '';
     this.uploadedImages = [];
   }
-  Imagdel(i:number){
-    this.combinedData[i].userInput.image = '';
-    this.isImage = false;
+  Imagdel(id:number){
+    for(let i=0;i<this.dataItem.length;i++){
+      if(this.dataItem[i].id == id){
+        this.dataItem[i].itemImage = '';
+        this.isImage = false;
+      } else{
+        this.isImage = true;
+      }
+    }
   }
 
   addVariant(id: number) {
@@ -466,8 +519,33 @@ export class AddProductComponent {
 
     this.lstVariant = [...lst_updated];
   }
+  rowData : any;
+  update(id:number){
+    console.log(this.dataItem.id)
+    for(let i=0;i<this.dataItem.length;i++){
+      if(this.dataItem[i].id == id){
+        const reqData = {
+          id: this.dataItem[i].id,
+          image: this.dataItem[i].itemImage,
+          price: this.dataItem[i].price,
+          quantity: this.dataItem[i].quantity
+        };
+
+        this.productService.updateItem(reqData).subscribe(
+            (res: any) => {
+              this.loading[0] = false;
+              if (res && res.status >= 200 && res.status <= 300) {
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message || AppMessageResponse.UpdatedSuccess });
+              } else {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message || AppMessageResponse.BadRequest });
+              }
+            })
+      }
+    }
+  }
+  
 
   onBack(event:any){
-    setTimeout(() => {this.onReturnPage('/manager-product/product/list')}, 1500);
+    setTimeout(() => {this.onReturnPage('/manager-product/product/list')}, 500);
   }
 }

@@ -10,6 +10,8 @@ import { AddCategoriesComponent } from './categories/add-categories/add-categori
 import { TestComponent } from './test/test.component';
 import { OrderComponent } from './order/order.component';
 import { AddOrderComponent } from './order/add-order/add-order.component';
+import { CampaignComponent } from './campaign/campaign.component';
+import { AddCampaignComponent } from './campaign/add-campaign/add-campaign.component';
 
 
 @NgModule({
@@ -21,6 +23,8 @@ declarations: [
     TestComponent,
     OrderComponent,
     AddOrderComponent,
+    CampaignComponent,
+    AddCampaignComponent,
   ],
   imports: [
     CommonModule,

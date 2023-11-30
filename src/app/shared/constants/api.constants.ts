@@ -43,7 +43,8 @@ export class ApiConstant {
   public static CreateProduct = apiUrl.concat('product');
   public static getProductById = apiUrl.concat('product/');
   public static getItemById = apiUrl.concat('item/');
-  public static updateProduct = apiUrl.concat('product/');
+  public static updateItemById = apiUrl.concat('item');
+  public static updateProduct = apiUrl.concat('product');
   public static deleteProduct = apiUrl.concat('product/');
 
   //categories
@@ -63,6 +64,13 @@ export class ApiConstant {
   public static deleteOrder = apiUrl.concat('order/');
   public static activeOrder = apiUrl.concat('order/active?isActive=true&OrderId=');
   public static deadactiveOrder = apiUrl.concat('order/active?isActive=false&orderId=');
+
+  //campaign
+  public static GetCampaignPage = apiUrl.concat('campaigns');
+  public static CreateCampaign = apiUrl.concat('campaign');
+  public static getCampaignById = apiUrl.concat('campaign/');
+  public static updateCampaign = apiUrl.concat('campaign/');
+  public static deleteCampaign = apiUrl.concat('campaign/');
 
 
   //#endregion

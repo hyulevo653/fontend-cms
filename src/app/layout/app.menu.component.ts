@@ -54,6 +54,11 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-home', 
                         routerLink: ['/manager-product/product/list'] 
                     },
+                    { 
+                        label: 'Campaign', 
+                        icon: 'pi pi-fw pi-home', 
+                        routerLink: ['/category/campaign/list'] 
+                    },
                 ]
             },
         ];

@@ -37,8 +37,14 @@ export class ProductService {
       }));
   }
 
-  updateProduct(id: number, reqData: any) {
-    return this.dataService.put(ApiConstant.updateProduct + id, reqData)
+  updateProduct( reqData: any) {
+    return this.dataService.put(ApiConstant.updateProduct , reqData)
+      .pipe(map((res: any) => {
+        return res;
+      }));
+  }
+  updateItem(reqData: any) {
+    return this.dataService.put(ApiConstant.updateItemById, reqData)
       .pipe(map((res: any) => {
         return res;
       }));

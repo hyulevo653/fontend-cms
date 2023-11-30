@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { OrderService } from 'src/app/services/order.service';
-import { AppMessageResponse } from 'src/app/shared/constants/app.constants';
+import { AppMessageResponse, StatusOrder } from 'src/app/shared/constants/app.constants';
 import { Order } from 'src/app/viewModels/order/order';
 import { Paging } from 'src/app/viewModels/paging';
 import { ResApi } from 'src/app/viewModels/res-api';
@@ -18,11 +18,7 @@ export class OrderComponent {
   public filterParrams : Paging;
   public lstOrder: Array<Order>;
   public first = 0;
-  lstStatus = [{
-    Name : 'Thành Công',Id : 1
-  },{
-    Name : 'Thất Bại',Id : 2
-  }]
+  lstStatus = StatusOrder;
   public rows = 10;
   id: any;
   public loading = [false];
@@ -87,7 +83,12 @@ export class OrderComponent {
   }
 
   onSelect(event:any){
-
+    if(event.value == null) {
+      this.filterParrams.query = '';
+    }else{
+      this.filterParrams.query = `${event.value}`
+    }
+    this.getListByPaging();
   }
   
   activePromotion(id : number){

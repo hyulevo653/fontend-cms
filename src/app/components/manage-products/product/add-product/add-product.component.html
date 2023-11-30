@@ -141,10 +141,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-6" *ngIf="id==null">
                     <div class="field p-fluid">
                         <label for="txtName"
-                            >Nhập link ảnh sản phẩm
+                            >Nhập link ảnh images
                             <span class="" style="color: red">*</span>
                         </label>
                         <input
@@ -152,12 +152,19 @@
                             type="text"
                             pInputText
                             formControlName="productImages"
-                            class="p-invalid"
-                            [(ngModel)]="productImages"
+                            style="height:100px"
                         />
                     </div>
                 </div>
-                <div class="col-6">
+                <!-- <div class="col-6" *ngIf="id==0">
+                    <div class="field p-fluid">
+                        <label for="txtName"
+                            >Link ảnh images
+                            <span class="" style="color: red">*</span>
+                        </label><br>
+                    <span>{{this.productImages}}</span></div>
+                </div> -->
+                <div class="col-6"  *ngIf="id==null">
                     <label for="txtImage" class="form-label">Upload</label>
                     <div class="displayflex">
                         <div class="col-6">
@@ -183,7 +190,7 @@
                         <button
                             (click)="addVariant(id)"
                             type="button"
-                            class="btn btn-warning mg-t-2"
+                            class="btn btn-warning mg2"
                         >
                             Thêm Variant
                         </button>
@@ -273,7 +280,7 @@
                     </div>
                 </div>
 
-                <div class="col-12">
+                <div class="col-12" *ngIf="id==null">
                     <p-table [value]="combinedData" [rows]="10">
                         <ng-template pTemplate="header">
                           <tr>
@@ -340,7 +347,84 @@
                         </ng-template>
                       </p-table>
                   </div>
-                  <button type="button" (click)="getVariant()">
+                  <div class="col-12" *ngIf="id > 0" style="margin-top: 20px;">
+                    <p-table [value]="dataItem">
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th>STT</th>
+                            <th *ngFor="let item of lstVariant">{{item.variantName}}</th>
+                            <th>Ảnh</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body"  let-item let-rowIndex="rowIndex">
+                          <tr>
+                            <td>{{ rowIndex + 1 }}</td>
+                            <td *ngFor="let data of item.variantOptions">
+                                <span>{{data.value}}</span>
+                              </td>
+                            <td>
+                              <div class="col-6" *ngIf="isImage == true">
+                                <img [src]="item.itemImage" class="img-thumbnail zoomable-image">
+                                <i class="fa fa-times-circle del-img" aria-hidden="true" (click)="Imagdel(item.id)" [style.display]="isImage ? 'block' : 'none'"></i>
+                              </div>
+                              <div class="displayflex">
+                                <div class="col-6">
+                                  <input
+                                    [(ngModel)]="item.itemImage"
+                                    class="form-control no-bor"
+                                    type="file"
+                                    accept="image/jpg || image/png || image/webp"
+                                    (change)="onImage($event,rowIndex)"
+                                    [ngModelOptions]="{
+                                      standalone: true
+                                    }"
+                                  />
+                                </div>
+                              </div>
+                            </td> 
+                            <td>
+                              <input
+                                type="text"
+                                placeholder="Nhập giá"
+                                pInputText
+                                class="p-invalid w-100"
+                                [(ngModel)]="item.price"
+                                [ngModelOptions]="{
+                                  standalone: true
+                                }"
+                                required
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                placeholder="Nhập số lượng"
+                                pInputText
+                                class="p-invalid w-100"
+                                [(ngModel)]="item.quantity"
+                                [ngModelOptions]="{
+                                  standalone: true
+                                }"
+                                required
+                              />
+                            </td>
+                            <td>
+                                <button
+                                pButton
+                                pTooltip="Update Item theo hàng"
+                                pRipple
+                                icon="pi pi-pencil"
+                                class="p-button-rounded p-button-warning"
+                                (click)="update(item.id)"
+                            ></button>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                  </div>
+                  <button *ngIf="this.id==null" class="btn-tb mg2" type="button" (click)="getVariant()">
                     Tạo bảng
                   </button>
                 <div class="col-12 p_float_right">

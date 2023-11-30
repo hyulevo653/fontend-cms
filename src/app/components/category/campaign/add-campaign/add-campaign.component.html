@@ -1,0 +1,198 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h5>
+                {{ itemProject ? 'Xem chi tiết Voucher' : 'Thêm mới Voucher' }}
+            </h5>
+
+            <form class="grid formgrid" [formGroup]="fCampaign">
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtName">Tên Campaign
+                            <span class="" style="color:red">*</span>
+                        </label>
+                        <input id="txtName" type="text" pInputText formControlName="name" class="p-invalid">
+                        <small *ngIf="fCampaign.controls['name'].hasError('required') && fCampaign.controls['name'].dirty" class="p-invalid text-danger">Vui lòng nhập tên Campaign.</small>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtWard">qualification</label>
+                        <p-dropdown 
+                            [options]="lstQualification" 
+                            placeholder="Loại Voucher" 
+                            emptyMessage="Không có dữ liệu."
+                            [showClear]="true" 
+                            optionLabel="Name" 
+                            optionValue="Name" 
+                            formControlName="qualification">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <!-- who -->
+                <div class="col-12"><h4>Who</h4></div>
+                <form class="grid formgrid col-12" formGroupName="who">
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">eventName</label>
+                        <input id="txtCode" type="text" pInputText  formControlName="eventName" class="p-invalid">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">eventProperty</label>
+                        <input id="txtCode" type="text" pInputText  formControlName="eventProperty" class="p-invalid">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">value</label>
+                        <input id="txtCode" type="text" pInputText formControlName="value" class="p-invalid">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">isAllUser</label>
+                        <input formControlName="isAllUser"  class="form-check-input mg-l-2" type="checkbox" value="false" id="isAllUser">
+                    </div>
+                </div>
+                </form>
+                <!--what-->
+                <div class="col-12"><h4>What</h4></div>
+                <form class="grid formgrid col-12"  formGroupName="what">
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">title</label>
+                        <input id="txtCode" type="text" pInputText formControlName="title" class="p-invalid">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">message</label>
+                        <input id="txtCode" type="text" pInputText formControlName="message" class="p-invalid">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">timeToLive</label>
+                        <input id="txtCode" type="number" pInputText  formControlName="timeToLive"  class="p-invalid">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">imageUrl</label>
+                        <input id="txtCode" type="text" pInputText formControlName="imageUrl" class="p-invalid">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">iconUrl</label>
+                        <input id="txtCode" type="text" pInputText formControlName="iconUrl" class="p-invalid">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">background</label>
+                        <input id="txtCode" type="text" pInputText formControlName="background" class="p-invalid">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">deeplink</label>
+                        <input id="txtCode" type="text" pInputText formControlName="deeplink"  class="p-invalid">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <!-- <div class="field p-fluid">
+                        <label for="txtCode">customKeyValue</label>
+                        <input id="txtCode" type="text" pInputText formControlName="customKeyValue.value" class="p-invalid">
+                    </div> -->
+                    <div formGroupName="customKeyValue">
+                        <div class="col-6">
+                          <div class="field p-fluid">
+                            <label for="txtCode">Custom Key Value</label>
+                            <input id="txtCode" type="text" pInputText formControlName="value" class="p-invalid">
+                          </div>
+                        </div>
+                      </div>
+                </div>
+                <!-- <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">customKeyValue2</label>
+                        <input id="txtCode" type="text" pInputText formControlName="customKeyValue"  class="p-invalid">
+                    </div>
+                </div> -->
+                </form>
+                <!--when-->
+                <div class="col-12"><h4>When</h4></div>
+                <form class="grid formgrid col-12"  formGroupName="when">
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtWard">type</label>
+                        <p-dropdown 
+                            [options]="lstTypewhen" 
+                            placeholder="typewhen" 
+                            emptyMessage="Không có dữ liệu."
+                            [showClear]="true" 
+                            optionLabel="Name" 
+                            optionValue="Name" 
+                            formControlName="type" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtCode">repeat</label>
+                        <input id="txtCode" type="text" pInputText formControlName="repeat"  class="p-invalid">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid p-date">
+                        <label for="txtBirthDay">endDate
+                            <span class=""></span>
+                        </label>
+                        <p-calendar id="txtBirthDay" [showIcon]="true" inputId="icon"  formControlName="endDate"  dateFormat="dd/mm/yy/"></p-calendar>
+                    </div>
+                </div>
+                </form>
+                <!---->
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtWard">status</label>
+                        <p-dropdown 
+                            [options]="lstStatus" 
+                            placeholder="Trạng thái" 
+                            emptyMessage="Không có dữ liệu."
+                            [showClear]="true" 
+                            optionLabel="name" 
+                            optionValue="name" 
+                            formControlName="status">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtWard">channel</label>
+                        <p-dropdown 
+                            [options]="lstChanel" 
+                            placeholder="Chọn Channel" 
+                            emptyMessage="Không có dữ liệu."
+                            [showClear]="true" 
+                            optionLabel="Name" 
+                            optionValue="Name" 
+                            formControlName="channel">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="col-12 p_float_right">
+                    <button pButton pRipple type="button" label="Quay lại" class="p-button-outlined p-button-secondary mr-2" (click)="onBack($event)">
+                        <span class="pi pi-angle-left"></span>
+                    </button>
+                    <p-button label="Xác nhận" icon="pi pi-check" type="submit" [loading]="loading[0]" (onClick)="onSubmit()"></p-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>
+<p-confirmDialog class="custom-toast"></p-confirmDialog>

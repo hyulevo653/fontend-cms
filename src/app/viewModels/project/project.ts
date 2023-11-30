@@ -8,6 +8,8 @@ export class Project {
     public endDate: Date | undefined;
     public createDate : Date | undefined;
     public lastUpdate : Date | undefined;
+    public specificSegment : number | undefined;
+    public maxPerUserUse : number | undefined;
 
     public discountRate : number | undefined;
     public minTotalOrder : number | undefined;
