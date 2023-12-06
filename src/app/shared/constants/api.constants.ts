@@ -65,8 +65,11 @@ export class ApiConstant {
   public static activeOrder = apiUrl.concat('order/active?isActive=true&OrderId=');
   public static deadactiveOrder = apiUrl.concat('order/active?isActive=false&orderId=');
 
-  //campaign
+  //campaign 
   public static GetCampaignPage = apiUrl.concat('campaigns');
+  public static GetEventPage = apiUrl.concat('events');
+  public static GetPropertyPage = apiUrl.concat('properties');
+  public static GetValuesPage = apiUrl.concat('values');
   public static CreateCampaign = apiUrl.concat('campaign');
   public static getCampaignById = apiUrl.concat('campaign/');
   public static updateCampaign = apiUrl.concat('campaign/');

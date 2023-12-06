@@ -84,6 +84,22 @@ export const promotionType = [
   { Name: 'TRANSPORT', value: 2 },
 ];
 
+export const TypeCombine = [
+  { Name: 'AND', value: 1 },
+  { Name: 'OR', value: 2 },
+];
+
+export const TypeCombineUser = [
+  { Name: 'EQUALS', value: 1 },
+  { Name: 'NOT_EQUALS', value: 2 },
+  { Name: 'GREATER_OR_EQUALS', value: 3 },
+  { Name: 'GREATER', value: 4 },
+  { Name: 'LESS_OR_EQUALS', value: 5 },
+  { Name: 'LESS', value: 6 },
+  { Name: 'BETWEEN', value: 7 },
+  { Name: 'EXISTED', value: 8 },
+];
+
 
 export const discountType = [
   { Name: 'PERCENTAGE', value: 1 },
