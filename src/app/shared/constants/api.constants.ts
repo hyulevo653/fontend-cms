@@ -1,6 +1,7 @@
 import { environment } from '../../../environments/environment';
 
 const apiUrl = environment.apiUrl;
+const apiManager = environment.apiManagement;
 
 export class ApiConstant {
   public static LoginUrl = apiUrl.concat('auth/login');
@@ -66,14 +67,14 @@ export class ApiConstant {
   public static deadactiveOrder = apiUrl.concat('order/active?isActive=false&orderId=');
 
   //campaign 
-  public static GetCampaignPage = apiUrl.concat('campaigns');
-  public static GetEventPage = apiUrl.concat('events');
-  public static GetPropertyPage = apiUrl.concat('properties');
-  public static GetValuesPage = apiUrl.concat('values');
-  public static CreateCampaign = apiUrl.concat('campaign');
-  public static getCampaignById = apiUrl.concat('campaign/');
-  public static updateCampaign = apiUrl.concat('campaign/');
-  public static deleteCampaign = apiUrl.concat('campaign/');
+  public static GetCampaignPage = apiManager.concat('campaigns');
+  public static GetEventPage = apiManager.concat('events');
+  public static GetPropertyPage = apiManager.concat('properties');
+  public static GetValuesPage = apiManager.concat('values');
+  public static CreateCampaign = apiManager.concat('campaign');
+  public static getCampaignById = apiManager.concat('campaign/');
+  public static updateCampaign = apiManager.concat('campaign/');
+  public static deleteCampaign = apiManager.concat('campaign/');
 
 
   //#endregion

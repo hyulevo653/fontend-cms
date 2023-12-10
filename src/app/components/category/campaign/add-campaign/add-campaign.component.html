@@ -44,29 +44,25 @@
                             <div class="field p-fluid">
                                 <label for="txtWard">eventName</label>
                                 <p-dropdown 
-                                    [options]="lstEventname" 
-                                    placeholder="" 
-                                    emptyMessage="Không có dữ liệu."
-                                    [showClear]="true" 
-                                    optionLabel="eventName" 
-                                    optionValue="eventName" 
-                                    formControlName="eventName"
-                                    (onChange)="getlistProperties($event)">
+                                  [options]="lstEventname" 
+                                  placeholder="Select an event" 
+                                  emptyMessage="No data available."
+                                  [showClear]="true" 
+                                  formControlName="eventName"
+                                  (onChange)="getlistProperties($event.value)">
                                 </p-dropdown>
-                            </div>
+                              </div>
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid">
                                 <label for="txtWard">eventProperty</label>
                                 <p-dropdown 
-                                    [options]="lstEventname" 
+                                    [options]="lstProperty" 
                                     placeholder="" 
                                     emptyMessage="Không có dữ liệu."
                                     [showClear]="true" 
-                                    optionLabel="property" 
-                                    optionValue="property" 
                                     formControlName="eventProperty"
-                                    (onChange)="getlistValues($event)"
+                                    (onChange)="getlistValues($event.value)"
                                    >
                                 </p-dropdown>
                             </div>
@@ -79,8 +75,6 @@
                                     placeholder="" 
                                     emptyMessage="Không có dữ liệu."
                                     [showClear]="true" 
-                                    optionLabel="value" 
-                                    optionValue="value" 
                                     formControlName="value"
                                    >
                                 </p-dropdown>
@@ -163,7 +157,43 @@
                                 <label for="txtBirthDay">endDate
                                     <span class=""></span>
                                 </label>
-                                <p-calendar id="txtBirthDay" [showIcon]="true" inputId="icon"  formControlName="endTime"  dateFormat="dd/mm/yy/"></p-calendar>
+                                <p-calendar id="txtBirthDay" [showIcon]="true" inputId="icon" formControlName="endTime" dateFormat="dd/mm/yy" [showTime]="true" [showSeconds]="true"></p-calendar>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="field p-fluid">
+                                <label for="txtWard">Where</label>
+                                <p-dropdown 
+                                    [options]="lstTypeCompare" 
+                                    placeholder="" 
+                                    emptyMessage="Không có dữ liệu."
+                                    [showClear]="true" 
+                                    optionLabel="Name" 
+                                    optionValue="Name" 
+                                    formControlName="typeCombine"
+                                    >
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="field p-fluid">
+                                <label for="txtWard">TypeCondition</label>
+                                <p-dropdown 
+                                    [options]="lstTypeCompare" 
+                                    placeholder="" 
+                                    emptyMessage="Không có dữ liệu."
+                                    [showClear]="true" 
+                                    optionLabel="Name" 
+                                    optionValue="Name" 
+                                    formControlName="typeCombine"
+                                    >
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="field p-fluid">
+                                <label for="txtCode">Value</label>
+                                <input class="form-check-input mg-l-2" type="number"  id="isAllUser">
                             </div>
                         </div>
                     </form>
