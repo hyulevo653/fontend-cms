@@ -9,4 +9,6 @@ export interface Paging {
     sortField: string;
     status : string;
     sortOrder: string;
+    evtName: string;
+    property: string;
 }

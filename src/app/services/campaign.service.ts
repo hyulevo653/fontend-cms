@@ -19,6 +19,30 @@ export class CampaignService {
         return res;
       }));
   }
+  getListEvent() {
+    return this.dataService.get(ApiConstant.GetEventPage)
+      .pipe(map((res: any) => {
+        return res;
+      }));
+  }
+  getListProperty(queryParams: Paging) {
+    return this.dataService.get(ApiConstant.GetPropertyPage
+      .concat(`?evtName=`, '' + (queryParams.evtName || ''))
+      )
+      .pipe(map((res: any) => {
+        return res;
+      }));
+  }
+
+  getListValues(queryParams: Paging) {
+    return this.dataService.get(ApiConstant.GetValuesPage
+      .concat(`?evtName=`, '' + (queryParams.evtName || ''))
+      .concat(`&property=`, '' + (queryParams.property || ''))
+      )
+      .pipe(map((res: any) => {
+        return res;
+      }));
+  }
 
   getCampaignById(id: number) {
     return this.dataService.get(ApiConstant.getCampaignById + id)

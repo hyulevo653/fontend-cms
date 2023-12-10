@@ -66,6 +66,7 @@ export class AddProjectComponent {
       description: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(300)])],
       specificSegment: [''],
       maxPerUserUse: [''],
+      maxDistributedVoucher: [''],
     })
   }
 
@@ -171,8 +172,9 @@ export class AddProjectComponent {
       minTotalOrder: this.data.minTotalOrder,
       maxTotalOrder : this.data.maxValueDiscount,
       maxPerUserUse: this.data.maxPerUserUse,
-      specificSegment : this.data.maxDistributedVoucher,
+      // specificSegment : this.data.maxDistributedVoucher,
       active : this.data.active,
+      maxDistributedVoucher: this.data.maxDistributedVoucher,
     })
 
   }

@@ -5,8 +5,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { CampaignService } from 'src/app/services/campaign.service';
 import { CommonService } from 'src/app/services/common.service';
-import { AppMessageResponse, AppStatusCode, StatusCampaign, TypeWhen, channelCampaign, qualification } from 'src/app/shared/constants/app.constants';
+import { AppMessageResponse, AppStatusCode, StatusCampaign, TypeCombine, TypeCombineUser, TypeWhen, channelCampaign, qualification } from 'src/app/shared/constants/app.constants';
 import { Campaign } from 'src/app/viewModels/campaign/campaign';
+import { Paging } from 'src/app/viewModels/paging';
 import { ResApi } from 'src/app/viewModels/res-api';
 
 @Component({
@@ -19,6 +20,13 @@ export class AddCampaignComponent {
   lstStatus = StatusCampaign;
   lstChanel = channelCampaign;
   lstTypewhen = TypeWhen;
+  lstTypeCompare = TypeCombine;
+  lstTypeCompareUser = TypeCombineUser;
+  lstEventname: any;
+  lstProperty : any;
+  evenNamevalue: any;
+  public isAllUser : boolean = false;
+  lstValues: any;
   public itemProject: Campaign;
   who : any;
   what : any;
@@ -50,6 +58,7 @@ export class AddCampaignComponent {
     this.route.paramMap.subscribe(params => {
       this.id =  params.get('id');
     });
+    this.getEvent();
     if(this.id){
       this.getProjectById(this.id)
     }
@@ -57,10 +66,31 @@ export class AddCampaignComponent {
       name: ['',Validators.required],
       qualification: [''],
       who: this.fb.group({
-        eventName: [''],
-        eventProperty: [''],
-        value: [''],
-        isAllUser: [true],
+        typeCombine: [''],
+        liveEvent: this.fb.group({
+          eventName: [''],
+          eventProperty: [''],
+          value: this.fb.array([]),
+        }),
+        userDid: this.fb.group({
+          eventName: [''],
+          eventProperty: [''],
+          value: this.fb.array([]),
+          typeCompare: [''],
+          count: [5],
+          typeCondition: [''],
+          startTime: [''],
+          endTime: [''],
+        }),
+        userNotDo: this.fb.group({
+          eventName: [''],
+          eventProperty: [''],
+          value: this.fb.array([]),
+          typeCompare: [''],
+          startTime: [''],
+          endTime: [''],
+        }),
+        isAllUser: [],
       }),
       what: this.fb.group({
         title: [''],
@@ -180,6 +210,61 @@ export class AddCampaignComponent {
       this.data = []
     }
   }
+
+  getEvent() {
+    this.campaignService.getListEvent().subscribe((res: ResApi) => {
+      if(res && res.status >= 200 && res.status <= 300) {
+        this.lstEventname = res.data;
+      }
+    })
+  }
+
+  getlistProperties(event: any) {
+    if (!event || event.value) {
+      this.lstProperty = [];
+    }
+    let filterProperty = new Object as Paging;
+    this.evenNamevalue = event.value;
+    filterProperty.evtName= `${event.value || event}`;
+
+    this.campaignService.getListProperty(filterProperty)
+    .subscribe((res: ResApi) => {
+      if(res && res.status >= 200 && res.status <= 300) {
+        this.lstProperty = res.data;
+      }
+      else {
+        this.lstProperty = [];
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: res?.message || AppMessageResponse.BadRequest });
+      }
+      
+    })
+  }
+
+  getlistValues(event:any) {
+    let queryParams = new Object as Paging;
+  
+    if (this.evenNamevalue) {
+      queryParams.evtName = this.evenNamevalue;
+      queryParams.property = event.value;
+
+  
+      this.campaignService.getListValues(queryParams).subscribe((res: ResApi) => {
+        if (res && res.status >= 200 && res.status <= 300) {
+          this.lstValues = res.data;
+        } else {
+          this.lstValues = [];
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: res?.message || AppMessageResponse.BadRequest
+          });
+        }
+      });
+    } else {
+      this.lstValues = [];
+    }
+  }
+
   formGroup(){
     this.fCampaign = this.fb.group({
       id:  this.id,
@@ -197,6 +282,13 @@ export class AddCampaignComponent {
       active : this.data.active,
     })
 
+  }
+
+  ChangeisAllUser(){
+    if(this.isAllUser == false){
+      this.isAllUser = true;
+    } else 
+    this.isAllUser = false;
   }
 
 
