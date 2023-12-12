@@ -29,18 +29,23 @@ export class AppMenuComponent implements OnInit {
                         items: [
                             {
                                 label: 'Quản lý Voucher',
-                                icon: 'pi pi-fw pi-flag',
+                                icon: 'pi pi-fw pi-wallet',
                                 routerLink: ['/category/project/list']
                             },
                             {
                                 label: 'Quản lý Category',
-                                icon: 'pi pi-fw pi-flag',
+                                icon: 'pi pi-fw pi-calendar',
                                 routerLink: ['/category/categories/list']
                             },
                             {
                                 label: 'Quản lý đơn đặt hàng',
-                                icon: 'pi pi-fw pi-flag',
+                                icon: 'pi pi-fw pi-check-square',
                                 routerLink: ['/category/order/list']
+                            },
+                            {
+                                label: 'Quản lý Slide',
+                                icon: 'pi pi-fw pi-image',
+                                routerLink: ['/category/slide/list']
                             },
                             // {
                             //     label: 'Test',

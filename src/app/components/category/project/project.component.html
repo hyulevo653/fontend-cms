@@ -29,6 +29,7 @@
                         <th style="width: 10%">% giảm giá</th>
                         <th style="width: 10%">Ngày bắt đầu</th>
                         <th style="width: 10%">Ngày kết thúc</th>
+                        <th style="width: 10%">Số người dùng</th>
                         <th style="width: 10%">Kích hoạt</th>
                         <th style="width: 15%">Thao tác</th>
                     </tr>
@@ -43,7 +44,8 @@
                         <td>{{ project.promotionType }}</td>
                         <td>{{ project.discountRate }}</td>
                         <td>{{ project.startDate ? (project.startDate | date: 'dd/MM/yyyy') : '' }} - {{ project.startDate ? (project.startDate | date:'shortTime') : '' }}</td>
-                        <td>{{ project.endDate ? (project.endDate | date: 'dd/MM/yyyy') : '' }} - {{ project.endDate ? (project.endDate | date:'shortTime') : '' }}</td>                
+                        <td>{{ project.endDate ? (project.endDate | date: 'dd/MM/yyyy') : '' }} - {{ project.endDate ? (project.endDate | date:'shortTime') : '' }}</td>      
+                        <td>{{ project.used }}</td>
                         <td>
                             <span *ngIf="project.active==true"><i class="pi pi-check" style="color: rgb(25, 25, 184);"></i></span>
                             <span *ngIf="project.active==false"><i class="pi pi-times" style="color:red"></i></span>

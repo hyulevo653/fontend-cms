@@ -85,6 +85,27 @@
             margin-left: 1rem;
         }
     }
+    .topbar-menu-time {
+        width: 210px;
+        text-align: right;
+        font-family: 'Roboto', sans-serif !important;
+
+        h5 {
+            font-size: 18px;
+            color: #405189;
+            margin-bottom: 0;
+            font-weight: 400;
+            
+        }
+
+        p {
+            color: #555555;
+            font-size: 13px;
+        }
+        .font-topbar{
+            color: #ffffff;
+        }
+    }
 }
 
 @media (max-width: 991px) {

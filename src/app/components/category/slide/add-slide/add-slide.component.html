@@ -1,0 +1,69 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card" >
+            <h3 class="mg-0">
+                {{ !(id > 0) ? 'Thêm mới Category' : 'Cập nhật Category' }}
+            </h3>
+
+            <form class="grid formgrid" [formGroup]="fSlide">
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtName">Tên Slide
+                            <span class="" style="color: red">*</span>
+                        </label>
+                        <input id="txtName" type="text" pInputText formControlName="name" class="p-invalid">
+                        <small *ngIf="fSlide.controls['name'].hasError('required') && fSlide.controls['name'].dirty" class="p-invalid text-danger">Vui lòng nhập tên Voucher.</small>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="txtImage" class="form-label">Ảnh đính kèm</label>
+                    <div class="displayflex">
+                      <div class="col-6">
+                        <input formControlName="imageUrl" class="form-control no-bor" type="file" accept="image/jpg || image/png || image/webp" (change)="onFileSelected($event)">
+                      </div>
+                      <div class="col-6" *ngIf="isImageSelected == true">
+                        <img [src]="uploadedImageUrl" class="img-thumbnail zoomable-image">
+                        <i class="fa fa-times-circle del-img" aria-hidden="true" (click)="Imagenull()" [style.display]="isImageSelected ? 'block' : 'none'"></i>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtNameContacts">Chọn giá trị</label>
+                            <p-dropdown 
+                                [options]="lstValue"
+                                [showClear]="true"
+                                placeholder="Chọn giá trị"
+                                emptyMessage="Không có dữ liệu."
+                                [(ngModel)]="slideValue"
+                                optionValue="value"
+                                optionLabel="Name"
+                                [ngModelOptions]="{ standalone: true }"
+                            ></p-dropdown>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="field p-fluid">
+                        <label for="txtNameContacts">Nhập giá trị</label>
+                        <span class="text-danger"></span>
+                        <input id="txtNameContacts" type="text" pInputText formControlName="keyValue" >
+                    </div>
+                </div>
+                <div class="col-12 p_float_right">
+                    <!-- <p-confirmDialog class="custom-toast"></p-confirmDialog> -->
+                    <button pButton pRipple type="button" label="Hủy" class="p-button-outlined p-button-secondary mr-2" (click)="onBack($event)">
+                    </button>
+                    <p-button label='Xác nhận' icon='pi pi-check'  
+                        [loading]="loading[0]" (onClick)="onSubmit()"></p-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>
+<p-confirmDialog class="custom-toast"></p-confirmDialog>
+
+
+
+
+

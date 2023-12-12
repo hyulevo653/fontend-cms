@@ -35,6 +35,7 @@
             <p-table 
                 [value]="lstOrder"
                 [paginator]="true"
+                [scrollable]="true"
                 [rows]="filterParrams.size"
                 [showCurrentPageReport]="true"
                 [tableStyle]="{ 'min-width': '50rem' }"
@@ -43,40 +44,47 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width: 5%">Stt</th>
-                        <th style="width: 20%">Tên đơn</th>
-                        <th style="width: 20%">Địa chỉ</th>
-                        <th style="width: 20%">Ghi chú</th>
-                        <th style="width: 20%">Mã giảm giá</th>
-                        <th style="width: 15%">Thao tác</th>
+                        <th class="min-w-150">Mã đơn</th>
+                        <th class="min-w-150">Tên khách hàng</th>
+                        <th class="min-w-150">Email</th>
+                        <th class="min-w-150">Tên sản phẩm</th>
+                        <th class="min-w-150">Địa chỉ giao hàng</th>
+                        <th class="min-w-150">Xã/Phường</th>
+                        <th class="min-w-150">Quận/Huyện</th>
+                        <th class="min-w-150">Tỉnh/Thành phố</th>
+                        <th class="min-w-150">Số điện thoại</th>
+                        <th class="min-w-150">Phí ship</th>
+                        <th class="min-w-150">Giá</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-order let-rowIndex="rowIndex">
                     <tr>
                         <td>{{ rowIndex + 1 }}</td>
-                        <td>{{ order.orderLines }}</td>
-                        <td>{{ order.orderLines }}</td>
-                        <td>{{ order.orderLines }}</td>
-                        <td>{{ order.orderLines }}</td>
-                        <!-- <td>{{ order.startDate ? (order.startDate | date: 'dd/MM/yyyy') : '' }} - {{ order.startDate ? (order.startDate | date:'shortTime') : '' }}</td>
-                        <td>{{ order.endDate ? (order.endDate | date: 'dd/MM/yyyy') : '' }} - {{ order.endDate ? (order.endDate | date:'shortTime') : '' }}</td>                 -->
-                        <!-- <td>
-                            <span *ngIf="order.active==true"><i class="pi pi-check" style="color: rgb(25, 25, 184);"></i></span>
-                            <span *ngIf="order.active==false"><i class="pi pi-times" style="color:red"></i></span>
-                        </td> -->
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.user.name }}</td>
+                        <td>{{ order.user.email }}</td>
+                        <td>{{ order.orderLines[0].item.product.name }}</td>
+                        <td>{{ order.eliveryAddress }}</td>
+                        <td>{{ order.user.village }}</td>
+                        <td>{{ order.user.district }}</td>
+                        <td>{{ order.user.city }}</td>
+                        <td>{{ order.shippingPrice }}</td>
+                        <td>{{ order.orderLines[0]?.item.product.showedPrice }}</td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" routerLink="/category/order/upload/{{order.id}}"></button>
-                            <button pButton pRipple icon="pi pi-unlock" class="p-button-rounded p-button-success mr-2" (click)="activePromotion(order.id)"></button>
-                            <button pButton pRipple icon="pi pi-lock" class="p-button-rounded  mr-2" (click)="deadactivePromotion(order.id)"></button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="onDelete(order)"></button>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" routerLink="/category/order/view-detail/{{order.id}}"></button>
+                            <p-dropdown
+                                [options]="lstStatus"
+                                placeholder="Trạng thái"
+                                emptyMessage="Không có dữ liệu."
+                                [showClear]="true"
+                                formControlName="Status"
+                                optionLabel="code"
+                                optionValue="code"
+                                (onChange)="onChangeStatus($event,order.id)">
+                            </p-dropdown>
                         </td>
                     </tr>
                 </ng-template>
-                <!-- <ng-template pTemplate="paginatorleft">
-                    <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-                </ng-template>
-                <ng-template pTemplate="paginatorright">
-                    <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-                </ng-template> -->
                 <ng-template pTemplate="emptymessage">
                     <tr>
                         <td colspan="7">No customers found.</td>

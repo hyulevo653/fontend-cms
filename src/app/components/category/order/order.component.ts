@@ -90,6 +90,29 @@ export class OrderComponent {
     }
     this.getListByPaging();
   }
+
+  onChangeStatus(event:any,id:number){
+    const reqData = {
+       id : id,
+       status : event.value
+
+    };
+    this.loading[0] = true;
+    this.orderService.updateStatus(reqData).subscribe(
+      (res: any) => {
+        if (res && res.status >= 200 && res.status <= 300) {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message || AppMessageResponse.CreatedSuccess });
+        } 
+        else { 
+          this.messageService.add({ severity: 'warn', summary: 'Warn', detail: res.message || AppMessageResponse.BadRequest });
+        }
+      },
+      () => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: AppMessageResponse.BadRequest });
+      },
+     
+    );
+  }
   
   activePromotion(id : number){
     this.orderService.ActiveOrder(id).subscribe((res: ResApi) => {

@@ -12,6 +12,8 @@ import { OrderComponent } from './order/order.component';
 import { AddOrderComponent } from './order/add-order/add-order.component';
 import { CampaignComponent } from './campaign/campaign.component';
 import { AddCampaignComponent } from './campaign/add-campaign/add-campaign.component';
+import { SlideComponent } from './slide/slide.component';
+import { AddSlideComponent } from './slide/add-slide/add-slide.component';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ declarations: [
     AddOrderComponent,
     CampaignComponent,
     AddCampaignComponent,
+    SlideComponent,
+    AddSlideComponent,
   ],
   imports: [
     CommonModule,

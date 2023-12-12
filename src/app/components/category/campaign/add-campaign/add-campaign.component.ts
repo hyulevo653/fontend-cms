@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { CampaignService } from 'src/app/services/campaign.service';
 import { CommonService } from 'src/app/services/common.service';
-import { AppMessageResponse, AppStatusCode, StatusCampaign, TypeCombine, TypeCombineUser, TypeWhen, channelCampaign, qualification } from 'src/app/shared/constants/app.constants';
+import { AppMessageResponse, AppStatusCode, Count, StatusCampaign, TypeCombine, TypeCombineUser, TypeCondition, TypeWhen, ValueSlide, channelCampaign, qualification } from 'src/app/shared/constants/app.constants';
 import { Campaign } from 'src/app/viewModels/campaign/campaign';
 import { Paging } from 'src/app/viewModels/paging';
 import { ResApi } from 'src/app/viewModels/res-api';
@@ -22,10 +22,21 @@ export class AddCampaignComponent {
   lstTypewhen = TypeWhen;
   lstTypeCompare = TypeCombine;
   lstTypeCompareUser = TypeCombineUser;
+  selectedDatesList: string[] = [];
+  lstStartdate: any;
+  lstCount = Count;
+  lstTypeCondition = TypeCondition;
+  lstValue = ValueSlide;
+  liveEventVisible: boolean = false;
+  slideValue : any;
+  valueUsernotDid: any;
+  valueUserDid: any;
+  typeWhen:any;
   lstEventname: any;
   lstProperty : any;
   evenNamevalue: any;
   public isAllUser : boolean = false;
+  public isCheck : boolean  = false;
   lstValues: any;
   public itemProject: Campaign;
   who : any;
@@ -50,7 +61,7 @@ export class AddCampaignComponent {
     private readonly route: ActivatedRoute,
   ) {
     this.itemProject = new Campaign();
-
+    this.lstStartdate = []
     
   }
 
@@ -62,9 +73,19 @@ export class AddCampaignComponent {
     if(this.id){
       this.getProjectById(this.id)
     }
+  
+    
+    // const formattedDates = dateStrings.map(dateString => {
+    //   const dateObject = new Date(dateString);
+    //   const formattedDate = dateObject.toLocaleString(); 
+    //   return formattedDate;
+    // });
+    
     this.fCampaign = this.fb.group({
       name: ['',Validators.required],
       qualification: [''],
+      channel: [''],
+      forAll : [false],
       who: this.fb.group({
         typeCombine: [''],
         liveEvent: this.fb.group({
@@ -79,16 +100,18 @@ export class AddCampaignComponent {
           typeCompare: [''],
           count: [5],
           typeCondition: [''],
-          startTime: [''],
-          endTime: [''],
+          startTime: [this.calculateDefaultStartDate(),[]],
+          endTime: [this.calculateDefaultEndDate(),[]],
+          typeCombine: [''],
+          keyValue: [],
         }),
         userNotDo: this.fb.group({
           eventName: [''],
           eventProperty: [''],
           value: this.fb.array([]),
           typeCompare: [''],
-          startTime: [''],
-          endTime: [''],
+          startTime: [this.calculateDefaultStartDate(),[]],
+          endTime: [this.calculateDefaultEndDate(),[]],
         }),
         isAllUser: [],
       }),
@@ -100,37 +123,31 @@ export class AddCampaignComponent {
         iconUrl: [''],
         background: [''],
         deeplink: [''],
-        customKeyValue: this.fb.group({
-          value: [''],
-        }),
+        customKeyValue: [],
       }),
       when: this.fb.group({
-        type: [''],
-        repeat: [''],
+        type: ['NOW'],
+        repeat: [1],
         endDate: [null],
+        limit : [null],
+        startDates: [],
       }),
-      status: [''],
-      channel: [''],
+      
     });
-    // this.fCampaign = this.fb.group({
-    //   // id: [''],
-    //   name: ['' , Validators.required],
-    //   qualification: [''],
-    //   who: [],
-    //   what: [],
-    //   when : [],
-    //   status : [''],
-    //   channel: [''],
-    // })
   }
 
   onSubmit() {
-    if(this.fCampaign.invalid){
-      // this.markAllAsDirty()
-    }else{
       if(this.id == null) {
-        // this.fCampaign.controls['id'].setValue(0);
         const reqData = Object.assign({}, this.fCampaign.value);
+        reqData.when.startDates = this.selectedDatesList.map(dateString => {
+                const dateObject = new Date(dateString);
+                const formattedDate = dateObject.toLocaleString(); 
+                return formattedDate;
+              })
+        reqData.what.customKeyValue = {
+          type : this.slideValue,
+          value : this.fCampaign.get('what.customKeyValue')?.value
+        }      
         this.loading[0] = true;
         this.campaignService.createCampaign(reqData).subscribe(
           (res: any) => {
@@ -176,7 +193,6 @@ export class AddCampaignComponent {
             this.loading[0] = false;
           }
         );
-      }
     }
   }
   
@@ -191,6 +207,18 @@ export class AddCampaignComponent {
 
   onReturnPage(url: string) : void {
     this.router.navigate([url]);
+  }
+
+  calculateDefaultStartDate(): Date {
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 10);
+    return currentDate;
+  }
+
+  calculateDefaultEndDate(): Date {
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + 10);
+    return currentDate;
   }
 
   getProjectById(id: number) {    
@@ -239,6 +267,14 @@ export class AddCampaignComponent {
       
     })
   }
+
+  // check(){
+  //   console.log(this.selectedDatesList.map(dateString => {
+  //       const dateObject = new Date(dateString);
+  //       const formattedDate = dateObject.toLocaleString(); 
+  //       return formattedDate;
+  //     }));
+  // }
 
   getlistValues(event:any) {
     let queryParams = new Object as Paging;
@@ -291,16 +327,36 @@ export class AddCampaignComponent {
     this.isAllUser = false;
   }
 
+  ChangeCheckbox(){
+    if(this.isCheck == false){
+      this.isCheck = true;
+    } else 
+    this.isCheck = false;
+  }
+
+  onQualificationChange(value: string) {
+    this.liveEventVisible = (value === 'LIVE_BEHAVIOR');
+  }
+
+  TypeWhen(event:any){
+    this.typeWhen = event.value;
+  }
+
+  // addStartDate() {
+  //   const startDatesArray = this.fCampaign.get('when.startDates') as FormArray;
+  //   if (startDatesArray) {
+  //     startDatesArray.push(this.fb.control(null));
+  //   }
+  // }
 
   
-
   onBack(event: Event) {
     let isShow = true;//this.layoutService.getIsShow();
 
     if (isShow) {
       this.confirmationService.confirm({
         target: event.target as EventTarget,
-        message: "Chưa hoàn tất thêm mới Voucher, Bạn có muốn quay lại?",
+        message: "Chưa hoàn tất thêm mới Campaign, Bạn có muốn quay lại?",
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
           this.router.navigate(['category/project/list']);
@@ -310,7 +366,7 @@ export class AddCampaignComponent {
         }
       });
     } else {
-      this.router.navigate(['category/project/list']);
+      this.router.navigate(['category/campaign/list']);
     }
   }
 }

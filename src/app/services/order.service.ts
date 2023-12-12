@@ -41,6 +41,14 @@ export class OrderService {
         return res;
       }));
   }
+
+  updateStatus(reqData: any) {
+    return this.dataService.post(ApiConstant.UpdateStatus, reqData)
+      .pipe(map((res: any) => {
+        return res;
+      }));
+  }
+
   ActiveOrder(id: number) {
     return this.dataService.post(ApiConstant.activeOrder + id)
       .pipe(map((res: any) => {

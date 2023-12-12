@@ -89,6 +89,12 @@ export const TypeCombine = [
   { Name: 'OR', value: 2 },
 ];
 
+export const ValueSlide = [
+  { Name: 'product', value: 'product' },
+  { Name: 'link', value: 'link' },
+  { Name: 'voucher', value: 'voucher' },
+];
+
 export const TypeCombineUser = [
   { Name: 'EQUALS', value: 1 },
   { Name: 'NOT_EQUALS', value: 2 },
@@ -104,6 +110,30 @@ export const TypeCombineUser = [
 export const discountType = [
   { Name: 'PERCENTAGE', value: 1 },
   { Name: 'CASH', value: 2 },
+];
+
+export const Count = [
+  { name : 'COUNT',value: 'COUNT'}
+]
+
+export const TypeCondition = [
+  { name : 'EQUALS' ,value : 'EQUALS'},
+  { name : 'NOT_EQUALS' ,value : 'NOT_EQUALS'},
+  { name : 'GREATER_OR_EQUALS' ,value : 'GREATER_OR_EQUALS'},
+  { name : 'GREATER' ,value : 'GREATER'},
+  { name : 'LESS_OR_EQUALS' ,value : 'LESS_OR_EQUALS'},
+  { name : 'LESS' ,value : 'LESS'},
+  { name : 'EXISTED' ,value : 'EXISTED'},
+]
+
+export const ListTime = [
+  { name: '1 minute', value: '1 minute' },
+  { name: '5 minute', value: '5 minute' },
+  { name: '15 minute', value: '15 minute' },
+  { name: '30 minute', value: '30 minute' },
+  { name: '1 hour', value: '1 hour' },
+  { name: '2 hour', value: '2 hour' },
+
 ];
 
 export const domainFileTemplate = environment.apiUrl.concat('/templates/import/');

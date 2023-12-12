@@ -59,6 +59,7 @@ export class ApiConstant {
   public static GetOrderPage = apiUrl.concat('orders');
   public static GetOrderPageStatus = apiUrl.concat('orders/manage');
   public static CreateOrder = apiUrl.concat('order');
+  public static UpdateStatus= apiUrl.concat('order/status');
   public static getOrderById = apiUrl.concat('order/');
   public static updateOrder = apiUrl.concat('order/');
   public static deleteOrder = apiUrl.concat('order/');
@@ -74,6 +75,15 @@ export class ApiConstant {
   public static getCampaignById = apiUrl.concat('campaign/');
   public static updateCampaign = apiUrl.concat('campaign/');
   public static deleteCampaign = apiUrl.concat('campaign/');
+
+  //slide
+  public static GetSliderPage = apiUrl.concat('slide');
+
+  public static CreateSlider = apiUrl.concat('slide');
+  public static getSliderById = apiUrl.concat('slide/');
+  public static updateSlider = apiUrl.concat('slide/');
+  public static deleteSlider = apiUrl.concat('slide/status/');
+  public static statusSlider = apiUrl.concat('slide/status');
 
 
   //#endregion

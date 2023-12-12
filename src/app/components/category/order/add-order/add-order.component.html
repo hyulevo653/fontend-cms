@@ -2,85 +2,66 @@
     <div class="col-12">
         <div class="card">
             <h5>
-                {{ (id>0) ? 'Xem chi tiết Voucher' : 'Thêm mới Voucher' }}
+                {{ 'Xem chi tiết đơn hàng' }}
             </h5>
 
-            <form class="grid formgrid" [formGroup]="fOrder">
-                <div class="col-6">
-                    <div class="field p-fluid">
-                        <label for="txtName">Tên Voucher
-                            <span class="" style="color:red">*</span>
-                        </label>
-                        <input id="txtName" type="text" pInputText formControlName="name" class="p-invalid">
-                        <small *ngIf="fOrder.controls['name'].hasError('minlength')" class="p-invalid text-danger">Tên Voucher phải tối thiểu 3 kí tự.</small>
-                        <small *ngIf="fOrder.controls['name'].hasError('maxlength')" class="p-invalid text-danger">Tên Voucher chỉ được tối đa 150 kí tự.</small>
-                        <small *ngIf="fOrder.controls['name'].hasError('required') && fOrder.controls['name'].dirty" class="p-invalid text-danger">Vui lòng nhập tên Voucher.</small>
-                    </div>
+            <form class="grid formgrid">
+                <div class="col-4">
+                    <label class="title-label">Tên Khách hàng:&nbsp;&nbsp;{{data?.account?.user?.name}}</label>
                 </div>
-                <div class="col-6">
-                    <div class="field p-fluid">
-                        <label for="txtCode">% giảm giá</label>
-                        <input id="txtCode" type="text" pInputText formControlName="discountRate" class="p-invalid">
-                        <small *ngIf="fOrder.controls['discountRate'].hasError('required') && fOrder.controls['Name'].dirty" class="p-invalid text-danger">Vui lòng nhập % giảm giá.</small>
-                    </div>
+                <div class="col-4">
+                    <label class="title-label">Email:&nbsp;&nbsp;{{data?.account?.user?.email}}</label>
                 </div>
-                <div class="col-6">
-                    <div class="field p-fluid">
-                        <label for="txtPersonContact">minTotalOrder</label>
-                        <input id="txtName" type="text" pInputText formControlName="minTotalOrder">
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="field p-fluid">
-                        <label for="txtPersonContact">maxTotalOrder</label>
-                        <input id="txtName" type="text" pInputText formControlName="maxTotalOrder">
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="field p-fluid p-date">
-                        <label for="txtBirthDay">Ngày bắt đầu
-                            <span class=""></span>
-                        </label>
-                        <p-calendar id="txtBirthDay" [showIcon]="true" inputId="icon"  formControlName="startDate"  dateFormat="dd/mm/yy"></p-calendar>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="field p-fluid p-date">
-                        <label for="txtBirthDay">Ngày kết thúc
-                            <span class=""></span>
-                        </label>
-                        <p-calendar id="txtBirthDay" [showIcon]="true" inputId="icon"  formControlName="endDate"  dateFormat="dd/mm/yy"></p-calendar>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="field p-fluid">
-                        <label for="txtWard">Loại Voucher</label>
-                        <p-dropdown 
-                            [options]="lstPayment" 
-                            placeholder="Loại Voucher" 
-                            emptyMessage="Không có dữ liệu."
-                            [showClear]="true" 
-                            optionLabel="Name" 
-                            optionValue="Name" 
-                            formControlName="promotionType">
-                        </p-dropdown>
-                    </div>
+                <div class="col-4">
+                    <label class="title-label">Số điện thoại:&nbsp;&nbsp;{{data?.account?.user?.phoneNumber}}</label>
                 </div>
                 <div class="col-12">
-                    <div class="field p-fluid ">
-                        <label for="txtNote">Mô tả</label>
-                        <span class="" style="color:red">*</span>
-                        <textarea id="txtNote" rows="5" pInputTextarea formControlName="description"></textarea>
-                        <small *ngIf="fOrder.controls['description'].hasError('minlength')" class="p-invalid text-danger">Mô tả phải tối thiểu 6 kí tự.</small>
-                        <small *ngIf="fOrder.controls['description'].hasError('maxlength')" class="p-invalid text-danger">Mô tả chỉ được tối đa 300 kí tự.</small>
-                        <small *ngIf="fOrder.controls['description'].hasError('required') && fOrder.controls['description'].dirty" class="p-invalid text-danger">Vui lòng nhập mô tả.</small>
-                    </div>
+                    <label class="title-label">Địa chỉ - Xã - Huyện - Thành Phố : &nbsp;{{data?.account?.user?.specificAddress}} - {{data?.account?.user?.village}} - {{data?.account?.user?.district}} - {{data?.account?.user?.city}}</label>
+                </div> 
+                <div class="col-12">
+                    <p-table 
+                    [value]="data"
+                    [paginator]="true"
+                    [scrollable]="true"
+                    [rows]="filterParrams.size"
+                    [showCurrentPageReport]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                    [rowsPerPageOptions]="[10, 25, 50]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 5%">Stt</th>
+                            <th class="min-w-150">Số lượng</th>
+                            <th class="min-w-150">Tên sản phẩm</th>
+                            <th class="min-w-150">Loại sản phẩm</th>
+                            <th class="min-w-150">Giá</th>
+                            <th class="min-w-300">Ảnh</th>
+                            <th class="min-w-300">Thuộc tính</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-order let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{ rowIndex + 1 }}</td>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.orderLines[0]?.quantity }}</td>
+                            <td>{{ order.orderLines[0]?.item?.product?.name }}</td>
+                            <td>{{ order.orderLines[0]?.item?.product?.categories[0].name }}</td>
+                            <td>{{ order.orderLines[0]?.item?.product?.showedPrice  }}</td>
+                            <td><img class="img-cate" src="{{ order.orderLines[0]?.item?.itemImage}}" alt="" /></td>
+                            <td>{{mappedVariants}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="7">No customers found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
                 </div>
+               
                 <div class="col-12 p_float_right">
                     <button pButton pRipple type="button" label="Quay lại" class="p-button-outlined p-button-secondary mr-2" (click)="onBack($event)">
                         <span class="pi pi-angle-left"></span>
                     </button>
-                    <p-button label="Xác nhận" icon="pi pi-check" type="submit" [loading]="loading[0]" (onClick)="onSubmit()"></p-button>
                 </div>
             </form>
         </div>

@@ -1,17 +1,17 @@
 <div class="grid">
     <div class="col-12">
         <div class="card">
-            <h5>Danh sách voucher</h5>
+            <h5>Danh sách Slide</h5>
             <section class="FilterProject">
                 <div class="textFilterProj">
                     <div class="addProjectList">
-                        <a href="#/category/categories/create" class="mg-l-9"><i class="fa fa-plus-circle"
+                        <a href="#/category/slide/create" class="mg-l-9"><i class="fa fa-plus-circle"
                             aria-hidden="true"></i> Thêm mới</a>
                     </div>
                 </div>
             </section>
             <p-table 
-                [value]="lstCategory"
+                [value]="lstSlide"
                 [paginator]="true"
                 [rows]="filterParrams.size"
                 [showCurrentPageReport]="true"
@@ -21,21 +21,23 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width: 5%">Stt</th>
-                        <th style="width: 30%">Tên Category</th>
+                        <th style="width: 30%">Tên slide</th>
                         <th style="width: 30%">Ảnh</th>
                         <th style="width: 20%">Giá trị</th>
                         <th style="width: 15%">Thao tác</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-category let-rowIndex="rowIndex">
+                <ng-template pTemplate="body" let-slide let-rowIndex="rowIndex">
                     <tr>
                         <td>{{ rowIndex + 1 }}</td>
-                        <td>{{ category.name }}</td>
-                        <td><img class="img-cate" src="{{ category.imageIcon }}" alt="" /></td>
-                        <td>{{ category.orderShow}}</td>
+                        <td>{{ slide.name }}</td>
+                        <td><img class="img-cate" src="{{ slide.url }}" alt="" /></td>
+                        <td>{{ convertObjectToString(slide.keyValue) }}</td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" routerLink="/category/categories/upload/{{category.id}}"></button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="onDelete(category)"></button>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" routerLink="/slide/slide/upload/{{slide.id}}"></button>
+                            <button pButton pRipple icon="pi pi-unlock" class="p-button-rounded p-button-success mr-2" (click)="activeSlide(slide.id)"></button>
+                            <button pButton pRipple icon="pi pi-lock" class="p-button-rounded  mr-2" (click)="unactiveSlide(slide.id)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="onDelete(slide)"></button>
                         </td>
                     </tr>
                 </ng-template>

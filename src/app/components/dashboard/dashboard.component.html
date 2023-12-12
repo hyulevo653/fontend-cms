@@ -1,114 +1,478 @@
-    <div class="grid">
+    <div class="grid ">
         <div class="col-12 lg:col-6 xl:col-3">
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">Orders</span>
-                        <div class="text-900 font-medium text-xl">152</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[0].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[0].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
                     </div>
                 </div>
-                <span class="text-green-500 font-medium">24 new </span>
-                <span class="text-500">since last visit</span>
+                <!-- <span class="text-green-500 font-medium">24 new </span>
+                <span class="text-500">since last visit</span> -->
             </div>
         </div>
         <div class="col-12 lg:col-6 xl:col-3">
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">Revenue</span>
-                        <div class="text-900 font-medium text-xl">$2.100</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[1].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[1].count}}</div>
                     </div>
-                    <div class="flex align-items-center justify-content-center bg-orange-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                        <i class="pi pi-map-marker text-orange-500 text-xl"></i>
+                    <div class="flex align-items-center justify-content-center bg-green-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                        <i class="pi pi-check-square text-green-500 text-xl"></i>
                     </div>
                 </div>
-                <span class="text-green-500 font-medium">%52+ </span>
-                <span class="text-500">since last week</span>
+                <!-- <span class="text-green-500 font-medium">%52+ </span>
+                <span class="text-500">since last week</span> -->
             </div>
         </div>
         <div class="col-12 lg:col-6 xl:col-3">
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">Customers</span>
-                        <div class="text-900 font-medium text-xl">28441</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[2].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[2].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-inbox text-cyan-500 text-xl"></i>
                     </div>
                 </div>
-                <span class="text-green-500 font-medium">520  </span>
-                <span class="text-500">newly registered</span>
+                <!-- <span class="text-green-500 font-medium">520  </span>
+                <span class="text-500">newly registered</span> -->
             </div>
         </div>
         <div class="col-12 lg:col-6 xl:col-3">
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">Comments</span>
-                        <div class="text-900 font-medium text-xl">152 Unread</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[3].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[3].count}}</div>
+                    </div>
+                    <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                        <i class="pi pi-clone text-blue-200 text-xl"></i>
+                    </div>
+                </div>
+                <!-- <span class="text-green-500 font-medium">85 </span> -->
+                <!-- <span class="text-500">responded</span> -->
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[4].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[4].count}}</div>
+                    </div>
+                    <div class="flex align-items-center justify-content-center bg-purple-300 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                        <i class="pi pi-check text-green-400 text-xl"></i>
+                    </div>
+                </div>
+                <!-- <span class="text-green-500 font-medium">85 </span> -->
+                <!-- <span class="text-500">responded</span> -->
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[5].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[5].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-purple-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                        <i class="pi pi-comment text-purple-500 text-xl"></i>
+                        <i class="pi pi-caret-right text-purple-500 text-xl"></i>
                     </div>
                 </div>
-                <span class="text-green-500 font-medium">85 </span>
-                <span class="text-500">responded</span>
+                <!-- <span class="text-green-500 font-medium">85 </span> -->
+                <!-- <span class="text-500">responded</span> -->
             </div>
         </div>
-        <div class="col-9">
-
-        </div>
-
-        <div class="col-3">
-            <div class="card">
-                <div class="flex align-items-center justify-content-between mb-4">
-                    <h5>Notifications</h5>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
                     <div>
-                        <button pButton type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text p-button-plain" (click)="menu.toggle($event)"></button>
-                        <p-menu #menu [popup]="true" [model]="items"></p-menu>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[6].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[6].count}}</div>
+                    </div>
+                    <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                        <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
                     </div>
                 </div>
-
-                <span class="block text-600 font-medium mb-3">TODAY</span>
-                <ul class="p-0 mx-0 mt-0 mb-4 list-none">
-                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-dollar text-xl text-blue-500"></i>
-                        </div>
-                        <span class="text-900 line-height-3">Richard Jones
-                    <span class="text-700"> has purchased a blue t-shirt for <span class="text-blue-500">79$</span></span>
-                </span>
-                    </li>
-                    <li class="flex align-items-center py-2">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-orange-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-download text-xl text-orange-500"></i>
-                        </div>
-                        <span class="text-700 line-height-3">Your request for withdrawal of <span class="text-blue-500 font-medium">2500$</span> has been initiated.</span>
-                    </li>
-                </ul>
-
-                <span class="block text-600 font-medium mb-3">YESTERDAY</span>
-                <ul class="p-0 m-0 list-none">
-                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-dollar text-xl text-blue-500"></i>
-                        </div>
-                        <span class="text-900 line-height-3">Keyser Wick
-                    <span class="text-700"> has purchased a black jacket for <span class="text-blue-500">59$</span></span>
-                </span>
-                    </li>
-                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-pink-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-question text-xl text-pink-500"></i>
-                        </div>
-                        <span class="text-900 line-height-3">Jane Davis<span class="text-700"> has posted a new questions about your product.</span></span>
-                    </li>
-                </ul>
+                <!-- <span class="text-green-500 font-medium">85 </span> -->
+                <!-- <span class="text-500">responded</span> -->
             </div>
         </div>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[7].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[7].count}}</div>
+                    </div>
+                    <div class="flex align-items-center justify-content-center bg-pink-400 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                        <i class="pi pi-times bg-pink-400 text-xl"></i>
+                    </div>
+                </div>
+                <!-- <span class="text-green-500 font-medium">85 </span> -->
+                <!-- <span class="text-500">responded</span> -->
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[8].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[8].count}}</div>
+                    </div>
+                    <div class="flex align-items-center justify-content-center bg-purple-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                        <i class="pi pi-refresh text-purple-500 text-xl"></i>
+                    </div>
+                </div>
+                <!-- <span class="text-green-500 font-medium">85 </span> -->
+                <!-- <span class="text-500">responded</span> -->
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[9].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[9].count}}</div>
+                    </div>
+                    <div class="flex align-items-center justify-content-center bg-orange-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                        <i class="pi pi-sync text-orange-400 text-xl"></i>
+                    </div>
+                </div>
+                <!-- <span class="text-green-500 font-medium">85 </span> -->
+                <!-- <span class="text-500">responded</span> -->
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[10].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[10].count}}</div>
+                    </div>
+                    <div class="flex align-items-center justify-content-center bg-indigo-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                        <i class="pi pi-times-circle bg-indigo-100 text-xl"></i>
+                    </div>
+                </div>
+                <!-- <span class="text-green-500 font-medium">85 </span> -->
+                <!-- <span class="text-500">responded</span> -->
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">newToday</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.newToday}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">newYesterday</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.newToday}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">newThisWeek</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.newToday}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">newLastWeek</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.newLastWeek}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">newThisMonth</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.newThisMonth}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">newLastMonth</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.newLastMonth}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">newLast30Days</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.newLast30Days}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">activeToday</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.activeToday}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">activeYesterday</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.activeYesterday}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">activeYesterday</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.activeYesterday}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">activeThisWeek</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.activeThisWeek}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">activeLastWeek</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.activeLastWeek}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">activeThisMonth</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.activeThisMonth}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-4">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div class="box-usercount w-100">
+                        <div>
+                            <span class="block text-600 font-medium mb-3">activeLastMonth</span>
+                        </div>
+                        <div>
+                            <div class="text-900 font-medium text-xl">{{lstCoutUser.activeLastMonth}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <p-table 
+            [value]="dataProduct"
+            [paginator]="true"
+            [rows]="filterParrams.size"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [rowsPerPageOptions]="[10, 25, 50]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 5%">Stt</th>
+                    <th style="width: 30%">Mã sản phẩm</th>
+                    <th style="width: 50%">Tên sản phẩm</th>
+                    <th style="width: 25%">Số lượt xem</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{ rowIndex + 1 }}</td>
+                    <td>{{ product.productId }}</td>
+                    <td>{{product.productName}}</td>
+                    <td>{{ (product.view) }}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7">No customers found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        </div>
+        <div class="col-12">
+          <div class="card">
+            <div class="col-6">
+                <div class="card flex justify-content-center">
+                    <p-chart type="pie" [data]="chartData" [options]="chartOptions"></p-chart>
+                  </div>
+            </div>
+            <div class="col-6">
+                <div class="card flex justify-content-center">
+                    <p-chart type="bar" [data]="chartData1" [options]="chartOptions1"></p-chart>
+                  </div>
+            </div>
+            <div class="col-6">
+                <div class="card flex justify-content-center">
+                    <p-chart class="h-100" type="line" [data]="chartData2" [options]="chartOptions2"></p-chart>
+                  </div>
+            </div>
+            <div class="col-12 border">
+                <div style="text-align: center;">
+                    <span class="title-chart">Biểu đồ ...</span>
+                </div>
+                <div class="col-12">
+                    <div class="textFilterProj mg-select">
+                        <p-dropdown
+                            [options]="lstTime"
+                            placeholder="Chọn thời gian"
+                            emptyMessage="Không có dữ liệu."
+                            [showClear]="true"
+                            optionLabel="name"
+                            optionValue="value"
+                            (onChange)="onSelect($event)">
+                        </p-dropdown>
+                    </div>
+                    <div class="card flex justify-content-center">
+                        <p-chart type="line" [data]="chartData3" [options]="chartOptions3"></p-chart>
+                      </div>
+                </div>
+                <div class="col-12">
+                    <p-table 
+                    [value]="userActive"
+                    [paginator]="true"
+                    [rows]="filterParrams.size"
+                    [showCurrentPageReport]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[10, 25, 50]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 5%">Stt</th>
+                            <th style="width: 30%">TimeLine</th>
+                            <th style="width: 30%">Dau</th>
+                            <th style="width: 20%">Yan</th>
+                            <th style="width: 25%">Wau</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{ rowIndex + 1 }}</td>
+                            <td>{{ user.timeline }}</td>
+                            <td>{{user.dau}}</td>
+                            <td>{{ (user.yau) }}</td>
+                            <td>{{ (user.wau) }}</td>
+                        </tr>
+                    </ng-template>
+                    <!-- <ng-template pTemplate="paginatorleft">
+                        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+                    </ng-template>
+                    <ng-template pTemplate="paginatorright">
+                        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+                    </ng-template> -->
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="7">No customers found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                </div>
+            </div>
+          </div>
+            
+        </div>
+
+      
 </div>
 

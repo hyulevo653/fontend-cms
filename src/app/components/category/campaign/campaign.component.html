@@ -20,9 +20,6 @@
                 [rowsPerPageOptions]="[10, 25, 50]">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3%">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
                         <th style="width: 5%">Stt</th>
                         <th style="width: 20%">Tên Voucher</th>
                         <th style="width: 15%">Loại Voucher</th>
@@ -35,9 +32,6 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-project let-rowIndex="rowIndex">
                     <tr>
-                        <td>
-                            <p-tableCheckbox [value]="project"></p-tableCheckbox>
-                        </td>
                         <td>{{ rowIndex + 1 }}</td>
                         <td>{{ project.name }}</td>
                         <td>{{ project.name }}</td>

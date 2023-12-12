@@ -9,6 +9,8 @@ import { OrderComponent } from '../components/category/order/order.component';
 import { AddOrderComponent } from '../components/category/order/add-order/add-order.component';
 import { CampaignComponent } from '../components/category/campaign/campaign.component';
 import { AddCampaignComponent } from '../components/category/campaign/add-campaign/add-campaign.component';
+import { SlideComponent } from '../components/category/slide/slide.component';
+import { AddSlideComponent } from '../components/category/slide/add-slide/add-slide.component';
 
 
 
@@ -42,11 +44,7 @@ const routes: Routes = [
     component: OrderComponent,
   },
   {
-    path: 'order/create',
-    component: AddOrderComponent,
-  },
-  {
-    path: 'order/upload/:id',
+    path: 'order/view-detail/:id',
     component: AddOrderComponent,
   },
   {
@@ -60,6 +58,18 @@ const routes: Routes = [
   {
     path: 'campaign/upload/:id',
     component: AddCampaignComponent,
+  },
+  {
+    path: 'slide/list',
+    component: SlideComponent,
+  },
+  {
+    path: 'slide/create',
+    component: AddSlideComponent,
+  },
+  {
+    path: 'slide/upload/:id',
+    component: AddSlideComponent,
   },
   // {
   //   path: 'categories/test/list',
