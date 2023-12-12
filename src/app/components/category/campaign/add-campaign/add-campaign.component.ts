@@ -248,12 +248,15 @@ export class AddCampaignComponent {
   }
 
   getlistProperties(event: any) {
-    if (!event || event.value) {
+    console.log(event);
+    let tmp = String(event);
+    console.log(tmp)
+    if (!event) {
       this.lstProperty = [];
     }
     let filterProperty = new Object as Paging;
-    this.evenNamevalue = event.value;
-    filterProperty.evtName= `${event.value || event}`;
+    this.evenNamevalue = event;
+    filterProperty.evtName= `${event}`;
 
     this.campaignService.getListProperty(filterProperty)
     .subscribe((res: ResApi) => {
@@ -278,16 +281,18 @@ export class AddCampaignComponent {
 
   getlistValues(event:any) {
     let queryParams = new Object as Paging;
-  
+    console.log(event)
     if (this.evenNamevalue) {
       queryParams.evtName = this.evenNamevalue;
-      queryParams.property = event.value;
-
+      queryParams.property = event;
+      
   
       this.campaignService.getListValues(queryParams).subscribe((res: ResApi) => {
         if (res && res.status >= 200 && res.status <= 300) {
           this.lstValues = res.data;
+          console.log(res.data)
         } else {
+          console.log(res.data)
           this.lstValues = [];
           this.messageService.add({
             severity: 'error',
