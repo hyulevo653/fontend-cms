@@ -451,6 +451,12 @@
                         <input id="txtCode" type="number" pInputText  formControlName="limit"  class="p-invalid">
                     </div>
                 </div>
+                <div class="col-6" *ngIf="isCheck == true">
+                    <div class="field p-fluid">
+                        <label for="txtCode">Occurrence</label>
+                        <input id="txtCode" type="number" pInputText  formControlName="occurrence"  class="p-invalid">
+                    </div>
+                </div>
                 <!-- <div class="col-6" *ngIf="typeWhen == 'MULTIPLE_DATE'">
                     <div class="field p-fluid p-date">
                         <label for="txtBirthDay">startDates

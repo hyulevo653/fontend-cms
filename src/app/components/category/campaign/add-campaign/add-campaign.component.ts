@@ -130,6 +130,7 @@ export class AddCampaignComponent {
         repeat: [1],
         endDate: [null],
         limit : [null],
+        occurrence: [null],
         startDates: [],
       }),
       
