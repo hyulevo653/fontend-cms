@@ -32,6 +32,8 @@ import { ComfirmDialogComponent } from '../components/shared/comfirm-dialog/comf
 import { CalendarModule } from "primeng/calendar";
 import { ToastModule } from 'primeng/toast';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 
 @NgModule({
@@ -70,6 +72,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
         CalendarModule,
         ToastModule,
         MultiSelectModule,
+        SelectButtonModule,
+        ToggleButtonModule,
     ],
     exports: [
         CommonModule,
@@ -97,6 +101,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
         CalendarModule,
         ToastModule,
         MultiSelectModule,
+        SelectButtonModule,
+        ToggleButtonModule,
     ],
     providers: [
         MessageService,

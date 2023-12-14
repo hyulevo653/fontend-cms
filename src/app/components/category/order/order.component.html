@@ -32,65 +32,66 @@
                     </p-dropdown>
                 </div>
             </div>            
+         
             <p-table 
-                [value]="lstOrder"
-                [paginator]="true"
-                [scrollable]="true"
-                [rows]="filterParrams.size"
-                [showCurrentPageReport]="true"
-                [tableStyle]="{ 'min-width': '50rem' }"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [rowsPerPageOptions]="[10, 25, 50]">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 5%">Stt</th>
-                        <th class="min-w-150">Mã đơn</th>
-                        <th class="min-w-150">Tên khách hàng</th>
-                        <th class="min-w-150">Email</th>
-                        <th class="min-w-150">Tên sản phẩm</th>
-                        <th class="min-w-150">Địa chỉ giao hàng</th>
-                        <th class="min-w-150">Xã/Phường</th>
-                        <th class="min-w-150">Quận/Huyện</th>
-                        <th class="min-w-150">Tỉnh/Thành phố</th>
-                        <th class="min-w-150">Số điện thoại</th>
-                        <th class="min-w-150">Phí ship</th>
-                        <th class="min-w-150">Giá</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-order let-rowIndex="rowIndex">
-                    <tr>
-                        <td>{{ rowIndex + 1 }}</td>
-                        <td>{{ order.id }}</td>
-                        <td>{{ order.user.name }}</td>
-                        <td>{{ order.user.email }}</td>
-                        <td>{{ order.orderLines[0].item.product.name }}</td>
-                        <td>{{ order.eliveryAddress }}</td>
-                        <td>{{ order.user.village }}</td>
-                        <td>{{ order.user.district }}</td>
-                        <td>{{ order.user.city }}</td>
-                        <td>{{ order.shippingPrice }}</td>
-                        <td>{{ order.orderLines[0]?.item.product.showedPrice }}</td>
-                        <td>
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" routerLink="/category/order/view-detail/{{order.id}}"></button>
-                            <p-dropdown
-                                [options]="lstStatus"
-                                placeholder="Trạng thái"
-                                emptyMessage="Không có dữ liệu."
-                                [showClear]="true"
-                                formControlName="Status"
-                                optionLabel="code"
-                                optionValue="code"
-                                (onChange)="onChangeStatus($event,order.id)">
-                            </p-dropdown>
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="emptymessage">
-                    <tr>
-                        <td colspan="7">No customers found.</td>
-                    </tr>
-                </ng-template>
-            </p-table>
+            [value]="testdata"
+            [paginator]="true"
+            [scrollable]="true"
+            [rows]="filterParrams.size"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10, 25, 50]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 5%">Stt</th>
+                    <th class="min-w-150">Mã đơn</th>
+                    <th class="min-w-300">Địa chỉ</th>
+                    <th class="min-w-150">Phương thức thanh toán</th>
+                    <th class="min-w-300">Note</th>
+                    <th class="min-w-200">Ngày đặt hàng</th>
+                    <th class="min-w-150">Giá trị đơn hàng</th>
+                    <th class="min-w-150">Trạng thái đơn hàng</th>
+                    <th class="min-w-150">Đã thanh toán</th>
+                    <th class="min-w-150">Mã CTKM</th>
+                    <th class="min-w-150">Phí ship</th>
+                    <th class="min-w-150">Thao tác</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-order let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{ rowIndex + 1 }}</td>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.deliveryAddress }}</td>
+                    <td>{{ order.method }}</td>
+                    <td>{{ order.note }}</td>
+                    <td>{{ order.orderDate ? (order.orderDate | date: 'yyyy-MM-dd HH:mm:ss') : '' }} - {{ order.orderDate ? (order.orderDate | date:'shortTime') : '' }}</td>
+                    <td>{{ order.orderTotal }}</td>
+                    <td>{{ order.orderStatus }}</td>
+                    <td>{{ order.paidPrice}}</td>
+                    <td>{{ order.promotionCode}}</td>
+                    <td>{{ order.shippingPrice }}</td>
+                    <td class="td-tt" alignFrozen="right" pFrozenColumn [frozen]="idFrozen" [ngClass]="{'color-bg': idFrozen}">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2 pd-1" routerLink="/category/order/view-detail/{{order.id}}"></button>
+                        <p-dropdown
+                            class="pd-1"
+                            [options]="lstStatus"
+                            placeholder="Trạng thái"
+                            emptyMessage="Không có dữ liệu."
+                            [showClear]="true"
+                            optionLabel="code"
+                            optionValue="code"
+                            (onChange)="onChangeStatus($event,order.id)">
+                        </p-dropdown>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7">No customers found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
         </div>
     </div>
 </div>

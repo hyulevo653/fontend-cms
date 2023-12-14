@@ -78,7 +78,7 @@
                             <div class="field p-fluid">
                                 <label for="txtWard">eventProperty</label>
                                 <p-dropdown 
-                                    [options]="lstEventname" 
+                                    [options]="lstProperty" 
                                     placeholder="Select an event" 
                                     emptyMessage="No data available."
                                     [showClear]="true" 
@@ -90,6 +90,19 @@
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid">
+                                <label for="txtNameContacts">value</label>
+                                    <p-multiSelect
+                                        [options]="lstValues"
+                                        [showClear]="true"
+                                        placeholder="Chọn value"
+                                        emptyMessage="Không có dữ liệu."
+                                        [(ngModel)]="valueData"
+                                        [ngModelOptions]="{ standalone: true }"
+                                    ></p-multiSelect>
+                            </div>
+                        </div>
+                        <!-- <div class="col-6">
+                            <div class="field p-fluid">
                                 <label for="txtWard">value</label>
                                 <p-dropdown 
                                     [options]="lstValues" 
@@ -100,7 +113,7 @@
                                    >
                                 </p-dropdown>
                             </div>
-                        </div>
+                        </div> -->
                     </form>
                     <form class="grid formgrid col-12"  formGroupName="userDid" *ngIf="isAllUser==true">
                         <span class="col-12" style="font-weight: 600;color:blue;font-size: 30px;">UserDid</span>
@@ -137,7 +150,7 @@
                             <div class="field p-fluid">
                                 <label for="txtWard">eventProperty</label>
                                 <p-dropdown 
-                                    [options]="lstEventname" 
+                                    [options]="lstProperty" 
                                     placeholder="Select an event" 
                                     emptyMessage="No data available."
                                     [showClear]="true" 
@@ -267,7 +280,7 @@
                                     emptyMessage="Không có dữ liệu."
                                     [showClear]="true" 
                                     formControlName="eventName"
-                                    (onChange)="getlistProperties($event)">
+                                    (onChange)="getlistProperties($event.value)">
                                 </p-dropdown>
                             </div>
                         </div>
@@ -275,12 +288,12 @@
                             <div class="field p-fluid">
                                 <label for="txtWard">eventProperty</label>
                                 <p-dropdown 
-                                    [options]="lstEventname" 
+                                    [options]="lstProperty" 
                                     placeholder="" 
                                     emptyMessage="Không có dữ liệu."
                                     [showClear]="true" 
                                     formControlName="eventProperty"
-                                    (onChange)="getlistValues($event)"
+                                    (onChange)="getlistValues($event.value)"
                                    >
                                 </p-dropdown>
                             </div>

@@ -22,6 +22,7 @@ export class AddCampaignComponent {
   lstTypewhen = TypeWhen;
   lstTypeCompare = TypeCombine;
   lstTypeCompareUser = TypeCombineUser;
+  valueData: any;
   selectedDatesList: string[] = [];
   lstStartdate: any;
   lstCount = Count;

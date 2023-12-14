@@ -6,19 +6,22 @@
             </h5>
 
             <form class="grid formgrid">
-                <div class="col-4">
-                    <label class="title-label">Tên Khách hàng:&nbsp;&nbsp;{{data?.account?.user?.name}}</label>
+                <div class="col-12 dp-flex">
+                    <label class="title-label">Ngày thanh toán&nbsp;&nbsp;<label class="item-order">{{data?.orderDate ? (data?.orderDate | date: 'yyyy-MM-dd HH:mm:ss') : ''}}</label></label>
                 </div>
                 <div class="col-4">
-                    <label class="title-label">Email:&nbsp;&nbsp;{{data?.account?.user?.email}}</label>
+                    <label class="title-label">Tên Khách hàng:&nbsp;&nbsp;<label class="item-order">{{data?.account?.user?.name}}</label></label>
                 </div>
                 <div class="col-4">
-                    <label class="title-label">Số điện thoại:&nbsp;&nbsp;{{data?.account?.user?.phoneNumber}}</label>
+                    <label class="title-label">Email:&nbsp;&nbsp;<label class="item-order">{{data?.account?.user?.email}}</label></label>
+                </div>
+                <div class="col-4">
+                    <label class="title-label">Số điện thoại:&nbsp;&nbsp;<label class="item-order">{{data?.account?.user?.phoneNumber}}</label></label>
                 </div>
                 <div class="col-12">
-                    <label class="title-label">Địa chỉ - Xã - Huyện - Thành Phố : &nbsp;{{data?.account?.user?.specificAddress}} - {{data?.account?.user?.village}} - {{data?.account?.user?.district}} - {{data?.account?.user?.city}}</label>
-                </div> 
-                <div class="col-12">
+                    <label class="title-label">Địa chỉ - Xã - Huyện - Thành Phố : &nbsp;<label class="item-order">{{data?.account?.user?.specificAddress}} - {{data?.account?.user?.village}} - {{data?.account?.user?.district}} - {{data?.account?.user?.city}}</label></label>
+                </div>  
+                 <div class="col-12">
                     <p-table 
                     [value]="data"
                     [paginator]="true"
@@ -30,9 +33,10 @@
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 5%">Stt</th>
+                            <th class="min-w-150">Stt</th>
                             <th class="min-w-150">Số lượng</th>
-                            <th class="min-w-150">Tên sản phẩm</th>
-                            <th class="min-w-150">Loại sản phẩm</th>
+                            <th class="min-w-300">Tên sản phẩm</th>
+                            <th class="min-w-300">Loại sản phẩm</th>
                             <th class="min-w-150">Giá</th>
                             <th class="min-w-300">Ảnh</th>
                             <th class="min-w-300">Thuộc tính</th>
@@ -42,11 +46,11 @@
                         <tr>
                             <td>{{ rowIndex + 1 }}</td>
                             <td>{{ order.id }}</td>
-                            <td>{{ order.orderLines[0]?.quantity }}</td>
-                            <td>{{ order.orderLines[0]?.item?.product?.name }}</td>
-                            <td>{{ order.orderLines[0]?.item?.product?.categories[0].name }}</td>
-                            <td>{{ order.orderLines[0]?.item?.product?.showedPrice  }}</td>
-                            <td><img class="img-cate" src="{{ order.orderLines[0]?.item?.itemImage}}" alt="" /></td>
+                            <td>{{ order.quantity }}</td>
+                            <td>{{ order.item?.product?.name }}</td>
+                            <td>{{ order.item?.product?.categories[0].name }}</td>
+                            <td>{{ order.item?.product?.showedPrice  }}</td>
+                            <td><img class="img-cate" src="{{ order.item?.itemImage}}" alt="" /></td>
                             <td>{{mappedVariants}}</td>
                         </tr>
                     </ng-template>
@@ -56,6 +60,24 @@
                         </tr>
                     </ng-template>
                 </p-table>
+                </div>
+                <div class="col-6">
+                    <label class="title-label">Mã giảm giá:&nbsp;&nbsp;<label class="item-order">{{data?.promotionCode}}</label></label>
+                </div>
+                <div class="col-6">
+                    <label class="title-label">Tổng tiền:&nbsp;&nbsp;<label class="item-order">{{data?.orderTotal}}</label></label>
+                </div>
+                <div class="col-6">
+                    <label class="title-label">% Thuế VAT:&nbsp;&nbsp;<label class="item-order">{{data?.account?.user?.email}}</label></label>
+                </div>
+                <div class="col-6">
+                    <label class="title-label">Tiền giảm giá:&nbsp;&nbsp;<label class="item-order">-{{data?.account?.user?.email}}</label></label>
+                </div>
+                <div class="col-6">
+                    <label class="title-label">% Phí dịch vụ:&nbsp;&nbsp;<label class="item-order">-{{data?.account?.user?.email}}</label></label>
+                </div>
+                <div class="col-6">
+                    <label class="title-label">Tiền dịch vụ:&nbsp;&nbsp;<label class="item-order">-{{data?.account?.user?.email}}</label></label>
                 </div>
                
                 <div class="col-12 p_float_right">
