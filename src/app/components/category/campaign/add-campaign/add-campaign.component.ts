@@ -88,7 +88,7 @@ export class AddCampaignComponent {
       channel: [''],
       forAll : [false],
       who: this.fb.group({
-        typeCombine: [''],
+        typeCombine: ['AND'],
         liveEvent: this.fb.group({
           eventName: [''],
           eventProperty: [''],
@@ -98,19 +98,18 @@ export class AddCampaignComponent {
           eventName: [''],
           eventProperty: [''],
           value: this.fb.array([]),
-          typeCompare: [''],
+          typeCompare: ['EQUALS'],
           count: [5],
-          typeCondition: [''],
+          typeCondition: ['EQUALS'],
           startTime: [this.calculateDefaultStartDate(),[]],
           endTime: [this.calculateDefaultEndDate(),[]],
-          typeCombine: [''],
           keyValue: [],
         }),
         userNotDo: this.fb.group({
           eventName: [''],
           eventProperty: [''],
           value: this.fb.array([]),
-          typeCompare: [''],
+          typeCompare: ['EQUALS'],
           startTime: [this.calculateDefaultStartDate(),[]],
           endTime: [this.calculateDefaultEndDate(),[]],
         }),
@@ -126,9 +125,9 @@ export class AddCampaignComponent {
         deeplink: [''],
         customKeyValue: [],
       }),
-      when: this.fb.group({
-        type: ['NOW'],
+      when: this.fb.group({ 
         repeat: [1],
+        type: ['NOW'],
         endDate: [null],
         limit : [null],
         occurrence: [null],
@@ -141,6 +140,7 @@ export class AddCampaignComponent {
   onSubmit() {
       if(this.id == null) {
         const reqData = Object.assign({}, this.fCampaign.value);
+        reqData.when.type = this.typeWhen || 'NOW';
         reqData.when.startDates = this.selectedDatesList.map(dateString => {
                 const dateObject = new Date(dateString);
                 const formattedDate = dateObject.toLocaleString(); 

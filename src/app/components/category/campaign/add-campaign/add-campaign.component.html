@@ -450,7 +450,7 @@
                         <input id="txtCode" type="text" pInputText formControlName="repeat"  class="p-invalid">
                     </div>
                 </div>
-                <div class="col-6" *ngIf="typeWhen == 'RECURRING'">
+                <div class="col-6" *ngIf="typeWhen == 'RECURRING' || liveEventVisible">
                     <div class="field p-fluid p-date">
                         <label for="txtBirthDay">endDate
                             <span class=""></span>
@@ -458,13 +458,13 @@
                         <p-calendar id="txtBirthDay" [showButtonBar]="true" [showIcon]="true" inputId="icon"  formControlName="endDate" [showTime]="true" [showSeconds]="true"  dateFormat="dd/mm/yy"></p-calendar>
                     </div>
                 </div>
-                <div class="col-6" *ngIf="isCheck == true">
+                <div class="col-6" *ngIf="fCampaign.get('qualification')?.value == 'LIVE_BEHAVIOR' && isCheck == true">
                     <div class="field p-fluid">
                         <label for="txtCode">Gửi nhiều lần</label>
                         <input id="txtCode" type="number" pInputText  formControlName="limit"  class="p-invalid">
                     </div>
                 </div>
-                <div class="col-6" *ngIf="isCheck == true">
+                <div class="col-6" *ngIf="fCampaign.get('qualification')?.value == 'LIVE_BEHAVIOR' && isCheck == true">
                     <div class="field p-fluid">
                         <label for="txtCode">Occurrence</label>
                         <input id="txtCode" type="number" pInputText  formControlName="occurrence"  class="p-invalid">
@@ -481,7 +481,7 @@
                         <button  (click)="addStartDate()" type="button" class="btn btn-warning mg-t-2">Thêm ngày bắt đầu</button>
                     </div>
                 </div> -->
-                <div class="col-6" *ngIf="typeWhen == 'MULTIPLE_DATE' || typeWhen == 'SPECIFIC_TIME'">
+                <div class="col-6" *ngIf="(typeWhen == 'MULTIPLE_DATE'  && liveEventVisible == false) || (typeWhen == 'SPECIFIC_TIME' && liveEventVisible == false)">
                     <div class="field p-fluid p-date">
                       <label for="txtBirthDay">startDates
                         <span></span>

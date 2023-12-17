@@ -7,7 +7,7 @@ import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class OrderService {
+export class DashBoardService {
 
   constructor(private readonly dataService: DataService) { }
 

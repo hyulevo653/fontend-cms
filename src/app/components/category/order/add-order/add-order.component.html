@@ -7,19 +7,19 @@
 
             <form class="grid formgrid">
                 <div class="col-12 dp-flex">
-                    <label class="title-label">Ngày thanh toán&nbsp;&nbsp;<label class="item-order">{{data?.orderDate ? (data?.orderDate | date: 'yyyy-MM-dd HH:mm:ss') : ''}}</label></label>
+                    <label class="title-label">Ngày thanh toán&nbsp;&nbsp;<label class="item-order">{{dataOrder?.orderDate ? (dataOrder?.orderDate | date: 'yyyy-MM-dd HH:mm:ss') : ''}}</label></label>
                 </div>
                 <div class="col-4">
-                    <label class="title-label">Tên Khách hàng:&nbsp;&nbsp;<label class="item-order">{{data?.account?.user?.name}}</label></label>
+                    <label class="title-label">Tên Khách hàng:&nbsp;&nbsp;<label class="item-order">{{dataOrder?.account?.user?.name}}</label></label>
                 </div>
                 <div class="col-4">
-                    <label class="title-label">Email:&nbsp;&nbsp;<label class="item-order">{{data?.account?.user?.email}}</label></label>
+                    <label class="title-label">Email:&nbsp;&nbsp;<label class="item-order">{{dataOrder?.account?.user?.email}}</label></label>
                 </div>
                 <div class="col-4">
-                    <label class="title-label">Số điện thoại:&nbsp;&nbsp;<label class="item-order">{{data?.account?.user?.phoneNumber}}</label></label>
+                    <label class="title-label">Số điện thoại:&nbsp;&nbsp;<label class="item-order">{{dataOrder?.account?.user?.phoneNumber}}</label></label>
                 </div>
                 <div class="col-12">
-                    <label class="title-label">Địa chỉ - Xã - Huyện - Thành Phố : &nbsp;<label class="item-order">{{data?.account?.user?.specificAddress}} - {{data?.account?.user?.village}} - {{data?.account?.user?.district}} - {{data?.account?.user?.city}}</label></label>
+                    <label class="title-label">Địa chỉ - Xã - Huyện - Thành Phố : &nbsp;<label class="item-order">{{dataOrder?.account?.user?.specificAddress}} - {{dataOrder?.account?.user?.village}} - {{dataOrder?.account?.user?.district}} - {{dataOrder?.account?.user?.city}}</label></label>
                 </div>  
                  <div class="col-12">
                     <p-table 

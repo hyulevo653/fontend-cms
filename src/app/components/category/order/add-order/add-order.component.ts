@@ -1324,12 +1324,14 @@ export class AddOrderComponent {
     }
   }
 
+  dataOrder : any;
   getListByPaging() {
     this.orderService.getListOrderByPaging(this.filterParrams).subscribe((res: ResApi) => {
       if (res && res.status >= 200 && res.status <= 300) {
         this.lstOrder = res.data.elements;
         for(let i=0;i<res.data.elements.length;i++){
           if(res.data.elements[i].id == this.id){
+            this.dataOrder = res.data.elements[i];
             this.data = res.data.elements[i].orderLines;
             for(let j=0;j<res.data.elements[i].orderLines.length;j++){
               this.variants = res.data.elements[i].orderLines[j].item.product.variants;

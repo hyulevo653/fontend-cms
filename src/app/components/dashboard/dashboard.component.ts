@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { DashBoardService } from 'src/app/services/dashbroad.service';
 import { ListTime } from 'src/app/shared/constants/app.constants';
 import { Paging } from 'src/app/viewModels/paging';
 import { ResApi } from 'src/app/viewModels/res-api';
@@ -25,7 +26,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   chartData2: any;
   chartOptions2: any;
   lstTime = ListTime;
-
+  totalOrder : any;
   chartData3: any;
   chartOptions3: any;
   data: any;
@@ -1882,7 +1883,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   userActive: any;
   dataProduct: any;
 
-  constructor(public layoutService: LayoutService) {
+  constructor(
+    public layoutService: LayoutService,
+    private readonly dashboardService : DashBoardService,
+    ) {
     this.subscription = this.layoutService.configUpdate$.subscribe(() => {
     });
     this.filterParrams = new Object as Paging;
@@ -2099,7 +2103,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //     this.statusValue = res.data;
     //   }
     // })
+
     this.statusValue = this.dataStatus.data
+    this.totalOrder = this.dataStatus.data.reduce((acc, curr) => acc + curr.count, 0);
+    console.log(this.totalOrder);
   }
 
   getUserActive() {
