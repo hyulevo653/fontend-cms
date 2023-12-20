@@ -367,22 +367,70 @@
         </div>
         <div class="col-12">
           <div class="card">
+            <form class="grid formgrid">
             <div class="col-6">
+                <span class="span-title">Biểu đồ số lượng đặt hàng</span>
                 <div class="card flex justify-content-center">
                     <p-chart type="pie" [data]="chartData" [options]="chartOptions"></p-chart>
                   </div>
             </div>
             <div class="col-6">
+                <span class="span-title">Biểu đồ số lượng sản phẩm</span>
+                <div class="card flex justify-content-center">
+                    <p-chart type="pie" [data]="chartDataSP" [options]="chartOptions"></p-chart>
+                  </div>
+            </div>
+            <div class="col-6 mg-t-2">
+                <span class="span-title">Biểu đồ số lượng item</span>
+                <div class="card flex justify-content-center">
+                    <p-chart type="pie" [data]="chartDataItem" [options]="chartOptions"></p-chart>
+                  </div>
+            </div>
+            <div class="col-6 mg-t-2">
+                <span class="span-title">Biểu đồ totalOrderAmount</span>
+                <div class="card flex justify-content-center">
+                    <p-chart type="pie" [data]="chartDataTotalOrderAmount" [options]="chartOptions"></p-chart>
+                  </div>
+            </div>
+            <div class="col-6 mg-t-2">
+                <span class="span-title">Biểu đồ địa chỉ đặt hàng</span>
                 <div class="card flex justify-content-center">
                     <p-chart type="bar" [data]="chartData1" [options]="chartOptions1"></p-chart>
                   </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 mg-t-2">
+                <span class="span-title">Biểu đồ ...</span>
                 <div class="card flex justify-content-center">
                     <p-chart class="h-100" type="line" [data]="chartData2" [options]="chartOptions2"></p-chart>
                   </div>
             </div>
-            <div class="col-12 border">
+            <div class="col-12 mg-t-2">
+                <span class="span-title">Biểu đồ giới tính ...</span>
+                <div class="card flex justify-content-center">
+                    <p-chart type="bar" [data]="Genderdata" [options]="GenderdataOptions"></p-chart>
+                  </div>
+            </div>
+            <div class="col-12 border mg-t-2">
+                <div class="col-12">
+                    <span class="span-title">Biểu đồ ...</span>
+                </div>
+                <div class="box-datefilter">
+                    <div class="col-3">
+                        <div class="field p-fluid p-date">
+                            <p-calendar id="txtBirthDay" placeholder="Ngày bắt đầu" [showIcon]="true" inputId="icon"  dateFormat="dd/mm/yy"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="field p-fluid p-date">
+                            <p-calendar id="txtBirthDay" placeholder="Ngày kết thúc" [showIcon]="true" inputId="icon"  dateFormat="dd/mm/yy"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+                <div class="card flex justify-content-center">
+                    <p-chart type="line" [data]="orderDateData" [options]="chartOptionsDate"></p-chart>
+                  </div>
+            </div>
+            <div class="col-12 border mg-t-2">
                 <div style="text-align: center;">
                     <span class="title-chart">Biểu đồ ...</span>
                 </div>
@@ -443,8 +491,7 @@
                 </p-table>
                 </div>
             </div>
-          </div>
-            
+        </form> 
         </div>
 
       

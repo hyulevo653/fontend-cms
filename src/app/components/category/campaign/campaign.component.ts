@@ -20,6 +20,7 @@ export class CampaignComponent {
   id: any;
   public loading = [false];
 
+
   constructor(
     private readonly campaignService: CampaignService,
     private readonly messageService: MessageService,
@@ -39,6 +40,7 @@ export class CampaignComponent {
       this.id =  params.get('id');
     });
       this.getListCampaignByPaging();
+      // this.TestData();
   }
 
   next() {
@@ -59,6 +61,42 @@ export class CampaignComponent {
 
   isFirstPage(): boolean {
       return true;//this.customers ? this.first === 0 : true;
+  }
+  
+
+  StopStatus(id:number){
+    const reqData = {
+      status : 'STOPPED'
+    }
+    this.campaignService.updateStatusCampaign(id,reqData).subscribe((res: ResApi) => {
+      if (res && res.status >= 200 && res.status <= 300) {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message || AppMessageResponse.CreatedSuccess });
+      }
+      else {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message|| AppMessageResponse.BadRequest });
+      }
+      
+    })
+  }
+
+
+  ApproveStatus(id:number){
+    const reqData = {
+      status : 'SCHEDULED'
+    }
+    this.campaignService.updateStatusCampaign(id,reqData).subscribe((res: ResApi) => {
+      if (res && res.status >= 200 && res.status <= 300) {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message || AppMessageResponse.CreatedSuccess });
+      }
+      else {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message|| AppMessageResponse.BadRequest });
+      }
+      
+    })
+  }
+
+  CantChange(){
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Không thể thay đổi trạng thái!' });
   }
 
   getListCampaignByPaging() {

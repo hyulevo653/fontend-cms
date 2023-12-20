@@ -21,9 +21,10 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width: 5%">Stt</th>
+                        <th style="width: 10%">Đổi trạng thái</th>
                         <th style="width: 20%">Tên Campaign</th>
-                        <th style="width: 15%">Qualification</th>
-                        <th style="width: 20%">Trạng thái</th>
+                        <th style="width: 10%">Qualification</th>
+                        <th style="width: 15%">Trạng thái</th>
                         <th style="width: 10%">Channel</th>
                         <th style="width: 10%">forAll</th>
                         <th style="width: 10%">Ngày tạo</th>
@@ -33,11 +34,19 @@
                 <ng-template pTemplate="body" let-campaign let-rowIndex="rowIndex">
                     <tr>
                         <td>{{ rowIndex + 1 }}</td>
+                        <td>
+                            <button *ngIf="campaign.status == 'RUNNING'" class="btn-check" (click)="StopStatus(campaign.id)">STOP</button>
+                            <button *ngIf="campaign.status == 'APPROVAL_PENDING'" class="btn-check" (click)="ApproveStatus(campaign.id)">APPROVE</button>
+                            <button *ngIf="campaign.status != 'APPROVAL_PENDING' && campaign.status != 'RUNNING'" class="btn-uncheck" (click)="CantChange()">CHANGE</button>
+                        </td>
                         <td>{{ campaign.name }}</td>
                         <td>{{ campaign.qualification }}</td>
                         <td>{{ campaign.status }}</td>
                         <td>{{ campaign.channel }}</td>
-                        <td>{{ campaign.forAll }}</td>
+                        <td>
+                            <span *ngIf="campaign.forAll==true"><i class="pi pi-check" style="color: rgb(25, 25, 184);"></i></span>
+                            <span *ngIf="campaign.forAll==false"><i class="pi pi-times" style="color:red"></i></span>
+                        </td>
                         <td>{{ campaign.createTime ? (campaign.creaTime | date: 'yyyy-MM-dd HH:mm:ss') : ''}}</td>
                         <td>
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" routerLink="/category/campaign/upload/{{campaign.id}}"></button>

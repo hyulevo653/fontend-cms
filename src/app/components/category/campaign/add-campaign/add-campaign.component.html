@@ -362,24 +362,98 @@
                         <input id="txtCode" type="number" pInputText  formControlName="timeToLive"  class="p-invalid">
                     </div>
                 </div>
-                <div class="col-6" *ngIf="fCampaign.get('channel')?.value === 'PUSH' || fCampaign.get('channel')?.value === 'INAPP'">
+                <!-- <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH' || fCampaign.get('channel')?.value === 'INAPP'">
+                    <label for="txtImage" class="form-label">Upload</label>
+                    <div class="displayflex">
+                        <div class="col-6">
+                            <input
+                                formControlName="imageUrl"
+                                class="form-control no-bor"
+                                type="file"
+                                accept="image/jpg || image/png || image/webp"
+                                (change)="onimageUrl($event)"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH' || fCampaign.get('channel')?.value === 'INAPP'">
                     <div class="field p-fluid">
                         <label for="txtCode">imageUrl</label>
                         <input id="txtCode" type="text" pInputText formControlName="imageUrl" class="p-invalid">
                     </div>
-                </div>
-                <div class="col-6" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
+                </div> -->
+                <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH' || fCampaign.get('channel')?.value === 'INAPP'">
+                    <label for="txtImage" class="form-label">Upload imageUrl</label>
+                    <div class="displayflex">
+                      <div class="col-6">
+                        <input
+                          formControlName="imageUrl"
+                          class="form-control no-bor"
+                          type="file"
+                          accept="image/jpg || image/png || image/webp"
+                          (change)="onimageUrl($event)"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH' || fCampaign.get('channel')?.value === 'INAPP'">
+                    <div class="field p-fluid">
+                      <label for="txtCode">imageUrl</label>
+                      <input id="txtCode" type="text" pInputText [value]="fCampaign.get('what.imageUrl')?.value" class="p-invalid">
+                    </div>
+                  </div>
+                  <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
+                    <label for="txtImage" class="form-label">Upload iconUrl</label>
+                    <div class="displayflex">
+                      <div class="col-6">
+                        <input
+                          formControlName="iconUrl"
+                          class="form-control no-bor"
+                          type="file"
+                          accept="image/jpg || image/png || image/webp"
+                          (change)="oniconUrl($event)"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
+                    <div class="field p-fluid">
+                      <label for="txtCode">iconUrl</label>
+                      <input id="txtCode" type="text" pInputText [value]="fCampaign.get('what.iconUrl')?.value" class="p-invalid">
+                    </div>
+                  </div>
+                  <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
+                    <label for="txtImage" class="form-label">Upload background</label>
+                    <div class="displayflex">
+                      <div class="col-6">
+                        <input
+                          formControlName="iconUrl"
+                          class="form-control no-bor"
+                          type="file"
+                          accept="image/jpg || image/png || image/webp"
+                          (change)="onBackground($event)"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
+                    <div class="field p-fluid">
+                      <label for="txtCode">background</label>
+                      <input id="txtCode" type="text" pInputText [value]="fCampaign.get('what.background')?.value" class="p-invalid">
+                    </div>
+                  </div>
+                <!-- <div class="col-6" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
                     <div class="field p-fluid">
                         <label for="txtCode">iconUrl</label>
                         <input id="txtCode" type="text" pInputText formControlName="iconUrl" class="p-invalid">
                     </div>
-                </div>
-                <div class="col-6" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
+                </div> -->
+                <!-- <div class="col-6" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
                     <div class="field p-fluid">
                         <label for="txtCode">background</label>
                         <input id="txtCode" type="text" pInputText formControlName="background" class="p-invalid">
                     </div>
-                </div>
+                </div> -->
                 <!-- <div class="col-6">
                     <div formGroupName="customKeyValue">
                         <div class="col-6">

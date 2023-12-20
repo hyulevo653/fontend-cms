@@ -58,6 +58,13 @@ export class CampaignService {
       }));
   }
 
+  updateStatusCampaign(id: number, reqData: any) {
+    return this.dataService.put(ApiConstant.updateCampaign + id, reqData)
+      .pipe(map((res: any) => {
+        return res;
+      }));
+  }
+
   createCampaign(reqData: any) {
     return this.dataService.post(ApiConstant.CreateCampaign, reqData)
       .pipe(map((res: any) => {

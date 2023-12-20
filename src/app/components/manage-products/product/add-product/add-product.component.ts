@@ -32,6 +32,7 @@ export class AddProductComponent {
   public nameFile : string = '';
   id: any;
   public isImageSelected: boolean = false; 
+  uploadedImage: string[] = [];
   uploadedImages: string[] = [];
   variantName : string[] = [];
   variantValues : string[][] = [];
@@ -259,7 +260,7 @@ export class AddProductComponent {
       price: this.data.showedPrice,
       // status : this.data.status,
       
-      productImages: '',
+      productImages: this.data.productImages,
       attributes : this.convertObjectToString(this.data.attributes),
       // attributes : this.convertArrToString(this.data.attributes),
     })
@@ -299,7 +300,7 @@ export class AddProductComponent {
         .subscribe(
           (response: any) => {
             const uploadedImageName = response.data;
-            this.uploadedImages.push(uploadedImageName); 
+            this.uploadedImage.push(uploadedImageName); 
             this.updateInputValue();  
             console.log('Upload thành công:', response);
           },
@@ -481,7 +482,7 @@ export class AddProductComponent {
 
 
   updateInputValue() {
-    const joinedValues = this.uploadedImages.join(', ');
+    const joinedValues = this.uploadedImage.join(', ');
     this.fProduct.controls['thumb'].setValue(joinedValues);
   }
 

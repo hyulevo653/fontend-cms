@@ -21,19 +21,138 @@ export class DashboardComponent implements OnInit, OnDestroy {
   statusValue: any;
   chartData: any;
   chartOptions: any;
+  chartDataSP: any;
+  chartOptionsSP: any;
   chartData1: any;
   chartOptions1: any;
   chartData2: any;
   chartOptions2: any;
   lstTime = ListTime;
   totalOrder : any;
+  chartOptionsDate: any;
+  Genderdata:any;
+  GenderdataOptions :any;
   chartData3: any;
   chartOptions3: any;
   data: any;
-
+  orderDateData: any;
   options: any;
 
   subscription!: Subscription;
+
+  public gender = {
+    "status": 200,
+    "message": "OK",
+    "timestamp": "2023-12-08T15:48:44.525+00:00",
+    "data": [
+      {
+        "gender": "Nam",
+        "cnt": 1
+      },
+      {
+        "gender": "Nữ",
+        "cnt": 10
+      }
+    ]
+  };
+
+  public orderDate = {
+    "status": 200,
+    "message": "OK",
+    "timestamp": 1701940820830,
+    "data": [
+        {
+            "orderDate": "2023-11-20",
+            "orderCount": 0,
+            "totalRevenue": 0
+        },
+        {
+            "orderDate": "2023-11-21",
+            "orderCount": 0,
+            "totalRevenue": 0
+        },
+        {
+            "orderDate": "2023-11-22",
+            "orderCount": 1,
+            "totalRevenue": 10702000
+        },
+        {
+            "orderDate": "2023-11-23",
+            "orderCount": 2,
+            "totalRevenue": 92279000
+        },
+        {
+            "orderDate": "2023-11-24",
+            "orderCount": 1,
+            "totalRevenue": 11352000
+        },
+        {
+            "orderDate": "2023-11-25",
+            "orderCount": 0,
+            "totalRevenue": 0
+        },
+        {
+            "orderDate": "2023-11-26",
+            "orderCount": 0,
+            "totalRevenue": 0
+        },
+        {
+            "orderDate": "2023-11-27",
+            "orderCount": 0,
+            "totalRevenue": 0
+        },
+        {
+            "orderDate": "2023-11-28",
+            "orderCount": 0,
+            "totalRevenue": 0
+        },
+        {
+            "orderDate": "2023-11-29",
+            "orderCount": 0,
+            "totalRevenue": 0
+        },
+        {
+            "orderDate": "2023-11-30",
+            "orderCount": 0,
+            "totalRevenue": 0
+        },
+        {
+            "orderDate": "2023-12-01",
+            "orderCount": 1,
+            "totalRevenue": 22252000
+        },
+        {
+            "orderDate": "2023-12-02",
+            "orderCount": 0,
+            "totalRevenue": 0
+        },
+        {
+            "orderDate": "2023-12-03",
+            "orderCount": 0,
+            "totalRevenue": 0
+        },
+        {
+            "orderDate": "2023-12-04",
+            "orderCount": 0,
+            "totalRevenue": 0
+        },
+        {
+            "orderDate": "2023-12-05",
+            "orderCount": 0,
+            "totalRevenue": 0
+        },
+        {
+            "orderDate": "2023-12-06",
+            "orderCount": 0,
+            "totalRevenue": 0
+        },
+        {
+            "orderDate": "2023-12-07",
+            "orderCount": 0,
+            "totalRevenue": 0
+        }
+    ]
+}
 
   public product = {
     "status": 200,
@@ -1882,6 +2001,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   userActive: any;
   dataProduct: any;
+  chartDataItem: any;
+  chartDataTotalOrderAmount: any;
 
   constructor(
     public layoutService: LayoutService,
@@ -1939,6 +2060,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
           "city": "Hà Nội",
           "cnt": 3
         },
+        {
+          "district": "Quốc Oai",
+          "city": "Hà Nội",
+          "cnt": 6
+        },
       ]
     };
 
@@ -1995,17 +2121,47 @@ export class DashboardComponent implements OnInit, OnDestroy {
         },
       ],
     };
+    this.chartDataSP = {
+      labels: rawData.data.map(item => item.categoryName),
+      datasets: [
+        {
+          data: rawData.data.map(item => item.productCount),
+          backgroundColor: ["#808000", "#008080	", "#000080	"],
+        },
+      ],
+    };
+    this.chartDataItem = {
+      labels: rawData.data.map(item => item.categoryName),
+      datasets: [
+        {
+          data: rawData.data.map(item => item.itemCount),
+          backgroundColor: ["#33CCFF", "#00CC33", "#CC99FF"],
+        },
+      ],
+    };
+
+    this.chartDataTotalOrderAmount = {
+      labels: rawData.data.map(item => item.categoryName),
+      datasets: [
+        {
+          data: rawData.data.map(item => item.totalOrderAmount),
+          backgroundColor: ["#CC6633", "#66A2EB", "#FF6666"],
+        },
+      ],
+    };
 
     this.chartOptions = {
       responsive: true,
       maintainAspectRatio: false,
     };
 
+    const cityName = Array.from(new Set(rawData1.data.map(item => item.city)));
+
     this.chartData1 = {
       labels: rawData1.data.map(item => `${item.district} - ${item.city}`),
       datasets: [
         {
-          label: 'Number of Orders',
+          label: 'Nam Định - Hải Hậu',
           data: rawData1.data.map(item => item.cnt),
           backgroundColor: ['#FF6384', '#36A2EB', /* thêm màu sắc cho các thành phố và huyện khác nếu cần */],
         },
@@ -2078,6 +2234,52 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
 
     this.chartOptions3 = {
+      responsive: true,
+      maintainAspectRatio: false,
+    };
+
+    this.orderDateData = {
+      labels: this.orderDate.data.map(item => item.orderDate),
+      datasets: [
+        {
+          label: 'Order Count',
+          data: rawData.data.map(item => item.orderCount),
+          fill: false,
+          borderColor: '#36A2EB',
+        },
+        {
+          label: 'Total Revenue',
+          data: this.orderDate.data.map(item => item.totalRevenue),
+          fill: false,
+          borderColor: '#FF6384',
+        },
+      ],
+    };
+
+    this.chartOptionsDate = {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+          },
+        }],
+      },
+    };
+
+    this.Genderdata = {
+      labels: this.gender.data.map(item => item.gender),
+      datasets: [
+        {
+          label : 'Nam',
+          data: this.gender.data.map(item => item.cnt),
+          backgroundColor: ['#FF6384', '#36A2EB'], // Màu sắc cho từng phần trong biểu đồ tròn
+        },
+      ],
+    };
+
+    this.GenderdataOptions = {
       responsive: true,
       maintainAspectRatio: false,
     };

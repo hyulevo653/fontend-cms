@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -38,6 +39,10 @@ export class AddCampaignComponent {
   evenNamevalue: any;
   public isAllUser : boolean = false;
   public isCheck : boolean  = false;
+
+  uploadedImages: string[] = [];
+  uploadedImages2: string[] = [];
+  uploadedImages3: string[] = [];
   lstValues: any;
   public itemProject: Campaign;
   who : any;
@@ -58,6 +63,7 @@ export class AddCampaignComponent {
     private readonly layoutService: LayoutService,
     private confirmationService: ConfirmationService,
     private router: Router,
+    private http : HttpClient,
     
     private readonly route: ActivatedRoute,
   ) {
@@ -150,6 +156,9 @@ export class AddCampaignComponent {
           type : this.slideValue,
           value : this.fCampaign.get('what.customKeyValue')?.value
         }      
+        reqData.what.imageUrl = this.uploadedImages[0] || '';
+        reqData.what.iconUrl = this.uploadedImages2[0] || '';
+        reqData.what.background = this.uploadedImages3[0] || '';
         this.loading[0] = true;
         this.campaignService.createCampaign(reqData).subscribe(
           (res: any) => {
@@ -310,19 +319,6 @@ export class AddCampaignComponent {
 
   formGroup(){
     this.fCampaign = this.fb.group({
-      id:  this.id,
-      name: this.data.name,
-      description: this.data.description,
-      promotionType: this.data.promotionType,
-      discountType: this.data.discountType,
-      discountRate: this.data.discountRate,
-      startDate: new Date(this.data.startDate),
-      endDate : new Date(this.data.endDate),
-      createDate: new Date(this.data.createDate),
-      lastUpdate: this.currentDate,
-      minTotalOrder: this.data.minTotalOrder,
-      maxTotalOrder : this.data.maxValueDiscount,
-      active : this.data.active,
     })
 
   }
@@ -343,6 +339,99 @@ export class AddCampaignComponent {
 
   onQualificationChange(value: string) {
     this.liveEventVisible = (value === 'LIVE_BEHAVIOR');
+  }
+
+  onimageUrl(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      const formData: FormData = new FormData();
+      formData.append('type', 'image');
+      formData.append('file', file);
+  
+      this.http.post('http://localhost:9214/api/v1/upload/file', formData)
+        .subscribe(
+          (response: any) => {
+            const uploadedImageName = response.data;
+            this.uploadedImages.push(uploadedImageName); 
+            this.updateInputValue();  
+            console.log('Upload thành công:', response);
+          },
+          (error) => {
+            console.error('Lỗi upload:', error);
+          }
+        );
+    }
+  }
+
+  updateInputValue() {
+    const imageUrlControl = this.fCampaign.get('what.imageUrl');
+    if (imageUrlControl) {
+      imageUrlControl.setValue(this.uploadedImages[0]);
+      imageUrlControl.markAsDirty();
+      imageUrlControl.markAsTouched();
+    }
+  }
+
+  oniconUrl(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      const formData: FormData = new FormData();
+      formData.append('type', 'image');
+      formData.append('file', file);
+  
+      this.http.post('http://localhost:9214/api/v1/upload/file', formData)
+        .subscribe(
+          (response: any) => {
+            const uploadedImageName = response.data;
+            this.uploadedImages2.push(uploadedImageName); 
+            this.updateInputValue2();  
+            console.log('Upload thành công:', response);
+          },
+          (error) => {
+            console.error('Lỗi upload:', error);
+          }
+        );
+    }
+  }
+
+  updateInputValue2() {
+    const imageUrlControl = this.fCampaign.get('what.iconUrl');
+    if (imageUrlControl) {
+      imageUrlControl.setValue(this.uploadedImages2[0]);
+      imageUrlControl.markAsDirty();
+      imageUrlControl.markAsTouched();
+    }
+  }
+
+  onBackground(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      const formData: FormData = new FormData();
+      formData.append('type', 'image');
+      formData.append('file', file);
+  
+      this.http.post('http://localhost:9214/api/v1/upload/file', formData)
+        .subscribe(
+          (response: any) => {
+            const uploadedImageName = response.data;
+            this.uploadedImages3.push(uploadedImageName); 
+            this.updateInputValue3();  
+            console.log('Upload thành công:', response);
+          },
+          (error) => {
+            console.error('Lỗi upload:', error);
+          }
+        );
+    }
+  }
+
+  updateInputValue3() {
+    const imageUrlControl = this.fCampaign.get('what.background');
+    if (imageUrlControl) {
+      imageUrlControl.setValue(this.uploadedImages3[0]);
+      imageUrlControl.markAsDirty();
+      imageUrlControl.markAsTouched();
+    }
   }
 
   TypeWhen(event:any){
