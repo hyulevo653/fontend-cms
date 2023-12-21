@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <h5>
-                {{ itemProject ? 'Xem chi tiết Voucher' : 'Thêm mới Voucher' }}
+                {{ itemProject ? 'Tạo chiến dịch' : 'Cập nhật chiến dịch' }}
             </h5>
 
             <form class="grid formgrid" [formGroup]="fCampaign">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtName">Tên Campaign
+                        <label for="txtName">Tên chiến dịch
                             <span class="" style="color:red">*</span>
                         </label>
                         <input id="txtName" type="text" pInputText formControlName="name" class="p-invalid">
@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtWard">qualification</label>
+                        <label for="txtWard">Hành vi</label>
                         <p-dropdown 
                             [options]="lstQualification" 
                             placeholder="Loại qualification" 
@@ -46,24 +46,18 @@
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtCode">ForAll</label>
+                        <label for="txtCode">Chiến dịch hệ thống (Người dùng mới tự động được thêm vào)?</label>
                         <input formControlName="forAll" class="form-check-input mg-l-2" type="checkbox" value="false" id="forAll">
                     </div>
                 </div>
                 <!-- who -->
                 <div class="col-12"><h4>Who</h4></div>
                 <form class="grid formgrid col-12" formGroupName="who">
-                    <div class="col-6">
-                        <div class="field p-fluid">
-                            <label for="txtCode">filter by property</label>
-                            <input formControlName="isAllUser" (change)="ChangeisAllUser()" class="form-check-input mg-l-2" type="checkbox" value="false" id="isAllUser">
-                        </div>
-                    </div>
                     <form class="grid formgrid col-12" formGroupName="liveEvent" *ngIf="liveEventVisible">
-                        <span class="col-12" style="font-weight: 600;color:blue;font-size: 30px;">LiveEvent</span>
+                        <span class="col-12" style="font-weight: 600;color:rgb(0, 0, 4);font-size: 20px;">Đẩy chiến dịch ngay khi người dùng thực hiện event</span>
                         <div class="col-6">
                             <div class="field p-fluid">
-                                <label for="txtWard">eventName</label>
+                                <label for="txtWard">Tên sự kiện</label>
                                 <p-dropdown 
                                     [options]="lstEventname" 
                                     placeholder="Select an event" 
@@ -76,7 +70,7 @@
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid">
-                                <label for="txtWard">eventProperty</label>
+                                <label for="txtWard">Tên thuộc tính</label>
                                 <p-dropdown 
                                     [options]="lstProperty" 
                                     placeholder="Select an event" 
@@ -90,7 +84,7 @@
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid">
-                                <label for="txtNameContacts">value</label>
+                                <label for="txtNameContacts">Giá trị thuộc tính</label>
                                     <p-multiSelect
                                         [options]="lstValues"
                                         [showClear]="true"
@@ -115,11 +109,17 @@
                             </div>
                         </div> -->
                     </form>
+                    <div class="col-6">
+                        <div class="field p-fluid">
+                            <label for="txtCode">Lọc theo hành vi trong quá khứ</label>
+                            <input formControlName="isAllUser" (change)="ChangeisAllUser()" class="form-check-input mg-l-2" type="checkbox" value="false" id="isAllUser">
+                        </div>
+                    </div>
                     <form class="grid formgrid col-12"  formGroupName="userDid" *ngIf="isAllUser==true">
-                        <span class="col-12" style="font-weight: 600;color:blue;font-size: 30px;">UserDid</span>
+                        <span class="col-12" style="font-weight: 600;color:rgb(10, 10, 10);font-size: 20px;">Lọc theo hành vi người dùng đã thực hiện</span>
                         <div class="col-6">
                             <div class="field p-fluid p-date">
-                                <label for="txtBirthDay">startDate
+                                <label for="txtBirthDay">Ngày bắt đầu
                                     <span class=""></span>
                                 </label>
                                 <p-calendar id="txtBirthDay" [showIcon]="true" [showButtonBar]="true" inputId="icon"  formControlName="startTime"  dateFormat="dd/mm/yy"></p-calendar>
@@ -127,7 +127,7 @@
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid p-date">
-                                <label for="txtBirthDay">endDate
+                                <label for="txtBirthDay">Ngày kết thúc
                                     <span class=""></span>
                                 </label>
                                 <p-calendar id="txtBirthDay" [showIcon]="true" [showButtonBar]="true" inputId="icon"  formControlName="endTime"  dateFormat="dd/mm/yy"></p-calendar>
@@ -135,7 +135,7 @@
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid">
-                                <label for="txtWard">eventName</label>
+                                <label for="txtWard">Tên sự kiện</label>
                                 <p-dropdown 
                                     [options]="lstEventname" 
                                     placeholder="Select an event" 
@@ -148,7 +148,7 @@
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid">
-                                <label for="txtWard">eventProperty</label>
+                                <label for="txtWard">Tên thuộc tính</label>
                                 <p-dropdown 
                                     [options]="lstProperty" 
                                     placeholder="Select an event" 
@@ -162,7 +162,7 @@
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid">
-                                <label for="txtWard">TypeCompare</label>
+                                <label for="txtWard">Loại so sánh</label>
                                 <p-dropdown 
                                     [options]="lstTypeCompareUser" 
                                     placeholder="" 
@@ -177,7 +177,7 @@
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid">
-                                <label for="txtNameContacts">value</label>
+                                <label for="txtNameContacts">Giá trị thuộc tính</label>
                                     <p-multiSelect
                                         [options]="lstValues"
                                         [showClear]="true"
@@ -203,7 +203,7 @@
                         </div> -->
                         <div class="col-4">
                             <div class="field p-fluid">
-                                <label for="txtWard">Where</label>
+                                <label for="txtWard">Điều kiện</label>
                                 <p-dropdown 
                                     [options]="lstCount" 
                                     placeholder="" 
@@ -217,7 +217,7 @@
                         </div>
                         <div class="col-4">
                             <div class="field p-fluid">
-                                <label for="txtWard">TypeCondition</label>
+                                <label for="txtWard">Loại so sánh điều kiện</label>
                                 <p-dropdown 
                                     [options]="lstTypeCondition" 
                                     placeholder="" 
@@ -239,7 +239,7 @@
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid">
-                                <label for="txtWard">typeCombine</label>
+                                <label for="txtWard">Loại kết hợp giữa người dùng thực hiện và không thực hiện</label>
                                 <p-dropdown 
                                     [options]="lstTypeCompare" 
                                     placeholder="" 
@@ -254,10 +254,10 @@
                         </div>
                     </form>
                     <form class="grid formgrid col-12" formGroupName="userNotDo" *ngIf="isAllUser==true">
-                        <span class="col-12" style="font-weight: 600;color:blue;font-size: 30px;">UserNotDid</span>
+                        <span class="col-12" style="font-weight: 600;color:rgb(0, 0, 0);font-size: 20px;">Người dùng không thực hiện sự kiện</span>
                         <div class="col-6">
                             <div class="field p-fluid p-date">
-                                <label for="txtBirthDay">startDate
+                                <label for="txtBirthDay">Ngày bắt đầu
                                     <span class=""></span>
                                 </label>
                                 <p-calendar id="txtBirthDay" [showButtonBar]="true" [showIcon]="true" inputId="icon"  formControlName="startTime"  dateFormat="dd/mm/yy"></p-calendar>
@@ -265,7 +265,7 @@
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid p-date">
-                                <label for="txtBirthDay">endDate
+                                <label for="txtBirthDay">Ngày kết thúc
                                     <span class=""></span>
                                 </label>
                                 <p-calendar id="txtBirthDay" [showButtonBar]="true" [showIcon]="true" inputId="icon"  formControlName="endTime"  dateFormat="dd/mm/yy"></p-calendar>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid">
-                                <label for="txtWard">eventName</label>
+                                <label for="txtWard">Tên sự kiện</label>
                                 <p-dropdown 
                                     [options]="lstEventname" 
                                     placeholder="" 
@@ -286,7 +286,7 @@
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid">
-                                <label for="txtWard">eventProperty</label>
+                                <label for="txtWard">Tên thuộc tính</label>
                                 <p-dropdown 
                                     [options]="lstProperty" 
                                     placeholder="" 
@@ -300,7 +300,7 @@
                         </div>
                         <div class="col-6">
                             <div class="field p-fluid">
-                                <label for="txtWard">TypeCompare</label>
+                                <label for="txtWard">Loại so sánh</label>
                                 <p-dropdown 
                                     [options]="lstTypeCompareUser" 
                                     placeholder="" 
@@ -328,7 +328,7 @@
                         </div> -->
                         <div class="col-6">
                             <div class="field p-fluid">
-                                <label for="txtNameContacts">value</label>
+                                <label for="txtNameContacts">Giá trị thuộc tính</label>
                                     <p-multiSelect
                                         [options]="lstValues"
                                         [showClear]="true"
@@ -346,19 +346,19 @@
                 <form class="grid formgrid col-12"  formGroupName="what">
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtCode">title</label>
+                        <label for="txtCode">Tiêu đề</label>
                         <input id="txtCode" type="text" pInputText formControlName="title" class="p-invalid">
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtCode">message</label>
+                        <label for="txtCode">Nội dung</label>
                         <input id="txtCode" type="text" pInputText formControlName="message" class="p-invalid">
                     </div>
                 </div>
                 <div class="col-6" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
                     <div class="field p-fluid">
-                        <label for="txtCode">timeToLive</label>
+                        <label for="txtCode">Thời gian tồn tại</label>
                         <input id="txtCode" type="number" pInputText  formControlName="timeToLive"  class="p-invalid">
                     </div>
                 </div>
@@ -383,7 +383,7 @@
                     </div>
                 </div> -->
                 <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH' || fCampaign.get('channel')?.value === 'INAPP'">
-                    <label for="txtImage" class="form-label">Upload imageUrl</label>
+                    <label for="txtImage" class="form-label">Upload Image Url</label>
                     <div class="displayflex">
                       <div class="col-6">
                         <input
@@ -403,7 +403,7 @@
                     </div>
                   </div>
                   <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
-                    <label for="txtImage" class="form-label">Upload iconUrl</label>
+                    <label for="txtImage" class="form-label">Upload Icon Url</label>
                     <div class="displayflex">
                       <div class="col-6">
                         <input
@@ -423,7 +423,7 @@
                     </div>
                   </div>
                   <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
-                    <label for="txtImage" class="form-label">Upload background</label>
+                    <label for="txtImage" class="form-label">Upload Image Background</label>
                     <div class="displayflex">
                       <div class="col-6">
                         <input
@@ -438,7 +438,7 @@
                   </div>
                   <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
                     <div class="field p-fluid">
-                      <label for="txtCode">background</label>
+                      <label for="txtCode">Background</label>
                       <input id="txtCode" type="text" pInputText [value]="fCampaign.get('what.background')?.value" class="p-invalid">
                     </div>
                   </div>
@@ -466,7 +466,7 @@
                 </div> -->
                 <div class="col-6" *ngIf="fCampaign.get('channel')?.value === 'PUSH' || fCampaign.get('channel')?.value === 'INAPP'">
                     <div class="field p-fluid">
-                        <label for="txtNameContacts">Chọn giá trị</label>
+                        <label for="txtNameContacts">Cấu hình key</label>
                             <p-dropdown 
                                 [options]="lstValue"
                                 [showClear]="true"
@@ -481,14 +481,14 @@
                 </div>
                 <div class="col-6" *ngIf="fCampaign.get('channel')?.value === 'PUSH' || fCampaign.get('channel')?.value === 'INAPP'">
                     <div class="field p-fluid">
-                        <label for="txtNameContacts">Nhập giá trị</label>
+                        <label for="txtNameContacts">Cấu hình value</label>
                         <span class="text-danger"></span>
                         <input id="txtNameContacts" type="text" pInputText formControlName="customKeyValue" >
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtCode">deeplink</label>
+                        <label for="txtCode">Deeplink</label>
                         <input id="txtCode" type="text" pInputText formControlName="deeplink"  class="p-invalid">
                     </div>
                 </div>
@@ -498,13 +498,13 @@
                 <form class="grid formgrid col-12"  formGroupName="when">
                     <div class="col-6" *ngIf="liveEventVisible">
                         <div class="field p-fluid">
-                            <label for="txtCode">Check</label>
+                            <label for="txtCode">Nâng cao</label>
                             <input (click)="ChangeCheckbox()" class="form-check-input mg-l-2" type="checkbox" value="false" id="forAll">
                         </div>
                     </div>  
                 <div class="col-6" *ngIf="fCampaign.get('qualification')?.value != 'LIVE_BEHAVIOR'"> 
                     <div class="field p-fluid">
-                        <label for="txtWard">type</label>
+                        <label for="txtWard">Cấu hình loại thời gian bắn</label>
                         <p-dropdown 
                             [options]="lstTypewhen" 
                             placeholder="typewhen" 
@@ -520,13 +520,13 @@
                 </div>
                 <div class="col-6" *ngIf="typeWhen == 'RECURRING'">
                     <div class="field p-fluid">
-                        <label for="txtCode">repeat</label>
+                        <label for="txtCode">Lặp lại sau (số ngày)</label>
                         <input id="txtCode" type="text" pInputText formControlName="repeat"  class="p-invalid">
                     </div>
                 </div>
                 <div class="col-6" *ngIf="typeWhen == 'RECURRING' || liveEventVisible">
                     <div class="field p-fluid p-date">
-                        <label for="txtBirthDay">endDate
+                        <label for="txtBirthDay">Ngày kết thúc
                             <span class=""></span>
                         </label>
                         <p-calendar id="txtBirthDay" [showButtonBar]="true" [showIcon]="true" inputId="icon"  formControlName="endDate" [showTime]="true" [showSeconds]="true"  dateFormat="dd/mm/yy"></p-calendar>
@@ -534,13 +534,13 @@
                 </div>
                 <div class="col-6" *ngIf="fCampaign.get('qualification')?.value == 'LIVE_BEHAVIOR' && isCheck == true">
                     <div class="field p-fluid">
-                        <label for="txtCode">Gửi nhiều lần</label>
+                        <label for="txtCode">Giới hạn 2 lần cách nhau (phút)</label>
                         <input id="txtCode" type="number" pInputText  formControlName="limit"  class="p-invalid">
                     </div>
                 </div>
                 <div class="col-6" *ngIf="fCampaign.get('qualification')?.value == 'LIVE_BEHAVIOR' && isCheck == true">
                     <div class="field p-fluid">
-                        <label for="txtCode">Occurrence</label>
+                        <label for="txtCode">Số lần gửi tin cho một người tối đa của chiến dịch</label>
                         <input id="txtCode" type="number" pInputText  formControlName="occurrence"  class="p-invalid">
                     </div>
                 </div>
@@ -557,7 +557,7 @@
                 </div> -->
                 <div class="col-6" *ngIf="(typeWhen == 'MULTIPLE_DATE'  && liveEventVisible == false) || (typeWhen == 'SPECIFIC_TIME' && liveEventVisible == false)">
                     <div class="field p-fluid p-date">
-                      <label for="txtBirthDay">startDates
+                      <label for="txtBirthDay">Chọn các ngày đẩy chiến dịch
                         <span></span>
                       </label>
                       <p-calendar id="txtBirthDay" selectionMode="multiple" [showButtonBar]="true" [showIcon]="true" inputId="icon" [(ngModel)]="selectedDatesList" formControlName="startDates" [showTime]="true" [showSeconds]="true" dateFormat="dd/mm/yy"></p-calendar>
