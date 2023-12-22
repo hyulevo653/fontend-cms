@@ -23,73 +23,6 @@ export class ViewCampaignComponent {
   lstCampaign: any;
   dataCampaign : any;
 
-  public testdata =    {
-    "id": 19,
-    "name": "Sobin test INAPP Test LIVE_BEHAVIOR 12122023",
-    "qualification": "LIVE_BEHAVIOR",
-    "forAll": true,
-    "who": {
-        "liveEvent": {
-            "eventName": "Click Home",
-            "eventProperty": "",
-            "value": [
-                "1",
-                "2"
-            ]
-        },
-        "userDid": {
-            "eventName": "Buy",
-            "eventProperty": "Price",
-            "value": [
-                "10000",
-                "50000"
-            ],
-            "typeCompare": "BETWEEN",
-            "typeCondition": "EQUALS",
-            "count": 5,
-            "startTime": null,
-            "endTime": null
-        },
-        "userNotDo": {
-            "eventName": "",
-            "eventProperty": "",
-            "value": [
-                "",
-                ""
-            ],
-            "typeCompare": "NOT_EQUALS",
-            "startTime": null,
-            "endTime": null
-        },
-        "typeCombine": "AND",
-        "isAllUser": true
-    },
-    "what": {
-        "title": "Test title",
-        "message": "Test message",
-        "timeToLive": 1,
-        "imageUrl": "https://down-vn.img.susercontent.com/file/vn-50009109-98dff3ec15a59e4fc44c536e50f1a7e7",
-        "iconUrl": "Test icon",
-        "background": "test background",
-        "deeplink": "test deeplink",
-        "customKeyValue": {
-            "a": "1",
-            "b": "2"
-        }
-    },
-    "when": {
-        "type": "NOW",
-        "startDates": [],
-        "repeat": 1,
-        "limit": 1,
-        "endDate": null
-    },
-    "status": "RUNNING",
-    "channel": "INAPP",
-    "startTime": null,
-    "updateTime": null,
-    "createTime": "2023-12-12T03:36:03.870+00:00"
-}
 
   constructor(
     private readonly commonService: CommonService,
@@ -112,9 +45,8 @@ export class ViewCampaignComponent {
 
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.id =  params.get('id');
-    });
+    this.id =  localStorage.getItem("idcampaign");
+    console.log(this.id);
     if(this.id > 0){
       this.getListCampaignByPaging();
     }
@@ -147,8 +79,8 @@ export class ViewCampaignComponent {
       .join(", ");
   }
   onBack(){
-    // setTimeout(() => {this.ref.close()}, 700);
-    setTimeout(() => {this.onReturnPage('/category/campaign/list')}, 1500);
+    setTimeout(() => {this.ref.close()}, 700);
+    // setTimeout(() => {this.onReturnPage('/category/campaign/list')}, 1500);
   }
   onReturnPage(url: string) : void {
     this.router.navigate([url]);
