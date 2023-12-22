@@ -1,0 +1,162 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h5>
+                {{ 'Xem chi tiết Campaign'  || 'null'}} 
+            </h5>
+
+            <form class="grid formgrid">
+                <div class="col-6">
+                    <label>Tên Campaign : {{dataCampaign.name || 'null'}}</label>
+                </div>
+                <div class="col-6">
+                    <label>Qualification: {{dataCampaign.qualification || 'null'}}</label>
+                </div>
+                <div class="col-6">
+                    <label>ForAll: {{dataCampaign.forAll || 'null'}}</label>
+                </div>
+                <div class="col-6">
+                    <label>status: {{dataCampaign.status || 'null'}}</label>
+                </div>
+                <div class="col-6">
+                    <label>channel: {{dataCampaign.channel || 'null'}}</label>
+                </div>
+                <div class="col-6">
+                    <label>startTime: {{dataCampaign.startTime || 'null'}}</label>
+                </div>
+                <div class="col-6">
+                    <label>updateTime: {{dataCampaign.updateTime || 'null'}}</label>
+                </div>
+                <div class="col-6">
+                    <label>createTime: {{dataCampaign.createTime ? (dataCampaign.createTime | date: 'yyyy-MM-dd HH:mm:ss') : 'null'}}</label>
+                </div>
+                <div class="col-12">
+                    <h3>WHO</h3>
+                </div>
+                    <div class="col-12">
+                        <h4>liveEvent</h4>
+                    </div>
+                        <div class="col-6">
+                            <label>eventName: {{dataCampaign.who.liveEvent.eventName || 'null'}}</label>
+                        </div>
+                        <div class="col-6">
+                            <label>eventProperty: {{dataCampaign.who.liveEvent.eventProperty || 'null'}}</label>
+                        </div>
+                        <div class="col-6">
+                            <label>value: {{convertArrToString(dataCampaign.who.liveEvent.value) || 'null'}}</label>
+                        </div> 
+                    <div class="col-12">
+                        <h4>userDid</h4>
+                    </div>
+                        <div class="col-6">
+                            <label>eventName: {{dataCampaign.who.userDid.eventName || 'null'}}</label>
+                        </div>
+                        <div class="col-6">
+                            <label>eventProperty: {{dataCampaign.who.userDid.eventProperty || 'null'}}</label>
+                        </div>
+                        <div class="col-6">
+                            <label>value: {{convertArrToString(dataCampaign.who.userDid.value) || 'null'}}</label>
+                        </div> 
+                        <div class="col-6">
+                            <label>eventProperty: {{dataCampaign.who.userDid.typeCompare || 'null'}}</label>
+                        </div>
+                        <div class="col-6">
+                            <label>typeCondition: {{dataCampaign.who.userDid.typeCondition || 'null'}}</label>
+                        </div>
+                        <div class="col-6">
+                            <label>typeCompare: {{dataCampaign.who.userDid.typeCompare || 'null'}}</label>
+                        </div>
+                        <div class="col-6">
+                            <label>count: {{dataCampaign.who.userDid.count || 'null'}}</label>
+                        </div>
+                        <div class="col-6">
+                            <label>startTime: {{dataCampaign.who.userDid.startTime || 'null'}}</label>
+                        </div>
+                        <div class="col-6">
+                            <label>endTime: {{dataCampaign.who.userDid.endTime || 'null'}}</label>
+                        </div>
+                        <div class="col-12">
+                            <h4>userNotDo</h4>
+                        </div>
+                            <div class="col-6">
+                                <label>eventName: {{dataCampaign.who.userNotDo.eventName || 'null'}}</label>
+                            </div>
+                            <div class="col-6">
+                                <label>eventProperty: {{dataCampaign.who.userNotDo.eventProperty || 'null'}}</label>
+                            </div>
+                            <div class="col-6">
+                                <label>value: {{convertArrToString(dataCampaign.who.userNotDo.value) || 'null'}}</label>
+                            </div> 
+                            <div class="col-6">
+                                <label>eventProperty: {{dataCampaign.who.userNotDo.typeCompare || 'null'}}</label>
+                            </div>
+                            <div class="col-6">
+                                <label>typeCompare: {{dataCampaign.who.userNotDo.typeCompare || 'null'}}</label>
+                            </div>
+                            <div class="col-6">
+                                <label>startTime: {{dataCampaign.who.userNotDo.startTime || 'null'}}</label>
+                            </div>
+                            <div class="col-6">
+                                <label>endTime: {{dataCampaign.who.userNotDo.endTime || 'null'}}</label>
+                            </div>   
+                <div class="col-12">
+                    <h3>WHAT</h3>
+                </div> 
+                    <div class="col-6">
+                        <label>title: {{dataCampaign.what.title || 'null'}}</label>
+                    </div>   
+                    <div class="col-6">
+                        <label>message: {{dataCampaign.what.message || 'null'}}</label>
+                    </div>   
+                    <div class="col-6">
+                        <label>timeToLive: {{dataCampaign.what.timeToLive || 'null'}}</label>
+                    </div>   
+                    <div class="col-6">
+                        <label>imageUrl: {{dataCampaign.what.imageUrl || 'null'}}</label>
+                        <img class="img-cam" src="{{dataCampaign.what.imageUrl}}" alt="" />
+                    </div>   
+                    <div class="col-6">
+                        <label>iconUrl: {{dataCampaign.what.iconUrl || 'null'}}</label>
+                        <img class="img-cam" src="{{dataCampaign.what.iconUrl }}" alt="" />
+
+                    </div>         
+                    <div class="col-6">
+                        <label>background: {{dataCampaign.what.background || 'null'}}</label>
+                        <img class="img-cam" src="{{dataCampaign.what.background}}" alt="" />
+                    </div>   
+                    <div class="col-6">
+                        <label>deeplink: {{dataCampaign.what.deeplink || 'null'}}</label>
+                    </div>   
+                    <div class="col-6">
+                        <label>customKeyValue: {{convertObjectToString(dataCampaign.what.customKeyValue) || 'null'}}</label>
+                    </div> 
+                <div class="col-12">
+                    <h3>WHEN</h3>
+                </div>      
+                    <div class="col-6">
+                        <label>type: {{dataCampaign.when.type || 'null'}}</label>
+                    </div> 
+                    <div class="col-6">
+                        <label>startDates: {{convertArrToString(dataCampaign.when.startDates) || 'null'}}</label>
+                    </div> 
+                    <div class="col-6">
+                        <label>repeat: {{dataCampaign.when.repeat || 'null'}}</label>
+                    </div> 
+                    <div class="col-6">
+                        <label>type: {{dataCampaign.when.type || 'null'}}</label>
+                    </div> 
+                    <div class="col-6">
+                        <label>limit: {{dataCampaign.when.limit || 'null'}}</label>
+                    </div> 
+                    <div class="col-6">
+                        <label>endDate: {{dataCampaign.when.endDate || 'null'}}</label>
+                    </div> 
+                    <div class="col-12 p_float_right">
+                        <button pButton pRipple type="button" label="Quay lại" class="p-button-outlined p-button-secondary mr-2" (click)="onBack()">
+                            <span class="pi pi-angle-left"></span>
+                        </button>
+                    </div>
+            </form>        
+        </div>
+    </div>
+</div>

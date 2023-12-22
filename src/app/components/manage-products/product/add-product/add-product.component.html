@@ -302,6 +302,9 @@
                               </div>
                               <div class="displayflex">
                                 <div class="col-6">
+                                  <input id="txtName" type="text" pInputText  [(ngModel)]="rowData.userInput.image" class="p-invalid"  [ngModelOptions]="{
+                                    standalone: true
+                                  }">
                                   <input
                                     [(ngModel)]="rowData.userInput.image"
                                     class="form-control no-bor"

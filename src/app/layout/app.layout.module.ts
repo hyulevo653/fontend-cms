@@ -24,6 +24,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { StyleClassModule } from 'primeng/styleclass';
 import { TableModule } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogService , DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CardModule } from 'primeng/card'
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
@@ -103,11 +104,13 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
         MultiSelectModule,
         SelectButtonModule,
         ToggleButtonModule,
+        
     ],
     providers: [
         MessageService,
-        ConfirmationService!
-
+        ConfirmationService,
+        DialogService,
+        DynamicDialogRef
       ]
 })
 export class AppLayoutModule { }

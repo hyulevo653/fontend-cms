@@ -11,7 +11,7 @@
                 </div>
             </section>
             <p-table 
-                [value]="lstCampaign"
+                [value]="test"
                 [paginator]="true"
                 [rows]="filterParrams.size"
                 [showCurrentPageReport]="true"
@@ -50,7 +50,9 @@
                         <td>{{ campaign.createTime ? (campaign.creaTime | date: 'yyyy-MM-dd HH:mm:ss') : ''}}</td>
                         <td>
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" routerLink="/category/campaign/upload/{{campaign.id}}"></button>
+                            <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-success mr-2" routerLink="/category/campaign/view/{{campaign.id}}"></button>
                             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="onDelete(campaign)"></button>
+                            <!-- <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-warning" (click)="onOpenDialog(campaign.id)"></button> -->
                         </td>
                     </tr>
                 </ng-template>

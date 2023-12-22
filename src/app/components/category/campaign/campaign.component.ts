@@ -5,7 +5,9 @@ import { CampaignService } from 'src/app/services/campaign.service';
 import { AppMessageResponse } from 'src/app/shared/constants/app.constants';
 import { Campaign } from 'src/app/viewModels/campaign/campaign';
 import { Paging } from 'src/app/viewModels/paging';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ResApi } from 'src/app/viewModels/res-api';
+import { ViewCampaignComponent } from './view-campaign/view-campaign.component';
 
 @Component({
   selector: 'app-campaign',
@@ -20,13 +22,320 @@ export class CampaignComponent {
   id: any;
   public loading = [false];
 
+  public test =  [
+    {
+        "id": 19,
+        "name": "Sobin test INAPP Test LIVE_BEHAVIOR 12122023",
+        "qualification": "LIVE_BEHAVIOR",
+        "forAll": true,
+        "who": {
+            "liveEvent": {
+                "eventName": "Click Home",
+                "eventProperty": "",
+                "value": [
+                    "1",
+                    "2"
+                ]
+            },
+            "userDid": {
+                "eventName": "Buy",
+                "eventProperty": "Price",
+                "value": [
+                    "10000",
+                    "50000"
+                ],
+                "typeCompare": "BETWEEN",
+                "typeCondition": "EQUALS",
+                "count": 5,
+                "startTime": null,
+                "endTime": null
+            },
+            "userNotDo": {
+                "eventName": "",
+                "eventProperty": "",
+                "value": [
+                    "",
+                    ""
+                ],
+                "typeCompare": "NOT_EQUALS",
+                "startTime": null,
+                "endTime": null
+            },
+            "typeCombine": "AND",
+            "isAllUser": true
+        },
+        "what": {
+            "title": "Test title",
+            "message": "Test message",
+            "timeToLive": 1,
+            "imageUrl": "https://down-vn.img.susercontent.com/file/vn-50009109-98dff3ec15a59e4fc44c536e50f1a7e7",
+            "iconUrl": "Test icon",
+            "background": "test background",
+            "deeplink": "test deeplink",
+            "customKeyValue": {
+                "a": "1",
+                "b": "2"
+            }
+        },
+        "when": {
+            "type": "NOW",
+            "startDates": [],
+            "repeat": 1,
+            "limit": 1,
+            "endDate": null
+        },
+        "status": "RUNNING",
+        "channel": "INAPP",
+        "startTime": null,
+        "updateTime": null,
+        "createTime": "2023-12-12T03:36:03.870+00:00"
+    },
+    {
+        "id": 18,
+        "name": "Sobin test campaign Test PAST_BEHAVIOR xyz",
+        "qualification": "LIVE_BEHAVIOR",
+        "forAll": true,
+        "who": {
+            "liveEvent": {
+                "eventName": "Click Home",
+                "eventProperty": "",
+                "value": [
+                    "1",
+                    "2"
+                ]
+            },
+            "userDid": {
+                "eventName": "Buy",
+                "eventProperty": "Price",
+                "value": [
+                    "10000",
+                    "50000"
+                ],
+                "typeCompare": "BETWEEN",
+                "typeCondition": "EQUALS",
+                "count": 5,
+                "startTime": null,
+                "endTime": null
+            },
+            "userNotDo": {
+                "eventName": "",
+                "eventProperty": "",
+                "value": [
+                    "",
+                    ""
+                ],
+                "typeCompare": "NOT_EQUALS",
+                "startTime": null,
+                "endTime": null
+            },
+            "typeCombine": "AND",
+            "isAllUser": true
+        },
+        "what": {
+            "title": "Test title",
+            "message": "Test message",
+            "timeToLive": 1,
+            "imageUrl": "test url",
+            "iconUrl": "Test icon",
+            "background": "test background",
+            "deeplink": "test deeplink",
+            "customKeyValue": {
+                "a": "1",
+                "b": "2"
+            }
+        },
+        "when": {
+            "type": "NOW",
+            "startDates": null,
+            "repeat": 1,
+            "limit": null,
+            "endDate": null
+        },
+        "status": "APPROVAL_PENDING",
+        "channel": "INAPP",
+        "startTime": null,
+        "updateTime": null,
+        "createTime": "2023-12-04T03:43:17.776+00:00"
+    },
+    {
+        "id": 15,
+        "name": "Sobin test campaign Test PAST_BEHAVIOR abc",
+        "qualification": "LIVE_BEHAVIOR",
+        "forAll": true,
+        "who": {
+            "liveEvent": {
+                "eventName": "Click Home",
+                "eventProperty": "",
+                "value": [
+                    "1",
+                    "2"
+                ]
+            },
+            "userDid": {
+                "eventName": "Buy",
+                "eventProperty": "Price",
+                "value": [
+                    "10000",
+                    "50000"
+                ],
+                "typeCompare": "BETWEEN",
+                "typeCondition": "EQUALS",
+                "count": 5,
+                "startTime": null,
+                "endTime": null
+            },
+            "userNotDo": null,
+            "typeCombine": "AND",
+            "isAllUser": true
+        },
+        "what": {
+            "title": "Test title",
+            "message": "Test message",
+            "timeToLive": 1,
+            "imageUrl": "test url",
+            "iconUrl": "Test icon",
+            "background": "test background",
+            "deeplink": "test deeplink",
+            "customKeyValue": {
+                "a": "1",
+                "b": "2"
+            }
+        },
+        "when": {
+            "type": "NOW",
+            "startDates": null,
+            "repeat": 1,
+            "limit": null,
+            "endDate": null
+        },
+        "status": "APPROVAL_PENDING",
+        "channel": "INAPP",
+        "startTime": null,
+        "updateTime": null,
+        "createTime": "2023-12-04T03:35:25.489+00:00"
+    },
+    {
+        "id": 14,
+        "name": "Sobin test campaign Test PAST_BEHAVIOR inapp",
+        "qualification": "LIVE_BEHAVIOR",
+        "forAll": false,
+        "who": {
+            "liveEvent": {
+                "eventName": "Click Home",
+                "eventProperty": null,
+                "value": null
+            },
+            "userDid": {
+                "eventName": "Buy",
+                "eventProperty": "Price",
+                "value": [
+                    "10000",
+                    "50000"
+                ],
+                "typeCompare": "BETWEEN",
+                "typeCondition": null,
+                "count": 5,
+                "startTime": null,
+                "endTime": null
+            },
+            "userNotDo": null,
+            "typeCombine": null,
+            "isAllUser": true
+        },
+        "what": {
+            "title": "Test title",
+            "message": "Test message",
+            "timeToLive": 1,
+            "imageUrl": "https://down-vn.img.susercontent.com/file/vn-50009109-98dff3ec15a59e4fc44c536e50f1a7e7",
+            "iconUrl": "Test icon",
+            "background": "test background",
+            "deeplink": "test deeplink",
+            "customKeyValue": {
+                "a": "1",
+                "b": "2"
+            }
+        },
+        "when": {
+            "type": "NOW",
+            "startDates": null,
+            "repeat": 1,
+            "limit": null,
+            "endDate": null
+        },
+        "status": "RUNNING",
+        "channel": "INAPP",
+        "startTime": null,
+        "updateTime": "2023-12-01T12:32:07.608+00:00",
+        "createTime": "2023-12-01T12:31:50.591+00:00"
+    },
+    {
+        "id": 12,
+        "name": "Sobin test campaign Test PAST_BEHAVIOR b",
+        "qualification": "PAST_BEHAVIOR",
+        "forAll": false,
+        "who": {
+            "liveEvent": {
+                "eventName": "Click Home",
+                "eventProperty": "",
+                "value": [
+                    "1",
+                    "2"
+                ]
+            },
+            "userDid": {
+                "eventName": "Buy",
+                "eventProperty": "Price",
+                "value": [
+                    "10000",
+                    "50000"
+                ],
+                "typeCompare": "BETWEEN",
+                "typeCondition": null,
+                "count": 5,
+                "startTime": null,
+                "endTime": null
+            },
+            "userNotDo": null,
+            "typeCombine": null,
+            "isAllUser": true
+        },
+        "what": {
+            "title": "Test title",
+            "message": "Test message",
+            "timeToLive": 1,
+            "imageUrl": "test url",
+            "iconUrl": "Test icon",
+            "background": "test background",
+            "deeplink": "test deeplink",
+            "customKeyValue": {
+                "a": "1",
+                "b": "2"
+            }
+        },
+        "when": {
+            "type": "NOW",
+            "startDates": null,
+            "repeat": 1,
+            "limit": null,
+            "endDate": null
+        },
+        "status": "COMPLETED",
+        "channel": "PUSH",
+        "startTime": null,
+        "updateTime": "2023-12-01T12:12:19.610+00:00",
+        "createTime": "2023-12-01T12:12:08.057+00:00"
+    }
+]
+
 
   constructor(
     private readonly campaignService: CampaignService,
     private readonly messageService: MessageService,
     private route: ActivatedRoute, 
     private readonly confirmationService: ConfirmationService,
-    private router: Router
+    private ref: DynamicDialogRef,
+    private router: Router,
+    public dialogService: DialogService,
   ) {
     this.filterParrams = new Object as Paging;
     this.filterParrams.page = 1;
@@ -136,6 +445,18 @@ export class CampaignComponent {
       
   //   })
   // }
+
+  onOpenDialog(id : number) {
+
+    this.ref = this.dialogService.open(ViewCampaignComponent, {
+      header: 'Chi tiết Campaign',
+      width: '80%',
+      height: '75%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+    });
+  }
 
 
   onDelete(item: Campaign ) {

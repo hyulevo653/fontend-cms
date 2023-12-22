@@ -14,6 +14,7 @@ import { CampaignComponent } from './campaign/campaign.component';
 import { AddCampaignComponent } from './campaign/add-campaign/add-campaign.component';
 import { SlideComponent } from './slide/slide.component';
 import { AddSlideComponent } from './slide/add-slide/add-slide.component';
+import { ViewCampaignComponent } from './campaign/view-campaign/view-campaign.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ declarations: [
     AddCampaignComponent,
     SlideComponent,
     AddSlideComponent,
+    ViewCampaignComponent,
   ],
   imports: [
     CommonModule,

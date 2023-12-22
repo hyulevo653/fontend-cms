@@ -11,6 +11,7 @@ import { CampaignComponent } from '../components/category/campaign/campaign.comp
 import { AddCampaignComponent } from '../components/category/campaign/add-campaign/add-campaign.component';
 import { SlideComponent } from '../components/category/slide/slide.component';
 import { AddSlideComponent } from '../components/category/slide/add-slide/add-slide.component';
+import { ViewCampaignComponent } from '../components/category/campaign/view-campaign/view-campaign.component';
 
 
 
@@ -58,6 +59,10 @@ const routes: Routes = [
   {
     path: 'campaign/upload/:id',
     component: AddCampaignComponent,
+  },
+  {
+    path: 'campaign/view/:id',
+    component: ViewCampaignComponent,
   },
   {
     path: 'slide/list',

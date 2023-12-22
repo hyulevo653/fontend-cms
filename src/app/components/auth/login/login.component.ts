@@ -80,6 +80,7 @@ export class LoginComponent {
                 }
             }
             else {
+                this.isLogging = false;
                 this.isLoginFailed = true;
                 this.resMessageLogin = res.message;  
             }
