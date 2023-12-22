@@ -19,14 +19,14 @@
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtCode">% giảm giá</label>
+                        <label for="txtCode">Giảm giá(% or VNĐ)</label>
                         <input id="txtCode" type="text" pInputText formControlName="discountRate" class="p-invalid">
                         <small *ngIf="fProject.controls['discountRate'].hasError('required') && fProject.controls['Name'].dirty" class="p-invalid text-danger">Vui lòng nhập % giảm giá.</small>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtPersonContact">minTotalOrder</label>
+                        <label for="txtPersonContact">Tổng giá trị đơn hàng tối thiểu</label>
                         <input id="txtName" type="text" pInputText formControlName="minTotalOrder">
                     </div>
                 </div>
@@ -38,19 +38,19 @@
                 </div> -->
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtPersonContact">maxPerUserUse</label>
+                        <label for="txtPersonContact">Số lượng đối đa cho một người dùng</label>
                         <input id="txtName" type="text" pInputText formControlName="maxPerUserUse">
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtPersonContact">maxDistributedVoucher</label>
+                        <label for="txtPersonContact">Số lượng tối đa voucher phát ra</label>
                         <input id="txtName" type="text" pInputText formControlName="maxDistributedVoucher">
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
-                        <label for="txtPersonContact">maxTotalOrder</label>
+                        <label for="txtPersonContact">Số tiền giảm tối đa</label>
                         <input id="txtName" type="text" pInputText formControlName="maxTotalOrder">
                     </div>
                 </div>

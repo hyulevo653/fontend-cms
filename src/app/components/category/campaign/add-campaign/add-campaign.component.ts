@@ -222,13 +222,12 @@ export class AddCampaignComponent {
 
   calculateDefaultStartDate(): Date {
     const currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() - 10);
+    currentDate.setDate(currentDate.getDate() - 30);
     return currentDate;
   }
 
   calculateDefaultEndDate(): Date {
     const currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() + 10);
     return currentDate;
   }
 

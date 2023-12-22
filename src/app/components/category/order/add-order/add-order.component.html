@@ -19,7 +19,7 @@
                     <label class="title-label">Số điện thoại:&nbsp;&nbsp;<label class="item-order">{{dataOrder?.account?.user?.phoneNumber}}</label></label>
                 </div>
                 <div class="col-12">
-                    <label class="title-label">Địa chỉ - Xã - Huyện - Thành Phố : &nbsp;<label class="item-order">{{dataOrder?.account?.user?.specificAddress}} - {{dataOrder?.account?.user?.village}} - {{dataOrder?.account?.user?.district}} - {{dataOrder?.account?.user?.city}}</label></label>
+                    <label class="title-label">Địa chỉ nhận hàng: &nbsp;<label class="item-order">{{dataOrder?.account?.user?.specificAddress}} - {{dataOrder?.account?.user?.village}} - {{dataOrder?.account?.user?.district}} - {{dataOrder?.account?.user?.city}}</label></label>
                 </div>  
                  <div class="col-12">
                     <p-table 
@@ -33,19 +33,17 @@
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 5%">Stt</th>
-                            <th class="min-w-150">Stt</th>
-                            <th class="min-w-150">Số lượng</th>
+                            <th class="min-w-100">Số lượng</th>
                             <th class="min-w-300">Tên sản phẩm</th>
-                            <th class="min-w-300">Loại sản phẩm</th>
-                            <th class="min-w-150">Giá</th>
+                            <th class="min-w-200">Loại sản phẩm</th>
+                            <th class="min-w-100">Giá</th>
                             <th class="min-w-300">Ảnh</th>
-                            <th class="min-w-300">Thuộc tính</th>
+                            <th class="min-w-100">Thuộc tính</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-order let-rowIndex="rowIndex">
                         <tr>
                             <td>{{ rowIndex + 1 }}</td>
-                            <td>{{ order.id }}</td>
                             <td>{{ order.quantity }}</td>
                             <td>{{ order.item?.product?.name }}</td>
                             <td>{{ order.item?.product?.categories[0].name }}</td>
@@ -62,23 +60,23 @@
                 </p-table>
                 </div>
                 <div class="col-6">
-                    <label class="title-label">Mã giảm giá:&nbsp;&nbsp;<label class="item-order">{{data?.promotionCode}}</label></label>
+                    <label class="title-label">Mã giảm giá:&nbsp;&nbsp;<label class="item-order">{{dataOrder?.promotionCode}}</label></label>
                 </div>
                 <div class="col-6">
-                    <label class="title-label">Tổng tiền:&nbsp;&nbsp;<label class="item-order">{{data?.orderTotal}}</label></label>
+                    <label class="title-label">Tổng tiền:&nbsp;&nbsp;<label class="item-order">{{dataOrder?.orderTotal}}</label></label>
                 </div>
-                <div class="col-6">
+                <!-- <div class="col-6">
                     <label class="title-label">% Thuế VAT:&nbsp;&nbsp;<label class="item-order">{{data?.account?.user?.email}}</label></label>
-                </div>
+                </div> -->
                 <div class="col-6">
-                    <label class="title-label">Tiền giảm giá:&nbsp;&nbsp;<label class="item-order">-{{data?.account?.user?.email}}</label></label>
+                    <label class="title-label">Tiền phí vận chuyển:&nbsp;&nbsp;<label class="item-order">{{dataOrder?.shippingPrice}}</label></label>
                 </div>
-                <div class="col-6">
+                <!-- <div class="col-6">
                     <label class="title-label">% Phí dịch vụ:&nbsp;&nbsp;<label class="item-order">-{{data?.account?.user?.email}}</label></label>
-                </div>
-                <div class="col-6">
+                </div> -->
+                <!-- <div class="col-6">
                     <label class="title-label">Tiền dịch vụ:&nbsp;&nbsp;<label class="item-order">-{{data?.account?.user?.email}}</label></label>
-                </div>
+                </div> -->
                
                 <div class="col-12 p_float_right">
                     <button pButton pRipple type="button" label="Quay lại" class="p-button-outlined p-button-secondary mr-2" (click)="onBack($event)">

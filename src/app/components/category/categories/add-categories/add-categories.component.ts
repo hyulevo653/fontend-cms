@@ -98,6 +98,9 @@ export class AddCategoriesComponent {
       }
       else{
         const reqData = Object.assign({}, this.fCategory.value);
+        if (reqData.hasOwnProperty('id')) {
+          delete reqData.id;
+        }
         reqData.imageIcon = this.dataCate.imageIcon;
         this.uploadedImageUrl = this.dataCate.imageIcon;
         this.loading[0] = true;

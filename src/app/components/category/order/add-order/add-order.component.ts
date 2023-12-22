@@ -84,12 +84,8 @@ export class AddOrderComponent {
             this.dataOrder = res.data.elements[i];
             this.data = res.data.elements[i].orderLines;
             for(let j=0;j<res.data.elements[i].orderLines.length;j++){
-              this.variants = res.data.elements[i].orderLines[j].item.product.variants;
-              this.mappedVariants = this.variants.flatMap((variant: { name: any; variantOptions: any[]; }) => {
-                const variantName = variant.name;
-                const variantOptions = variant.variantOptions.map(option => option.value);
-                return variantOptions.map(option => `${variantName}-${option}`);
-              });
+              this.variants = res.data.elements[i].orderLines[j].item.variantOptions;
+              this.mappedVariants = this.variants.map((i:any) => i.value).join(', ')
             }
           }
         }
