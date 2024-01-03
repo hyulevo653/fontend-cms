@@ -86,7 +86,19 @@ export class ApiConstant {
   public static deleteSlider = apiUrl.concat('slide/status/');
   public static statusSlider = apiUrl.concat('slide/status');
 
+  //statistic management
+  public static StatisticGender = apiManager.concat('statistic/gender');
+  public static StatisticLocation = apiManager.concat('statistic/location');
+  public static StatisticViewProduct = apiManager.concat('statistic/view/product');
+  public static StatisticDayProduct = apiManager.concat('statistic/view/day/product');
+  public static StatisticEvent = apiManager.concat('statistic/event');
+  public static StatisticUserActiveInterval = apiManager.concat('statistic/user_active_interval');
+  public static StatisticUserNew = apiManager.concat('statistic/user_new');
 
+  // statistic ecommerce
+  public static statisticOrder = apiUrl.concat('statistic/order');
+  public static statisticOrderStatus = apiUrl.concat('statistic/order_status');
+  public static statisticOrderCategory = apiUrl.concat('statistic/order_category');
   //#endregion
 
   //#region "province"

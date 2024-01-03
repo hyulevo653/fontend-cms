@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { error } from 'console';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppMessageResponse, AppStatusCode } from 'src/app/shared/constants/app.constants';
@@ -67,7 +68,9 @@ export class LoginComponent {
         this.isLogging = true;
     
         this.authService.login(reqLogin).subscribe((res : any) => {
+
             this.isLogging = false;
+            
             if (res.status == AppStatusCode.StatusCode200) {
                 this.isLoginFailed = false;
                 this.resMessageLogin = "Đăng nhập thành công!";
@@ -84,11 +87,11 @@ export class LoginComponent {
                 this.isLoginFailed = true;
                 this.resMessageLogin = res.message;  
             }
-        },
-        () => {
-            // this.isLogging = true;
-            this.resMessageLogin = AppMessageResponse.BadRequest;
-        },
-        () => this.isLogging = false);
+        }, (error) => {
+            this.isLogging = false;
+                this.isLoginFailed = true;
+                this.resMessageLogin = 'Tài khoản hoặc mật khẩu không đúng'; 
+            //console.log("check status: ", error.status);
+        })
       }
 }

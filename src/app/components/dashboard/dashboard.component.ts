@@ -1,8 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { end } from '@popperjs/core';
+import { time } from 'console';
 import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { DashBoardService } from 'src/app/services/dashbroad.service';
+import { StatisticService } from 'src/app/services/statistic.service';
 import { ListTime } from 'src/app/shared/constants/app.constants';
 import { Paging } from 'src/app/viewModels/paging';
 import { ResApi } from 'src/app/viewModels/res-api';
@@ -17,18 +20,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   products!: [];
   public filterParrams: Paging ;
-  lstCoutUser: any;
-  statusValue: any;
+  lstCoutUser: any = {};
+  statusValue: any[] = [];
+  dataPhone: any;
+  dataPhoneLocation: any;
   chartData: any;
   chartOptions: any;
   chartDataSP: any;
   chartOptionsSP: any;
   chartData1: any;
+  selectedValue: any;
   chartOptions1: any;
   chartData2: any;
   chartOptions2: any;
   lstTime = ListTime;
-  totalOrder : any;
+  totalOrder : any = 0;
   chartOptionsDate: any;
   Genderdata:any;
   GenderdataOptions :any;
@@ -37,1968 +43,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
   data: any;
   orderDateData: any;
   options: any;
-
+  genderResp: any;
+  productViewResp: any;
+  userActiveResp: any;
+  statusOrderResp: any;
+  userActiveIntervalResp: any = [];
   subscription!: Subscription;
-
-  public gender = {
-    "status": 200,
-    "message": "OK",
-    "timestamp": "2023-12-08T15:48:44.525+00:00",
-    "data": [
-      {
-        "gender": "Nam",
-        "cnt": 1
-      },
-      {
-        "gender": "Nữ",
-        "cnt": 10
-      }
-    ]
-  };
-
-  public orderDate = {
-    "status": 200,
-    "message": "OK",
-    "timestamp": 1701940820830,
-    "data": [
-        {
-            "orderDate": "2023-11-20",
-            "orderCount": 0,
-            "totalRevenue": 0
-        },
-        {
-            "orderDate": "2023-11-21",
-            "orderCount": 0,
-            "totalRevenue": 0
-        },
-        {
-            "orderDate": "2023-11-22",
-            "orderCount": 1,
-            "totalRevenue": 10702000
-        },
-        {
-            "orderDate": "2023-11-23",
-            "orderCount": 2,
-            "totalRevenue": 92279000
-        },
-        {
-            "orderDate": "2023-11-24",
-            "orderCount": 1,
-            "totalRevenue": 11352000
-        },
-        {
-            "orderDate": "2023-11-25",
-            "orderCount": 0,
-            "totalRevenue": 0
-        },
-        {
-            "orderDate": "2023-11-26",
-            "orderCount": 0,
-            "totalRevenue": 0
-        },
-        {
-            "orderDate": "2023-11-27",
-            "orderCount": 0,
-            "totalRevenue": 0
-        },
-        {
-            "orderDate": "2023-11-28",
-            "orderCount": 0,
-            "totalRevenue": 0
-        },
-        {
-            "orderDate": "2023-11-29",
-            "orderCount": 0,
-            "totalRevenue": 0
-        },
-        {
-            "orderDate": "2023-11-30",
-            "orderCount": 0,
-            "totalRevenue": 0
-        },
-        {
-            "orderDate": "2023-12-01",
-            "orderCount": 1,
-            "totalRevenue": 22252000
-        },
-        {
-            "orderDate": "2023-12-02",
-            "orderCount": 0,
-            "totalRevenue": 0
-        },
-        {
-            "orderDate": "2023-12-03",
-            "orderCount": 0,
-            "totalRevenue": 0
-        },
-        {
-            "orderDate": "2023-12-04",
-            "orderCount": 0,
-            "totalRevenue": 0
-        },
-        {
-            "orderDate": "2023-12-05",
-            "orderCount": 0,
-            "totalRevenue": 0
-        },
-        {
-            "orderDate": "2023-12-06",
-            "orderCount": 0,
-            "totalRevenue": 0
-        },
-        {
-            "orderDate": "2023-12-07",
-            "orderCount": 0,
-            "totalRevenue": 0
-        }
-    ]
-}
-
-  public product = {
-    "status": 200,
-    "message": "OK",
-    "timestamp": "2023-12-08T16:02:19.377+00:00",
-    "data": [
-        {
-            "productId": 5,
-            "productName": "Tượng gỗ mới nhất 2023",
-            "view": 1
-        },
-        {
-            "productId": 1,
-            "productName": "Sập thờ mới nhất 2023",
-            "view": 3
-        },
-        {
-            "productId": 7,
-            "productName": "Bàn thờ gỗ mới nhất 2023",
-            "view": 2
-        },
-        {
-            "productId": 6,
-            "productName": "Bàn thờ gỗ mới nhất 2023",
-            "view": 1
-        },
-        {
-            "productId": 3,
-            "productName": "Cửa gỗ mới nhất 2023",
-            "view": 2
-        },
-        {
-            "productId": 4,
-            "productName": "Đồ gỗ mỹ nghệ cao cấp",
-            "view": 3
-        }
-    ]
-}
-
-  public dataStatus = {
-    "status": 200,
-    "message": "OK",
-    "timestamp": 1701940815172,
-    "data": [
-      {
-        "status": "PENDING",
-        "count": 8
-      },
-      {
-        "status": "COMPLETE",
-        "count": 3
-      },
-      {
-        "status": "DELIVERED",
-        "count": 2
-      },
-      {
-        "status": "DRAFT",
-        "count": 0
-      },
-      {
-        "status": "CONFIRM",
-        "count": 0
-      },
-      {
-        "status": "PROCESSING",
-        "count": 0
-      },
-      {
-        "status": "SHIPPED",
-        "count": 0
-      },
-      {
-        "status": "CANCELED",
-        "count": 0
-      },
-      {
-        "status": "RETURNED",
-        "count": 0
-      },
-      {
-        "status": "REFUNDED",
-        "count": 0
-      },
-      {
-        "status": "FAILED",
-        "count": 0
-      }
-    ]
-  }
-  public UserActive = {
-    "status": 200,
-    "message": "OK",
-    "timestamp": "2023-12-10T03:40:29.756+00:00",
-    "data": [
-      {
-        "timeline": "00:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "00:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "00:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "00:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "00:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "00:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "00:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "00:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "00:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "00:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "00:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "00:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "01:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "01:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "01:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "01:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "01:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "01:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "01:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "01:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "01:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "01:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "01:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "01:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "02:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "02:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "02:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "02:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "02:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "02:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "02:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "02:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "02:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "02:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "02:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "02:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "03:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "03:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "03:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "03:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "03:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "03:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "03:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "03:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "03:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "03:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "03:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "03:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "04:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "04:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "04:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "04:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "04:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "04:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "04:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "04:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "04:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "04:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "04:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "04:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "05:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "05:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "05:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "05:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "05:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "05:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "05:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "05:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "05:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "05:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "05:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "05:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "06:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "06:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "06:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "06:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "06:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "06:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "06:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "06:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "06:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "06:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "06:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "06:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "07:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "07:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "07:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "07:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "07:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "07:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "07:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "07:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "07:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "07:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "07:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "07:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "08:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "08:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "08:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "08:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "08:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "08:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "08:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "08:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "08:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "08:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "08:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "08:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "09:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "09:05",
-        "dau": "1",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "09:10",
-        "dau": "1",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "09:15",
-        "dau": "1",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "09:20",
-        "dau": "1",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "09:25",
-        "dau": "1",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "09:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "09:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "09:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "09:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "09:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "09:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "10:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "10:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "10:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "1"
-      },
-      {
-        "timeline": "10:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "10:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "10:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "10:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "10:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "10:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "10:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "10:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "10:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "11:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "11:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "1"
-      },
-      {
-        "timeline": "11:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "11:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "1"
-      },
-      {
-        "timeline": "11:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "1"
-      },
-      {
-        "timeline": "11:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "11:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "11:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "11:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "11:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "11:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "11:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "1"
-      },
-      {
-        "timeline": "12:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "1"
-      },
-      {
-        "timeline": "12:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "12:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "12:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "12:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "12:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "12:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "1"
-      },
-      {
-        "timeline": "12:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "12:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "1"
-      },
-      {
-        "timeline": "12:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "1"
-      },
-      {
-        "timeline": "12:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "12:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "13:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "13:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "13:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "13:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "13:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "13:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "13:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "13:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "13:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "13:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "13:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "13:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "14:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "14:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "14:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "14:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "14:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "14:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "14:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "14:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "14:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "14:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "14:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "14:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "15:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "15:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "15:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "15:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "15:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "15:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "15:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "15:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "15:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "15:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "15:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "15:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "16:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "16:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "16:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "16:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "16:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "16:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "16:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "16:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "16:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "16:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "16:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "16:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "17:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "17:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "17:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "17:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "17:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "17:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "17:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "17:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "17:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "17:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "17:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "17:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "18:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "18:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "18:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "18:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "18:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "18:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "18:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "18:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "18:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "18:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "18:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "18:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "19:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "19:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "19:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "19:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "19:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "19:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "19:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "19:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "19:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "19:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "19:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "19:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "20:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "20:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "20:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "20:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "20:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "20:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "20:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "20:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "20:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "20:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "20:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "20:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "21:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "21:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "21:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "21:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "21:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "21:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "21:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "21:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "21:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "21:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "21:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "21:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "22:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "22:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "22:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "22:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "22:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "22:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "22:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "22:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "22:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "22:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "22:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "22:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "23:00",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "23:05",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "23:10",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "23:15",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "23:20",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "23:25",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "23:30",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "23:35",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "23:40",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "23:45",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "23:50",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      },
-      {
-        "timeline": "23:55",
-        "dau": "0",
-        "yau": "0",
-        "wau": "0"
-      }
-    ]
-  }
-  public CoutActive = {
-      "status": 200,
-      "message": "OK",
-      "timestamp": "2023-12-12T01:56:41.611+00:00",
-      "data": {
-          "newToday": 0,
-          "newYesterday": 5,
-          "newThisWeek": 5,
-          "newLastWeek": 3,
-          "newThisMonth": 8,
-          "newLastMonth": 0,
-          "newLast30Days": 8,
-          "activeToday": 0,
-          "activeYesterday": 3,
-          "activeThisWeek": 3,
-          "activeLastWeek": 4,
-          "activeThisMonth": 6,
-          "activeLastMonth": 1,
-          "activeLast30Days": 6
-      }
-  }
+  orderDateResp: any;
+  startDate: any;
+  startDateDoanhThu: Date = new Date();
+  endDateDoanhThu: Date = new Date();
+  endDate : any;
   userActive: any;
   dataProduct: any;
   chartDataItem: any;
@@ -2007,315 +62,409 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     public layoutService: LayoutService,
     private readonly dashboardService : DashBoardService,
+    private readonly statisticService : StatisticService
     ) {
     this.subscription = this.layoutService.configUpdate$.subscribe(() => {
     });
     this.filterParrams = new Object as Paging;
     this.filterParrams.page = 1;
     this.filterParrams.size = 10;
+    
+    console.log(this.selectedValue)
   }
 
   ngOnInit() {
-    const rawData = {
-      "status": 200,
-      "message": "OK",
-      "timestamp": 1701940672974,
-      "data": [
-        {
-          "categoryName": "Bàn ghế",
-          "orderCount": 2,
-          "productCount": 1,
-          "itemCount": 2,
-          "totalOrderAmount": 64079000
-        },
-        {
-          "categoryName": "Cửa gỗ",
-          "orderCount": 3,
-          "productCount": 2,
-          "itemCount": 3,
-          "totalOrderAmount": 139058000
-        },
-        {
-          "categoryName": "Đồ mỹ nghệ",
-          "orderCount": 4,
-          "productCount": 2,
-          "itemCount": 3,
-          "totalOrderAmount": 114333000
-        }
-      ]
-    };
+    const today = new Date();
+    // this.endDateDoanhThu = [today, []];
+    // this.startDateDoanhThu = [new Date(today.getFullYear(), today.getMonth(), 1), []]; // Ngày đầu tiên của tháng này
 
-    const rawData1 = {
-      "status": 200,
-      "message": "OK",
-      "timestamp": "2023-12-08T15:50:56.090+00:00",
-      "data": [
-        {
-          "district": "Hải Hậu",
-          "city": "Nam Định",
-          "cnt": 1
-        },
-        {
-          "district": "Thạch Thất",
-          "city": "Hà Nội",
-          "cnt": 3
-        },
-        {
-          "district": "Quốc Oai",
-          "city": "Hà Nội",
-          "cnt": 6
-        },
-      ]
-    };
-
-    const rawData2 = {
-      "status": 200,
-      "message": "OK",
-      "timestamp": "2023-12-08T16:08:37.967+00:00",
-      "data": [
-        {
-          "dateStamp": "2023-12-08",
-          "evtName": "Click Slide",
-          "cnt": 2
-        },
-        {
-          "dateStamp": "2023-12-08",
-          "evtName": "Login",
-          "cnt": 0
-        },
-        {
-          "dateStamp": "2023-12-08",
-          "evtName": "Click Account",
-          "cnt": 1
-        },
-        {
-          "dateStamp": "2023-11-08",
-          "evtName": "Click Home",
-          "cnt": 2
-        },
-        {
-          "dateStamp": "2023-10-08",
-          "evtName": "View Product",
-          "cnt": 1
-        },
-        {
-          "dateStamp": "2023-12-08",
-          "evtName": "Click Notification",
-          "cnt": 2
-        },
-        {
-          "dateStamp": "2023-12-08",
-          "evtName": "Click Cart",
-          "cnt": 2
-        }
-      ]
-    }
-
-
-    this.chartData = {
-      labels: rawData.data.map(item => item.categoryName),
-      datasets: [
-        {
-          data: rawData.data.map(item => item.orderCount),
-          backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-        },
-      ],
-    };
-    this.chartDataSP = {
-      labels: rawData.data.map(item => item.categoryName),
-      datasets: [
-        {
-          data: rawData.data.map(item => item.productCount),
-          backgroundColor: ["#808000", "#008080	", "#000080	"],
-        },
-      ],
-    };
-    this.chartDataItem = {
-      labels: rawData.data.map(item => item.categoryName),
-      datasets: [
-        {
-          data: rawData.data.map(item => item.itemCount),
-          backgroundColor: ["#33CCFF", "#00CC33", "#CC99FF"],
-        },
-      ],
-    };
-
-    this.chartDataTotalOrderAmount = {
-      labels: rawData.data.map(item => item.categoryName),
-      datasets: [
-        {
-          data: rawData.data.map(item => item.totalOrderAmount),
-          backgroundColor: ["#CC6633", "#66A2EB", "#FF6666"],
-        },
-      ],
-    };
-
-    this.chartOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-    };
-
-    const cityName = Array.from(new Set(rawData1.data.map(item => item.city)));
-
-    this.chartData1 = {
-      labels: rawData1.data.map(item => `${item.district} - ${item.city}`),
-      datasets: [
-        {
-          label: 'Nam Định - Hải Hậu',
-          data: rawData1.data.map(item => item.cnt),
-          backgroundColor: ['#FF6384', '#36A2EB', /* thêm màu sắc cho các thành phố và huyện khác nếu cần */],
-        },
-      ],
-    };
-
-    this.chartOptions1 = {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-          },
-        }],
-      },
-    };
-
-    const eventNames = Array.from(new Set(rawData2.data.map(item => item.evtName)));
-    const dates = Array.from(new Set(rawData2.data.map(item => item.dateStamp)));
-
-    const datasets = eventNames.map(eventName => {
-      return {
-        label: eventName,
-        data: dates.map(date => {
-          const dataPoint = rawData2.data.find(item => item.evtName === eventName && item.dateStamp === date);
-          return dataPoint ? dataPoint.cnt : 0;
-        }),
-        fill: false,
-        borderColor: this.getRandomColor(),
-      };
-    });
-
-    this.chartData2 = {
-      labels: dates,
-      datasets: datasets,
-    };
-
-    this.chartOptions2 = {
-      responsive: true,
-      maintainAspectRatio: false,
-    };
-
-    const timelines = this.UserActive.data.map(item => item.timeline);
-
-    const dataUserActive = [
-      {
-        label: 'DAU',
-        data: this.UserActive.data.map(item => parseInt(item.dau)),
-        fill: false,
-        borderColor: '#FF6384',
-      },
-      {
-        label: 'YAU',
-        data: this.UserActive.data.map(item => parseInt(item.yau)),
-        fill: false,
-        borderColor: '#36A2EB',
-      },
-      {
-        label: 'WAU',
-        data: this.UserActive.data.map(item => parseInt(item.wau)),
-        fill: false,
-        borderColor: '#FFCE56',
-      },
-    ];
-
-    this.chartData3 = {
-      labels: timelines,
-      datasets: dataUserActive,
-    };
-
-    this.chartOptions3 = {
-      responsive: true,
-      maintainAspectRatio: false,
-    };
-
-    this.orderDateData = {
-      labels: this.orderDate.data.map(item => item.orderDate),
-      datasets: [
-        {
-          label: 'Order Count',
-          data: rawData.data.map(item => item.orderCount),
-          fill: false,
-          borderColor: '#36A2EB',
-        },
-        {
-          label: 'Total Revenue',
-          data: this.orderDate.data.map(item => item.totalRevenue),
-          fill: false,
-          borderColor: '#FF6384',
-        },
-      ],
-    };
-
-    this.chartOptionsDate = {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-          },
-        }],
-      },
-    };
-
-    this.Genderdata = {
-      labels: this.gender.data.map(item => item.gender),
-      datasets: [
-        {
-          label : 'Nam',
-          data: this.gender.data.map(item => item.cnt),
-          backgroundColor: ['#FF6384', '#36A2EB'], // Màu sắc cho từng phần trong biểu đồ tròn
-        },
-      ],
-    };
-
-    this.GenderdataOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-    };
-
-
-    this.getStatusValue();
-    this.getUserActive();
-    this.getDataproduct();
-    this.getCountUser();
+    this.endDateDoanhThu = new Date();
+    this.startDateDoanhThu = new Date(today.getFullYear(), today.getMonth(), 1);
+    this.selectedValue = '1 minute';
+    
+    this.CallData();
+    // this.getCountUser();
+    
+    // this.getUserActive();
   }
 
-  getCountUser(){
-    this.lstCoutUser = this.CoutActive.data;
+    CallData(){
+      const rawData = {
+        "status": 200,
+        "message": "OK",
+        "timestamp": 1701940672974,
+        "data": [
+          {
+            "categoryName": "Bàn ghế",
+            "orderCount": 2,
+            "productCount": 1,
+            "itemCount": 2,
+            "totalOrderAmount": 64079000
+          },
+          {
+            "categoryName": "Cửa gỗ",
+            "orderCount": 3,
+            "productCount": 2,
+            "itemCount": 3,
+            "totalOrderAmount": 139058000
+          },
+          {
+            "categoryName": "Đồ mỹ nghệ",
+            "orderCount": 4,
+            "productCount": 2,
+            "itemCount": 3,
+            "totalOrderAmount": 114333000
+          }
+        ]
+      };
+  
+  
+      this.chartData = {
+        labels: rawData.data.map(item => item.categoryName),
+        datasets: [
+          {
+            data: rawData.data.map(item => item.orderCount),
+            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+          },
+        ],
+      };
+      this.chartDataSP = {
+        labels: rawData.data.map(item => item.categoryName),
+        datasets: [
+          {
+            data: rawData.data.map(item => item.productCount),
+            backgroundColor: ["#808000", "#008080	", "#000080	"],
+          },
+        ],
+      };
+      this.chartDataItem = {
+        labels: rawData.data.map(item => item.categoryName),
+        datasets: [
+          {
+            data: rawData.data.map(item => item.itemCount),
+            backgroundColor: ["#33CCFF", "#00CC33", "#CC99FF"],
+          },
+        ],
+      };
+      console.log(rawData.data)
+      this.chartDataTotalOrderAmount = {
+        labels: rawData.data.map(item => item.categoryName),
+        datasets: [
+          {
+            type: 'bar',
+            data: rawData.data.map(item => item.totalOrderAmount),
+            backgroundColor: ["#CC6633", "#66A2EB", "#FF6666"],
+          },
+        ],
+      };
+  
+      this.chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+      };
+  
+      this.statisticService.getStatisticLocation('').subscribe((res : ResApi) => {
+        if (res && res.status >= 200 && res.status < 300) {
+          this.chartData1 = {
+            labels: res.data.map((item: { district: any; city: any; }) => `${item.district} - ${item.city}`),
+            datasets: [
+              {
+                label: 'Nam Định - Hải Hậu',
+                data: res.data.map((item: { cnt: any; }) => item.cnt),
+                backgroundColor: ['#FF6384', '#36A2EB', /* thêm màu sắc cho các thành phố và huyện khác nếu cần */],
+              },
+            ],
+          };
+      
+          this.chartOptions1 = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                },
+              }],
+            },
+          };
+        }
+      })
+      
+      
+      let req = {
+          startDate: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000), 
+          endDate: new Date() 
+      };
+      this.statisticService.getStatisticEvent(req).subscribe((res : ResApi) => {
+        if (res && res.status >= 200 && res.status < 300) {
+          const eventNames = Array.from(new Set(res.data.map((item: { evtName: any; }) => item.evtName)));
+          const dates = Array.from(new Set(res.data.map((item: { dateStamp: any; }) => item.dateStamp)));
+      
+          const datasets = eventNames.map(eventName => {
+            return {
+              label: eventName,
+              data: dates.map(date => {
+                const dataPoint = res.data.find((item: { evtName: string; dateStamp: string; }) => item.evtName === eventName && item.dateStamp === date);
+                return dataPoint ? dataPoint.cnt : 0;
+              }),
+              fill: false,
+              borderColor: this.getRandomColor(),
+            };
+          });
+      
+          this.chartData2 = {
+            labels: dates,
+            datasets: datasets,
+          };
+      
+          this.chartOptions2 = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                },
+              }],
+            },
+          };
+        }
+      })
+      
+      
+  
+      this.chartOptions3 = {
+        responsive: true,
+        maintainAspectRatio: false,
+      };
+  
+
+    let body = {};
+    const today = new Date();
+    const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000); // 30 ngày trước
+    body = {
+        startDate: thirtyDaysAgo, 
+        endDate: today
+    };
+      this.getStatisOrder(body);
+    
+  
+      this.chartOptionsDate = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              id: 'y-axis-1',
+              type: 'linear',
+              position: 'left',
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+            {
+              id: 'y-axis-2',
+              type: 'linear',
+              position: 'right',
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+      };
+  
+      
+      // this.getStatisGender();
+      this.statisticService.getStatisticGender().subscribe((res: ResApi) => {
+        if (res && res.status >= 200 && res.status <= 300) {
+          this.genderResp = res;
+          this.Genderdata = {
+            labels: this.genderResp.data.map((item : any) => item.gender),
+            datasets: [
+              {
+                data: this.genderResp.data.map((item : any) => item.cnt),
+                backgroundColor: ['#FF6384', '#36A2EB'], // Màu sắc cho từng phần trong biểu đồ tròn
+              },
+            ],
+          };
+        }
+      })
+  
+  
+      this.GenderdataOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+      };
+  
+  
+      this.getStatusValue();
+      
+      this.getDataproduct();
+
+      this.getCountUser();
+    
+      this.getUserActive('2 hour');
+      
+    }
+
+  private getStatisOrder(body: {}) {
+    this.statisticService.statisticOrder(body).subscribe((res: ResApi) => {
+      if (res && res.status >= 200 && res.status < 300) {
+        this.orderDateData = {
+          labels: res.data.map((item: { orderDate: any; }) => item.orderDate),
+          datasets: [
+            {
+              type: 'bar',
+              label: 'Order Count',
+              data: res.data.map((item: { orderCount: any; }) => item.orderCount),
+              fill: false,
+              borderColor: '#99FF33',
+              yAxisID: 'y-axis-1',
+              // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.7)', // Màu cho cột 1
+                'rgba(54, 162, 235, 0.7)', // Màu cho cột 2
+                'rgba(255, 206, 86, 0.7)', // Màu cho cột 3
+                'rgba(75, 192, 192, 0.7)', // Màu cho cột 4
+              ]
+            },
+            {
+              type: 'line',
+              label: 'Total Revenue',
+              data: res.data.map((item: { totalRevenue: any; }) => item.totalRevenue),
+              fill: true,
+              borderColor: '#FF6384',
+              yAxisID: 'y-axis-2',
+            },
+          ],
+        };
+      }
+    }, error => {
+    });
+  }
+
+    getCountUser(){
+    this.statisticService.getUserStatistic().subscribe((res : ResApi) => {
+      if (res && res.status >= 200 && res.status < 300) {
+        this.lstCoutUser = res.data
+        console.log(this.lstCoutUser)
+      } 
+    })
   }
 
   getDataproduct(){
-    this.dataProduct = this.product.data;
+    let body = {};
+    const today = new Date();
+    const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000); // 30 ngày trước
+    body = {
+        startDate: thirtyDaysAgo, 
+        endDate: today
+    };
+    this.statisticService.getStatisticViewProduct(body, '').subscribe((res : ResApi) => {
+      if (res && res.status >= 200 && res.status < 300) {
+        this.dataProduct = res.data;
+      }
+    })
+  }
+
+  statisticDoanhThu(startDateDoanhThu : Date, endDateDoanhThu : Date) {
+    console.log(startDateDoanhThu + " _ " + endDateDoanhThu)
+    let body = {}; 
+    if (startDateDoanhThu == null || endDateDoanhThu == null) {
+        return;
+    } else {
+      const today = new Date();
+      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1); // Ngày đầu tiên của tháng này
+      body = {
+          startDate: firstDayOfMonth,
+          endDate: today 
+      };
+      this.getStatisOrder(body);
+    }
+    
   }
 
   getStatusValue() {
-    // this.dashbroadService.getListEvent().subscribe((res: ResApi) => {
-    //   if(res && res.status >= 200 && res.status <= 300) {
-    //     this.statusValue = res.data;
-    //   }
-    // })
-
-    this.statusValue = this.dataStatus.data
-    this.totalOrder = this.dataStatus.data.reduce((acc, curr) => acc + curr.count, 0);
-    console.log(this.totalOrder);
+    this.statisticService.statisticOrderStatus().subscribe((res : ResApi) => {
+      if (res && res.status > 199 && res.status < 300) {
+        this.statusValue = res.data;
+        this.totalOrder = res.data.reduce((acc: any, curr: { count: any; }) => acc + curr.count, 0);
+        console.log(this.totalOrder);
+      }
+    })
   }
 
-  getUserActive() {
-    this.userActive = this.UserActive.data;
+  SearchProduct(sdt : string, startDate : Date, endDate: Date){
+    let body = {}; 
+    if (startDate !== null && endDate !== null) {
+        body = {
+            startDate: startDate, 
+            endDate: endDate // 
+        };
+    } else {
+        const today = new Date();
+        const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000); // 30 ngày trước
+        body = {
+            startDate: thirtyDaysAgo, 
+            endDate: today 
+        };
+    }
+    this.statisticService.getStatisticViewProduct(body, sdt).subscribe((res: ResApi) => {
+      if (res && res.status >= 200 && res.status < 300) {
+        this.productViewResp = res.data;
+        this.dataProduct = this.productViewResp;
+      }
+    })
   }
-  logdata(){
+
+  ChangeStartDateDoanhThu(event: any) {
+    this
+    console.log('Ngày mới được chọn:', event);
+    // Thực hiện các hành động khác tại đây
   }
+
+  ChangeEndDateDoanhThu(event : any) {
+    console.log(event);
+  }
+
+  getUserActive(interval: string) {
+    this.statisticService.getStatisticUserActiveInterval(interval).subscribe((res : ResApi) => {
+      if (res && res.status >= 200 && res.status < 300) {
+        this.userActiveIntervalResp = res.data;
+        const timelines = this.userActiveIntervalResp.map((item: { timeline: any; }) => item.timeline);
+        const dataUserActive = [
+          {
+            label: 'DAU',
+            data: this.userActiveIntervalResp.map((item: { dau: string; }) => parseInt(item.dau)),
+            fill: false,
+            borderColor: '#FF6384',
+          },
+          {
+            label: 'YAU',
+            data: this.userActiveIntervalResp.map((item: { yau: string; }) => parseInt(item.yau)),
+            fill: false,
+            borderColor: '#36A2EB',
+          },
+          {
+            label: 'WAU',
+            data: this.userActiveIntervalResp.map((item: { wau: string; }) => parseInt(item.wau)),
+            fill: false,
+            borderColor: '#FFCE56',
+          },
+        ];
+        this.chartData3 = {
+          labels: timelines,
+          datasets: dataUserActive,
+        };
+        } else {
+          console.log("not success");
+        }
+    }, error => {
+      console.log("Co loi xay ra" + error)
+    })
+  }
+  
 
   getRandomColor() {
     const letters = '0123456789ABCDEF';
@@ -2326,7 +475,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return color;
   }
   onSelect(event: any) {
-
+    console.log(event);
+      if (event == null || event.value == null) return;
+      this.statisticService.getStatisticUserActiveInterval(event.value).subscribe((res: ResApi) => {
+        if (res && res.status >= 200 && res.status < 300) {
+          this.getUserActive(event.value);
+        }
+      })
   }
 
 

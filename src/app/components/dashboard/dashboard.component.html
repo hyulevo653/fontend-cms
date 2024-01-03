@@ -3,11 +3,11 @@
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">Tổng đơn hàng</span>
+                        <span class="block text-500 font-medium mb-3">TOTAL ORDERS</span>
                         <div class="text-900 font-medium text-xl">{{totalOrder}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                        <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
+                        <i class="pi pi-list text-blue-500 text-xl"></i>
                     </div>
                 </div>
                 <!-- <span class="text-green-500 font-medium">24 new </span>
@@ -18,8 +18,8 @@
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">{{statusValue[0].status}}</span>
-                        <div class="text-900 font-medium text-xl">{{statusValue[0].count}}</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[0] == undefined ? 'Loading' : statusValue[0].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[0] == undefined ? '0' : statusValue[0].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
@@ -33,8 +33,8 @@
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">{{statusValue[1].status}}</span>
-                        <div class="text-900 font-medium text-xl">{{statusValue[1].count}}</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[1] == undefined ? 'Loading' : statusValue[1].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[1] == undefined ? '0' : statusValue[1].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-green-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-check-square text-green-500 text-xl"></i>
@@ -48,8 +48,8 @@
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">{{statusValue[2].status}}</span>
-                        <div class="text-900 font-medium text-xl">{{statusValue[2].count}}</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[2] == undefined ? 'Loading' : statusValue[2].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[2] == undefined ? '0' : statusValue[2].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-inbox text-cyan-500 text-xl"></i>
@@ -63,8 +63,8 @@
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">{{statusValue[3].status}}</span>
-                        <div class="text-900 font-medium text-xl">{{statusValue[3].count}}</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[3] == undefined ? 'Loading' : statusValue[3].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[3] == undefined ? '0' : statusValue[3].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-clone text-blue-200 text-xl"></i>
@@ -78,8 +78,8 @@
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">{{statusValue[4].status}}</span>
-                        <div class="text-900 font-medium text-xl">{{statusValue[4].count}}</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[4] == undefined ? 'Loading' : statusValue[4].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[4] == undefined ? '0' : statusValue[4].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-purple-300 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-check text-green-400 text-xl"></i>
@@ -93,8 +93,8 @@
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">{{statusValue[5].status}}</span>
-                        <div class="text-900 font-medium text-xl">{{statusValue[5].count}}</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[5] == undefined ? 'Loading' : statusValue[5].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[5] == undefined ? '0' : statusValue[5].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-purple-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-caret-right text-purple-500 text-xl"></i>
@@ -108,8 +108,8 @@
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">{{statusValue[6].status}}</span>
-                        <div class="text-900 font-medium text-xl">{{statusValue[6].count}}</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[6] == undefined ? 'Loading' : statusValue[6].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[6] == undefined ? '0' : statusValue[6].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
@@ -123,8 +123,8 @@
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">{{statusValue[7].status}}</span>
-                        <div class="text-900 font-medium text-xl">{{statusValue[7].count}}</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[7] == undefined ? 'Loading' : statusValue[7].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[7] == undefined ? '0' : statusValue[7].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-pink-400 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-times bg-pink-400 text-xl"></i>
@@ -138,8 +138,8 @@
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">{{statusValue[8].status}}</span>
-                        <div class="text-900 font-medium text-xl">{{statusValue[8].count}}</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[8] == undefined ? 'Loading' : statusValue[8].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[8] == undefined ? '0' : statusValue[8].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-purple-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-refresh text-purple-500 text-xl"></i>
@@ -153,8 +153,8 @@
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">{{statusValue[9].status}}</span>
-                        <div class="text-900 font-medium text-xl">{{statusValue[9].count}}</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[9] == undefined ? 'Loading' : statusValue[9].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[9] == undefined ? '0' : statusValue[9].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-orange-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-sync text-orange-400 text-xl"></i>
@@ -168,8 +168,8 @@
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">{{statusValue[10].status}}</span>
-                        <div class="text-900 font-medium text-xl">{{statusValue[10].count}}</div>
+                        <span class="block text-500 font-medium mb-3">{{statusValue[10] == undefined ? 'Loading' : statusValue[10].status}}</span>
+                        <div class="text-900 font-medium text-xl">{{statusValue[10] == undefined ? '0' : statusValue[10].count}}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-indigo-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-times-circle bg-indigo-100 text-xl"></i>
@@ -335,6 +335,26 @@
         </div>
     
         <div class="col-12">
+            <div class="box-datefilter">
+                <div class="col-3">
+                    <div class="field p-fluid p-date">
+                        <input id="txtPhone" type="text" placeholder="Tìm theo số điện thoại" pInputText [(ngModel)]="dataPhone" class="p-invalid">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="field p-fluid p-date">
+                        <p-calendar id="txtBirthDay" placeholder="Ngày bắt đầu" [showIcon]="true" [(ngModel)]="startDate" inputId="icon"  dateFormat="dd/mm/yy"></p-calendar>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="field p-fluid p-date">
+                        <p-calendar id="txtBirthDay" placeholder="Ngày kết thúc" [showIcon]="true" [(ngModel)]="endDate" inputId="icon"  dateFormat="dd/mm/yy"></p-calendar>
+                    </div>
+                </div>
+                <div class="col-3">
+                   <button pButton pRipple type="submit"  class="p-button-outlined p-button-secondary mr-2" (click)="SearchProduct(dataPhone,startDate,endDate)">Tìm Kiếm</button>
+                </div>
+            </div>
             <p-table 
             [value]="dataProduct"
             [paginator]="true"
@@ -387,44 +407,55 @@
                   </div>
             </div>
             <div class="col-6 mg-t-2">
-                <span class="span-title">Biểu đồ totalOrderAmount</span>
+                <span class="span-title">Biểu đồ Thống Kê Doanh Thu Theo Danh Mục</span>
                 <div class="card flex justify-content-center">
-                    <p-chart type="pie" [data]="chartDataTotalOrderAmount" [options]="chartOptions"></p-chart>
+                    <p-chart type="bar" [data]="chartDataTotalOrderAmount" [options]="chartOptions"></p-chart>
                   </div>
             </div>
             <div class="col-6 mg-t-2">
-                <span class="span-title">Biểu đồ địa chỉ đặt hàng</span>
                 <div class="card flex justify-content-center">
                     <p-chart type="bar" [data]="chartData1" [options]="chartOptions1"></p-chart>
                   </div>
             </div>
             <div class="col-6 mg-t-2">
-                <span class="span-title">Biểu đồ ...</span>
+                <span class="span-title">Biểu đồ thống kê sử dụng event theo ngày</span>
                 <div class="card flex justify-content-center">
                     <p-chart class="h-100" type="line" [data]="chartData2" [options]="chartOptions2"></p-chart>
                   </div>
             </div>
             <div class="col-12 mg-t-2">
-                <span class="span-title">Biểu đồ giới tính ...</span>
+                <span class="span-title">Biểu đồ giới tính</span>
                 <div class="card flex justify-content-center">
                     <p-chart type="pie" [data]="Genderdata" [options]="GenderdataOptions"></p-chart>
                   </div>
             </div>
             <div class="col-12 border mg-t-2">
                 <div class="col-12">
-                    <span class="span-title">Biểu đồ ...</span>
+                    <span class="span-title">Biểu đồ thống kê doanh thu</span>
                 </div>
                 <div class="box-datefilter">
                     <div class="col-3">
                         <div class="field p-fluid p-date">
-                            <p-calendar id="txtBirthDay" placeholder="Ngày bắt đầu" [showIcon]="true" inputId="icon"  dateFormat="dd/mm/yy"></p-calendar>
+                            <!-- <p-calendar id="txtBirthDay" placeholder="Ngày bắt đầu" [showIcon]="true" (ngModelChange)="ChangeStartDateDoanhThu($event)" [(ngModel)]="startDateDoanhThu" inputId="icon"  dateFormat="dd/mm/yy"></p-calendar> -->
+                            <p-calendar 
+                                id="txtBirthDay" 
+                                placeholder="Ngày bắt đầu" 
+                                [showIcon]="true" 
+                                [(ngModel)]="startDateDoanhThu" 
+                                (onSelect)="ChangeStartDateDoanhThu($event)" 
+                                inputId="icon"  
+                                dateFormat="dd/mm/yy"
+                            ></p-calendar>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="field p-fluid p-date">
-                            <p-calendar id="txtBirthDay" placeholder="Ngày kết thúc" [showIcon]="true" inputId="icon"  dateFormat="dd/mm/yy"></p-calendar>
+                            <p-calendar id="txtBirthDay" placeholder="Ngày kết thúc" [showIcon]="true" inputId="icon" (ngModelChange)="ChangeEndDateDoanhThu($event)" [(ngModel)]="endDateDoanhThu" dateFormat="dd/mm/yy"></p-calendar>
                         </div>
                     </div>
+                    <div class="col-3">
+                        <button pButton pRipple type="submit"  class="p-button-outlined p-button-secondary mr-2" (click)="statisticDoanhThu(startDateDoanhThu,endDateDoanhThu)">Tìm Kiếm</button>
+                     </div>
                 </div>
                 <div class="card flex justify-content-center">
                     <p-chart type="line" [data]="orderDateData" [options]="chartOptionsDate"></p-chart>
@@ -432,25 +463,27 @@
             </div>
             <div class="col-12 border mg-t-2">
                 <div style="text-align: center;">
-                    <span class="title-chart">Biểu đồ ...</span>
+                    <span class="title-chart">Biểu đồ thống kê lượt truy cập theo khoảng thời gian</span>
                 </div>
                 <div class="col-12">
                     <div class="textFilterProj mg-select">
                         <p-dropdown
+                            dataKey = '1 minute'
                             [options]="lstTime"
-                            placeholder="Chọn thời gian"
                             emptyMessage="Không có dữ liệu."
                             [showClear]="true"
                             optionLabel="name"
                             optionValue="value"
+                            [(ngModel)]="selectedValue"
                             (onChange)="onSelect($event)">
                         </p-dropdown>
+                        
                     </div>
                     <div class="card flex justify-content-center">
                         <p-chart type="line" [data]="chartData3" [options]="chartOptions3"></p-chart>
                       </div>
                 </div>
-                <div class="col-12">
+                <!-- <div class="col-12">
                     <p-table 
                     [value]="userActive"
                     [paginator]="true"
@@ -477,19 +510,13 @@
                             <td>{{ (user.wau) }}</td>
                         </tr>
                     </ng-template>
-                    <!-- <ng-template pTemplate="paginatorleft">
-                        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-                    </ng-template>
-                    <ng-template pTemplate="paginatorright">
-                        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-                    </ng-template> -->
                     <ng-template pTemplate="emptymessage">
                         <tr>
                             <td colspan="7">No customers found.</td>
                         </tr>
                     </ng-template>
                 </p-table>
-                </div>
+                </div> -->
             </div>
         </form> 
         </div>

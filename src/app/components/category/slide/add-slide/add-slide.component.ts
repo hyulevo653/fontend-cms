@@ -171,7 +171,7 @@ export class AddSlideComponent {
       formData.append('type', 'image'); 
       formData.append('file', file)
   
-      this.http.post('http://localhost:9214/api/v1/upload/file', formData)
+      this.http.post('http://localhost:9214/api/v1/ecommerce/upload/file', formData)
         .subscribe(
           (response: any) => {
             this.isImageSelected = true;

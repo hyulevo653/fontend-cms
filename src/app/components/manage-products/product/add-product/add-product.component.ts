@@ -182,7 +182,7 @@ export class AddProductComponent {
       this.productService.getProductById(id).subscribe((res: ResApi) => {
         if(res.status == AppStatusCode.StatusCode200) {
           this.data = res.data;
-          this.productImages = this.data.productImages;
+          // this.productImages = this.data.productImages;
           this.categoryIds = this.data.categories.filter((i: any) => i).map((item: any) => item.id);
           this.lstVariant = this.processVariants(this.data.variants);
           this.formGroup();
@@ -199,6 +199,8 @@ export class AddProductComponent {
   }
   public url : any;
   idItem : any;
+
+
   getItembyId(id: number) {    
     if (this.id != 0) {
       this.productService.getItemProById(id).subscribe((res: ResApi) => {
@@ -250,6 +252,8 @@ export class AddProductComponent {
       return acc;
     }, []);
   }
+
+
   formGroup(){
     this.fProduct = this.fb.group({
       id:  this.id,
@@ -260,13 +264,13 @@ export class AddProductComponent {
       price: this.data.showedPrice,
       // status : this.data.status,
       
-      productImages: this.data.productImages,
+      productImages:this.data.productImages.join(','),
       attributes : this.convertObjectToString(this.data.attributes),
       // attributes : this.convertArrToString(this.data.attributes),
     })
   }
 
-  
+
 
   convertArrToString(obj: any): string {
     return JSON.stringify(obj);
@@ -296,7 +300,7 @@ export class AddProductComponent {
       formData.append('type', 'image');
       formData.append('file', file);
   
-      this.http.post('http://localhost:9214/api/v1/upload/file', formData)
+      this.http.post('http://localhost:9191/ecommerce/upload/file', formData)
         .subscribe(
           (response: any) => {
             const uploadedImageName = response.data;
@@ -340,7 +344,7 @@ export class AddProductComponent {
       formData.append('type', 'image');
       formData.append('file', file);
   
-      this.http.post('http://localhost:9214/api/v1/upload/file', formData)
+      this.http.post('http://localhost:9214/api/v1/ecommerce/upload/file', formData)
         .subscribe(
           (response: any) => {
             const uploadedImageName = response.data;
@@ -356,6 +360,15 @@ export class AddProductComponent {
         );
     }
   }
+
+  onInputChange(event:any,index:number){
+    if(this.combinedData[index].userInput.image != null){
+      this.isImage = true;
+      this.combinedData[index].userInput.image =  event.value;
+      console.log(event)
+    }
+  }
+
   onMultiFile(event: any) {
     const file: File = event.target.files[0];
     if (file) {
@@ -363,7 +376,7 @@ export class AddProductComponent {
       formData.append('type', 'image');
       formData.append('file', file);
   
-      this.http.post('http://localhost:9214/api/v1/upload/file', formData)
+      this.http.post('http://localhost:9214/api/v1/ecommerce/upload/file', formData)
         .subscribe(
           (response: any) => {
             const uploadedImageName = response.data;

@@ -134,6 +134,6 @@ export const ListTime = [
   { name: '1 hour', value: '1 hour' },
   { name: '2 hour', value: '2 hour' },
 
-];
+].reverse();
 
 export const domainFileTemplate = environment.apiUrl.concat('/templates/import/');

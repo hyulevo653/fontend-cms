@@ -140,7 +140,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-6" *ngIf="id == null">
                     <div class="field p-fluid">
                         <label for="txtName"
                             >Nhập link các ảnh (ngăn cách bởi dấu phảy)
@@ -155,15 +155,7 @@
                         />
                     </div>
                 </div>
-                <!-- <div class="col-6" *ngIf="id==0">
-                    <div class="field p-fluid">
-                        <label for="txtName"
-                            >Link ảnh images
-                            <span class="" style="color: red">*</span>
-                        </label><br>
-                    <span>{{this.productImages}}</span></div>
-                </div> -->
-                <div class="col-6" >
+                <div class="col-6" *ngIf="id == null">
                     <label for="txtImage" class="form-label">Thêm các ảnh khác</label>
                     <div class="displayflex">
                         <div class="col-6">
@@ -303,7 +295,7 @@
                               </div>
                               <div class="displayflex">
                                 <div class="col-6">
-                                  <input id="txtName" type="text" pInputText  [(ngModel)]="rowData.userInput.image" class="p-invalid"  [ngModelOptions]="{
+                                  <input id="txtName" type="text" pInputText (ngModelChange)="onInputChange($event,rowIndex)"  [(ngModel)]="rowData.userInput.image" class="p-invalid"  [ngModelOptions]="{
                                     standalone: true
                                   }">
                                   <input

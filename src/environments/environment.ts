@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:9214/api/v1/',
-  apiManagement: 'http://localhost:9215/api/v1/',
+  apiUrl: 'http://localhost:9214/api/v1/ecommerce/',
+  apiManagement: 'http://localhost:9215/api/v1/management/',
 };
 
 /*
