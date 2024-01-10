@@ -77,6 +77,7 @@ export class CampaignComponent {
     this.campaignService.updateStatusCampaign(id,reqData).subscribe((res: ResApi) => {
       if (res && res.status >= 200 && res.status <= 300) {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message || AppMessageResponse.CreatedSuccess });
+        this.getListCampaignByPaging();
       }
       else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message|| AppMessageResponse.BadRequest });
@@ -93,6 +94,7 @@ export class CampaignComponent {
     this.campaignService.updateStatusCampaign(id,reqData).subscribe((res: ResApi) => {
       if (res && res.status >= 200 && res.status <= 300) {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message || AppMessageResponse.CreatedSuccess });
+        this.getListCampaignByPaging();
       }
       else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: res.message|| AppMessageResponse.BadRequest });
@@ -100,6 +102,8 @@ export class CampaignComponent {
       
     })
   }
+
+  
 
   CantChange(){
     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Không thể thay đổi trạng thái!' });

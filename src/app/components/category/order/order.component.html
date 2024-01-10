@@ -31,6 +31,16 @@
                         (onChange)="onSelect($event)">
                     </p-dropdown>
                 </div>
+                <div class="col-3">
+                    <div class="field p-fluid p-date">
+                        <p-calendar id="txtBirthDay" placeholder="Ngày bắt đầu" [showIcon]="true" formControlName="startDate" inputId="icon"  dateFormat="dd/mm/yy"></p-calendar>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="field p-fluid p-date">
+                        <p-calendar id="txtBirthDay" placeholder="Ngày kết thúc" [showIcon]="true" formControlName="endDate" inputId="icon"  dateFormat="dd/mm/yy"></p-calendar>
+                    </div>
+                </div>
             </div>            
          
             <p-table 

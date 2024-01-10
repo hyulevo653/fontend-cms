@@ -87,10 +87,11 @@ export class LoginComponent {
                 this.isLoginFailed = true;
                 this.resMessageLogin = res.message;  
             }
-        }, (error) => {
+        }, 
+        (error) => {
             this.isLogging = false;
-                this.isLoginFailed = true;
-                this.resMessageLogin = 'Tài khoản hoặc mật khẩu không đúng'; 
+            this.isLoginFailed = true;
+            this.resMessageLogin = 'Tài khoản hoặc mật khẩu không đúng'; 
             //console.log("check status: ", error.status);
         })
       }

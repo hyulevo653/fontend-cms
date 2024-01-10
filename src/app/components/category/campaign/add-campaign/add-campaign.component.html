@@ -112,7 +112,7 @@
                     <div class="col-6">
                         <div class="field p-fluid">
                             <label for="txtCode">Lọc theo hành vi trong quá khứ</label>
-                            <input formControlName="isAllUser" (change)="ChangeisAllUser()" class="form-check-input mg-l-2" type="checkbox" value="false" id="isAllUser">
+                            <input formControlName="isAllUser" (change)="ChangeisAllUser()" class="form-check-input mg-l-2" type="checkbox" id="isAllUser">
                         </div>
                     </div>
                     <form class="grid formgrid col-12"  formGroupName="userDid" *ngIf="isAllUser==true">
@@ -347,13 +347,26 @@
                 <div class="col-6">
                     <div class="field p-fluid">
                         <label for="txtCode">Tiêu đề</label>
-                        <input id="txtCode" type="text" pInputText formControlName="title" class="p-invalid">
+                        <!-- <input id="txtCode" type="text" pInputText formControlName="title" class="p-invalid"> -->
+                        <p-autoComplete [(ngModel)]="selectedItem" formControlName="title" [suggestions]="suggestions" (completeMethod)="search($event)"></p-autoComplete>
+                   
+                        <!-- <div class="card flex justify-content-center">
+                            <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)"></p-autoComplete>
+                        </div> -->
+                        
+                        <!-- <p-autoComplete
+                        formControlName="title"
+                        [(ngModel)]="selectedItem"
+                        [suggestions]="filteredSuggestions"
+                        (completeMethod)="search($event)"
+                      ></p-autoComplete> -->
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="field p-fluid">
                         <label for="txtCode">Nội dung</label>
-                        <input id="txtCode" type="text" pInputText formControlName="message" class="p-invalid">
+                        <p-autoComplete [(ngModel)]="selectedItem1" formControlName="title" formControlName="message" [suggestions]="suggestions1" (completeMethod)="search1($event)"></p-autoComplete>
+                        <!-- <input id="txtCode" type="text" pInputText formControlName="message" class="p-invalid"> -->
                     </div>
                 </div>
                 <div class="col-6" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
@@ -382,66 +395,75 @@
                         <input id="txtCode" type="text" pInputText formControlName="imageUrl" class="p-invalid">
                     </div>
                 </div> -->
-                <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH' || fCampaign.get('channel')?.value === 'INAPP'">
-                    <label for="txtImage" class="form-label">Upload Image Url</label>
-                    <div class="displayflex">
-                      <div class="col-6">
-                        <input
-                          formControlName="imageUrl"
-                          class="form-control no-bor"
-                          type="file"
-                          accept="image/jpg || image/png || image/webp"
-                          (change)="onimageUrl($event)"
-                        />
+                <div class="col-12 dp-flex">
+                    <div class="col-6" *ngIf="fCampaign.get('channel')?.value === 'PUSH' || fCampaign.get('channel')?.value === 'INAPP'">
+                        <label for="txtImage" class="form-label">Upload Image Url</label>
+                        <div class="displayflex">
+                          <div class="col-6">
+                            <input
+                              formControlName="imageUrl"
+                              class="form-control no-bor"
+                              type="file"
+                              accept="image/jpg || image/png || image/webp"
+                              (change)="onimageUrl($event)"
+                            />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH' || fCampaign.get('channel')?.value === 'INAPP'">
-                    <div class="field p-fluid">
-                      <label for="txtCode">imageUrl</label>
-                      <input id="txtCode" type="text" pInputText [value]="fCampaign.get('what.imageUrl')?.value" class="p-invalid">
-                    </div>
-                  </div>
-                  <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
-                    <label for="txtImage" class="form-label">Upload Icon Url</label>
-                    <div class="displayflex">
-                      <div class="col-6">
-                        <input
-                          formControlName="iconUrl"
-                          class="form-control no-bor"
-                          type="file"
-                          accept="image/jpg || image/png || image/webp"
-                          (change)="oniconUrl($event)"
-                        />
+                      <img *ngIf="isimageUrl" [src]="UploadImageUrl" class="img-thumbnail zoomable-image">
+                      <div class="col-4" *ngIf="fCampaign.get('channel')?.value === 'PUSH' || fCampaign.get('channel')?.value === 'INAPP'">
+                        <div class="field p-fluid">
+                          <label for="txtCode">imageUrl</label>
+                          <input id="txtCode" type="text" pInputText (change)="changeImageUrl()" formControlName="imageUrl" class="p-invalid">
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
-                    <div class="field p-fluid">
-                      <label for="txtCode">iconUrl</label>
-                      <input id="txtCode" type="text" pInputText [value]="fCampaign.get('what.iconUrl')?.value" class="p-invalid">
-                    </div>
-                  </div>
-                  <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
-                    <label for="txtImage" class="form-label">Upload Image Background</label>
-                    <div class="displayflex">
-                      <div class="col-6">
-                        <input
-                          formControlName="iconUrl"
-                          class="form-control no-bor"
-                          type="file"
-                          accept="image/jpg || image/png || image/webp"
-                          (change)="onBackground($event)"
-                        />
+                </div>
+                  <div class="col-12 dp-flex">
+                    <div class="col-6" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
+                        <label for="txtImage" class="form-label">Upload Icon Url</label>
+                        <div class="displayflex">
+                          <div class="col-6">
+                            <input
+                              formControlName="iconUrl"
+                              class="form-control no-bor"
+                              type="file"
+                              accept="image/jpg || image/png || image/webp"
+                              (change)="oniconUrl($event)"
+                            />
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                      <img *ngIf="isIconUrl" [src]="UploadIconUrl" class="img-thumbnail zoomable-image">
+                      <div class="col-4" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
+                        <div class="field p-fluid">
+                          <label for="txtCode">iconUrl</label>
+                          <input id="txtCode" type="text" pInputText (change)="changeIconUrl()" formControlName="iconUrl" class="p-invalid">
+                        </div>
+                      </div>
                   </div>
-                  <div class="col-3" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
-                    <div class="field p-fluid">
-                      <label for="txtCode">Background</label>
-                      <input id="txtCode" type="text" pInputText [value]="fCampaign.get('what.background')?.value" class="p-invalid">
-                    </div>
-                  </div>
+                 <div class="col-12 dp-flex">
+                    <div class="col-6" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
+                        <label for="txtImage" class="form-label">Upload Image Background</label>
+                        <div class="displayflex">
+                          <div class="col-6">
+                            <input
+                              formControlName="background"
+                              class="form-control no-bor"
+                              type="file"
+                              accept="image/jpg || image/png || image/webp"
+                              (change)="onBackground($event)"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <img *ngIf="isBackgroundUrl" [src]="UploadBackgroundUrl" class="img-thumbnail zoomable-image">
+                      <div class="col-4" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
+                        <div class="field p-fluid">
+                          <label for="txtCode">Background</label>
+                          <input id="txtCode" type="text" pInputText (change)="changeBackgroundUrl()" formControlName="background" class="p-invalid">
+                        </div>
+                      </div>
+                 </div>
                 <!-- <div class="col-6" *ngIf="fCampaign.get('channel')?.value === 'PUSH'">
                     <div class="field p-fluid">
                         <label for="txtCode">iconUrl</label>

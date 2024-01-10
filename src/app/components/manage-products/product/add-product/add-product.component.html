@@ -176,6 +176,15 @@
                 <!-- <div class="col-12">
                     <h4><i class="pi pi-pencil mr-2"></i>Danh sách Variant</h4>
                 </div> -->
+                <div class="col-12 p_float_right">
+                    <p-button
+                    *ngIf="id > 0 "
+                        label="Xác nhận"
+                        icon="pi pi-check"
+                        [loading]="loading[0]"
+                        (onClick)="onSubmit()"
+                    ></p-button>
+                </div>
                 <div class="grid gr-re mg-t-2">
                     <div class="col-12">
                         <button
@@ -219,18 +228,15 @@
                                     </td>
                                     <td class="border-right-1">
                                         <input
-                                            type="text"
-                                            placeholder="Tên Variant"
-                                            pInputText
-                                            class="p-invalid w-100"
-                                            [(ngModel)]="
-                                                variantRequests.variantName
-                                            "
-                                            [ngModelOptions]="{
-                                                standalone: true
-                                            }"
-                                            required
-                                        />
+                                        type="text"
+                                        placeholder="Tên Variant"
+                                        pInputText
+                                        class="p-invalid w-100"
+                                        [(ngModel)]="variantRequests.variantName"
+                                        [ngModelOptions]="{ standalone: true }"
+                                        [readonly]="id != null ? true : null"
+                                        required
+                                    />
                                         <small
                                             *ngIf="!variantRequests.variantName"
                                             class="text-danger"
@@ -249,6 +255,7 @@
                                             [ngModelOptions]="{
                                                 standalone: true
                                             }"
+                                            [readonly]="id != null ? true : null"
                                         />
                                     </td>
                                     <td class="border-left-1 text-center">
@@ -432,6 +439,7 @@
                         (click)="onBack($event)"
                     ></button>
                     <p-button
+                    *ngIf="id == null"
                         label="Xác nhận"
                         icon="pi pi-check"
                         [loading]="loading[0]"

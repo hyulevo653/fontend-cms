@@ -77,12 +77,17 @@ export class AddCategoriesComponent {
       if(this.id == null) {
         const reqData = Object.assign({}, this.fCategory.value);
         reqData.imageIcon = this.nameFile;
+        // if(this.nameFile != ''){
+        //   reqData.imageIcon = this.fCategory.get('imageIcon').value;
+        // } else {
+        //   reqData.imageIcon = this.nameFile;
+        // }
         this.loading[0] = true;
         this.categoryService.createCategory(reqData).subscribe((res: ResApi) => {
           this.loading[0] = false;
           if (res && res.status >= 200 && res.status <= 300) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: res?.meta?.error_message || AppMessageResponse.CreatedSuccess });
-  
+       
             setTimeout(() => {this.onReturnPage('/category/categories/list')}, 1500);
           }
           else {
@@ -125,6 +130,16 @@ export class AddCategoriesComponent {
     }
   }
 
+  onInputChange(event:any){
+    this.uploadedImageUrl = this.fCategory.get('imageIcon').value;
+    this.nameFile =  this.fCategory.get('imageIcon').value;
+    this.isImageSelected = true;
+    if(this.dataCate != undefined){
+      this.dataCate.imageIcon = event.value;
+    }
+    console.log(event)
+    console.log(this.uploadedImageUrl);
+  }
   
   onReturnPage(url: string) : void {
     this.router.navigate([url]);

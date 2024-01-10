@@ -35,7 +35,7 @@ import { ToastModule } from 'primeng/toast';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
-
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
     declarations: [
@@ -75,6 +75,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
         MultiSelectModule,
         SelectButtonModule,
         ToggleButtonModule,
+        AutoCompleteModule
     ],
     exports: [
         CommonModule,
@@ -104,7 +105,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
         MultiSelectModule,
         SelectButtonModule,
         ToggleButtonModule,
-        
+        AutoCompleteModule
     ],
     providers: [
         MessageService,

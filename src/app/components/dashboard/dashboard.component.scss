@@ -48,3 +48,27 @@ button.p-element.p-ripple.p-button-outlined.p-button-secondary.mr-2.p-button.p-c
     background: #ffffff;
     color: black;
 }
+.mb-3{
+    padding-bottom: 0px;
+}
+.card.mb-0 {
+    padding: 20px;
+    
+    border-radius: 12px;
+}
+.flex.justify-content-between.mb-3 {
+    max-height: 50px;
+}
+span.block.text-500.font-medium.mb-3 {
+    font-weight: 400 !important;
+    color: #635151 !important;
+    line-height: 32px;
+}
+.border-round {
+    border-radius: 10px!important;
+}
+span.block.text-600.font-medium.mb-3 {
+    color: #080808 !important;
+    font-weight: 500;
+    font-family: Helvetica, Arial, sans-serif;
+}

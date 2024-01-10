@@ -136,7 +136,7 @@ export class AddProductComponent {
       //   };
       // });
       // reqData.itemRequests = this.itemRequests;
-      reqData.productImages = this.productImages.toString().split(",");
+      reqData.productImages = this.productImages;
       reqData.attributes = this.transform(reqData.attributes);
       this.loading[0] = true;
       this.productService.updateProduct(reqData).subscribe(

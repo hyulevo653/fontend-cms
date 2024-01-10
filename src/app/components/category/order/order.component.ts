@@ -48,7 +48,9 @@ export class OrderComponent {
     });
       this.getListByPaging();
       this.fOrder = this.fb.group({
-        Status : ['']
+        Status : [''],
+        startDate : [],
+        endDate : [],
       })
   }
 

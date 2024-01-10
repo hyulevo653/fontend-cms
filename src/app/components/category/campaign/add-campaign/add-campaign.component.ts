@@ -11,6 +11,11 @@ import { Campaign } from 'src/app/viewModels/campaign/campaign';
 import { Paging } from 'src/app/viewModels/paging';
 import { ResApi } from 'src/app/viewModels/res-api';
 
+interface AutoCompleteCompleteEvent {
+  originalEvent: Event;
+  query: string;
+}
+
 @Component({
   selector: 'app-add-campaign',
   templateUrl: './add-campaign.component.html',
@@ -39,6 +44,9 @@ export class AddCampaignComponent {
   evenNamevalue: any;
   public isAllUser : boolean = false;
   public isCheck : boolean  = false;
+  UploadImageUrl : string = '';
+  UploadIconUrl : string = '';
+  isIconUrl : boolean = false;
 
   uploadedImages: string[] = [];
   uploadedImages2: string[] = [];
@@ -54,6 +62,51 @@ export class AddCampaignComponent {
   public loading = [false];
   public id: any;
   data: any;
+
+  // selectedItems: any;
+
+  // items: any;
+
+  // search(event: AutoCompleteCompleteEvent) {
+  //   console.log(event);
+  //   let lastChar = event.query.charAt(event.query.length - 1);
+  //   if (lastChar == '@') {
+  //     this.items = ['{{name}}', '{{email}}', '{{phone}}', '{{village}}', '{{district}}', '{{city}}', '{{gender}}'].map((item) => event.query + item);
+  //   } else {
+  //     this.items = [];
+  //   }
+  // }
+
+  items: any;
+
+  selectedItem: any;
+
+  suggestions: any;
+
+  search(event: AutoCompleteCompleteEvent) {
+    let lastChar = event.query.charAt(event.query.length - 1);
+    if (lastChar.endsWith("@")) {
+      this.suggestions = ['{{name}}', '{{email}}', '{{phone}}', '{{village}}', '{{district}}', '{{city}}', '{{gender}}'].map(item => event.query + item);
+    } else {
+      this.suggestions = [];
+    }
+  }
+
+  selectedItem1: any;
+
+  suggestions1: any;
+
+  search1(event: AutoCompleteCompleteEvent) {
+    let lastChar = event.query.charAt(event.query.length - 1);
+    if (lastChar.endsWith("@")) {
+      this.suggestions1 = ['{{name}}', '{{email}}', '{{phone}}', '{{village}}', '{{district}}', '{{city}}', '{{gender}}'].map(item => event.query + item);
+    } else {
+      this.suggestions1 = [];
+    }
+  }
+
+
+
 
   constructor(
     private readonly commonService: CommonService,
@@ -80,6 +133,8 @@ export class AddCampaignComponent {
     if(this.id){
       this.getProjectById(this.id)
     }
+
+    
   
     
     // const formattedDates = dateStrings.map(dateString => {
@@ -119,7 +174,7 @@ export class AddCampaignComponent {
           startTime: [this.calculateDefaultStartDate(),[]],
           endTime: [this.calculateDefaultEndDate(),[]],
         }),
-        isAllUser: [],
+        isAllUser: [false],
       }),
       what: this.fb.group({
         title: [''],
@@ -143,6 +198,9 @@ export class AddCampaignComponent {
     });
   }
 
+
+ 
+
   onSubmit() {
       if(this.id == null) {
         const reqData = Object.assign({}, this.fCampaign.value);
@@ -155,10 +213,17 @@ export class AddCampaignComponent {
         reqData.what.customKeyValue = {
           type : this.slideValue,
           value : this.fCampaign.get('what.customKeyValue')?.value
-        }      
-        reqData.what.imageUrl = this.uploadedImages[0] || '';
-        reqData.what.iconUrl = this.uploadedImages2[0] || '';
-        reqData.what.background = this.uploadedImages3[0] || '';
+        }   
+        // this.isAllUser == true ? reqData.who.isAllUser = false :  reqData.who.isAllUser = true;
+        if(this.isAllUser == true ){
+          reqData.who.isAllUser = false;
+        } else {
+          reqData.who.isAllUser = true;
+        }
+        // reqData.what.title = this.fCampaign.get('what.title');
+        reqData.what.imageUrl = this.uploadedImages[0] || this.UploadImageUrl;
+        reqData.what.iconUrl = this.uploadedImages2[0] || this.UploadIconUrl;
+        reqData.what.background = this.uploadedImages3[0] || this.UploadBackgroundUrl;
         this.loading[0] = true;
         this.campaignService.createCampaign(reqData).subscribe(
           (res: any) => {
@@ -185,8 +250,7 @@ export class AddCampaignComponent {
     
         const reqData = Object.assign({}, this.fCampaign.value);
         this.loading[0] = true;
-        this.campaignService.updateCampaign(this.id, reqData).subscribe(
-          (res: any) => {
+        this.campaignService.updateCampaign(this.id, reqData).subscribe((res: any) => {
             this.loading[0] = false;
             if (res && res.status >= 200 && res.status <= 300) {
               this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message || AppMessageResponse.UpdatedSuccess });
@@ -237,6 +301,7 @@ export class AddCampaignComponent {
         if(res.status == AppStatusCode.StatusCode200) {
           this.data = res.data;
           this.formGroup();
+          this.isAllUser = res.data.isAllUser;
         }
         else {
           this.data = [];
@@ -325,8 +390,9 @@ export class AddCampaignComponent {
   ChangeisAllUser(){
     if(this.isAllUser == false){
       this.isAllUser = true;
-    } else 
-    this.isAllUser = false;
+    } else {
+      this.isAllUser = false;
+    }
   }
 
   ChangeCheckbox(){
@@ -339,7 +405,7 @@ export class AddCampaignComponent {
   onQualificationChange(value: string) {
     this.liveEventVisible = (value === 'LIVE_BEHAVIOR');
   }
-
+  isimageUrl : boolean = false;
   onimageUrl(event: any) {
     const file: File = event.target.files[0];
     if (file) {
@@ -350,7 +416,9 @@ export class AddCampaignComponent {
       this.http.post('http://localhost:9214/api/v1/ecommerce/upload/file', formData)
         .subscribe(
           (response: any) => {
+            this.isimageUrl = true;
             const uploadedImageName = response.data;
+            this.UploadImageUrl = response.data;
             this.uploadedImages.push(uploadedImageName); 
             this.updateInputValue();  
             console.log('Upload thành công:', response);
@@ -381,7 +449,9 @@ export class AddCampaignComponent {
       this.http.post('http://localhost:9214/api/v1/ecommerce/upload/file', formData)
         .subscribe(
           (response: any) => {
+            this.isIconUrl = true;
             const uploadedImageName = response.data;
+            this.UploadIconUrl = response.data;
             this.uploadedImages2.push(uploadedImageName); 
             this.updateInputValue2();  
             console.log('Upload thành công:', response);
@@ -401,7 +471,8 @@ export class AddCampaignComponent {
       imageUrlControl.markAsTouched();
     }
   }
-
+  isBackgroundUrl: boolean = false;
+  UploadBackgroundUrl : string = '';
   onBackground(event: any) {
     const file: File = event.target.files[0];
     if (file) {
@@ -412,6 +483,8 @@ export class AddCampaignComponent {
       this.http.post('http://localhost:9214/api/v1/ecommerce/upload/file', formData)
         .subscribe(
           (response: any) => {
+            this.isBackgroundUrl = true;
+            this.UploadBackgroundUrl = response.data;
             const uploadedImageName = response.data;
             this.uploadedImages3.push(uploadedImageName); 
             this.updateInputValue3();  
@@ -464,4 +537,36 @@ export class AddCampaignComponent {
       this.router.navigate(['category/campaign/list']);
     }
   }
+
+  dataimageUrl : any;
+  changeImageUrl(){
+    this.isimageUrl = true;
+    
+    console.log(this.fCampaign.get('what.imageUrl')?.value);
+    this.UploadImageUrl = this.fCampaign.get('what.imageUrl')?.value;
+    if(this.fCampaign.get('what.imageUrl')?.value == ''){
+      this.isimageUrl = false;
+    }
+  }
+
+  changeIconUrl(){
+    this.isIconUrl = true;
+    
+    console.log(this.fCampaign.get('what.iconUrl')?.value);
+    this.UploadIconUrl = this.fCampaign.get('what.iconUrl')?.value;
+    if(this.fCampaign.get('what.iconUrl')?.value == ''){
+      this.isIconUrl = false;
+    }
+  }
+
+  changeBackgroundUrl(){
+    this.isBackgroundUrl = true;
+    
+    console.log(this.fCampaign.get('what.background')?.value);
+    this.UploadBackgroundUrl = this.fCampaign.get('what.background')?.value;
+    if(this.fCampaign.get('what.background')?.value == ''){
+      this.isIconUrl = false;
+    }
+  }
+
 }

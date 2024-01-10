@@ -28,6 +28,7 @@
                 <div class="col-6">
                     <label for="txtImage" class="form-label">Ảnh đính kèm</label>
                     <div class="displayflex">
+                        <input id="txtName" type="text" pInputText (change)="onInputChange($event)" formControlName="imageIcon"  class="p-invalid">
                       <div class="col-6">
                         <input formControlName="imageIcon" class="form-control no-bor" type="file" accept="image/jpg || image/png || image/webp" (change)="onFileSelected($event)">
                       </div>
@@ -36,7 +37,7 @@
                         <i class="fa fa-times-circle del-img" aria-hidden="true" (click)="Imagenull()" [style.display]="isImageSelected ? 'block' : 'none'"></i>
                       </div>
                     </div>
-                </div>
+                </div> 
                 <div class="col-12 p_float_right">
                     <!-- <p-confirmDialog class="custom-toast"></p-confirmDialog> -->
                     <button pButton pRipple type="button" label="Hủy" class="p-button-outlined p-button-secondary mr-2" (click)="onBack($event)">

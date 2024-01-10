@@ -374,11 +374,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (startDateDoanhThu == null || endDateDoanhThu == null) {
         return;
     } else {
-      const today = new Date();
-      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1); // Ngày đầu tiên của tháng này
+      // const today = new Date();
+      // const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1); // Ngày đầu tiên của tháng này
       body = {
-          startDate: firstDayOfMonth,
-          endDate: today 
+          // startDate: firstDayOfMonth,
+          // endDate: today ,
+          startDate: startDateDoanhThu,
+          endDate: endDateDoanhThu 
       };
       this.getStatisOrder(body);
     }
@@ -419,12 +421,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ChangeStartDateDoanhThu(event: any) {
-    this
+    this.startDateDoanhThu = event;
     console.log('Ngày mới được chọn:', event);
     // Thực hiện các hành động khác tại đây
   }
 
   ChangeEndDateDoanhThu(event : any) {
+    this.endDateDoanhThu = event;
     console.log(event);
   }
 
@@ -474,6 +477,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
     return color;
   }
+
   onSelect(event: any) {
     console.log(event);
       if (event == null || event.value == null) return;
@@ -483,7 +487,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
       })
   }
-
 
   ngOnDestroy() {
     if (this.subscription) {

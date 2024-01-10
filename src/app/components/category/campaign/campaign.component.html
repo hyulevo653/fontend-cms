@@ -37,7 +37,7 @@
                         <td>
                             <button *ngIf="campaign.status == 'RUNNING'" class="btn-check" (click)="StopStatus(campaign.id)">STOP</button>
                             <button *ngIf="campaign.status == 'APPROVAL_PENDING'" class="btn-check" (click)="ApproveStatus(campaign.id)">APPROVE</button>
-                            <button *ngIf="campaign.status != 'APPROVAL_PENDING' && campaign.status != 'RUNNING'" class="btn-uncheck" (click)="CantChange()">CHANGE</button>
+                            <button *ngIf="campaign.status != 'APPROVAL_PENDING' && campaign.status != 'RUNNING'" class="btn-uncheck" (click)="CantChange()">{{campaign.status}}</button>
                         </td>
                         <td>{{ campaign.name }}</td>
                         <td>{{ campaign.qualification }}</td>
